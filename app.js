@@ -63,22 +63,14 @@ window.toggleTTS = function (btn) {
 
   let text = activeQuizData[currentQuestion].ttsText;
   if (!text) return;
+  text = text.replace(/([A-D]\.)/g, ', , $1');
 
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 0.88;
+  utterance.rate = 0.89;
   utterance.pitch = 1.0;
 
-  // const availableVoices = window.speechSynthesis.getVoices();
-  // const britishVoice = availableVoices.find(voice => voice.lang === 'en-GB' || voice.lang === 'en_GB');
-
-  // if (britishVoice) {
-  //     utterance.voice = britishVoice; 
-  // } else {
-  //     utterance.lang = 'en-US';       
-  // }
-
   const availableVoices = window.speechSynthesis.getVoices();
-  // Lọc ra tất cả các giọng đọc tiếng Anh có trên máy
+  // Lọc ra tất cả các giọng đọc tiếng Anh   có trên máy
   const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
 
   // Nếu máy có giọng tiếng Anh, chọn ngẫu nhiên 1 giọng
@@ -415,6 +407,176 @@ window.togglePeek = function () {
   render();
 }
 
+// function render() {
+//   const app = document.getElementById("app");
+//   if (!app) return;
+
+//   if (activeQuizData.length === 0) {
+//     app.innerHTML = `
+//       <div class="animate-slide-up bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-6 md:p-10 shadow-sm text-center w-full mx-4 max-w-lg">
+//         <i class="fa-solid fa-box-open text-4xl text-slate-300 dark:text-slate-600 mb-4"></i>
+//         <h3 class="font-bold text-lg md:text-xl text-slate-700 dark:text-slate-300">Đề thi đang trống</h3>
+//         <p class="text-slate-500 text-sm mt-2">Vui lòng tải dữ liệu hoặc kiểm tra lại bộ lọc Part.</p>
+//       </div>`;
+//     return;
+//   }
+
+//   if (showResult) {
+//     const rate = ((statCorrectCount / activeQuizData.length) * 100).toFixed(1);
+//     app.innerHTML = `
+//       <div class="animate-slide-up bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-6 md:p-8 shadow-sm w-full mx-4 max-w-3xl text-center">
+//         <div class="animate-pop-in inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-4">
+//             <i class="fa-solid fa-flag-checkered text-2xl md:text-3xl"></i>
+//         </div>
+//         <h2 class="text-xl md:text-2xl font-bold mb-6 text-slate-800 dark:text-slate-100">KẾT QUẢ BÀI LÀM</h2>
+
+//         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
+//           <div class="bg-slate-50 dark:bg-slate-800/50 p-3 md:p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+//             <i class="fa-solid fa-check-circle text-emerald-500 text-lg md:text-xl mb-1 md:mb-2"></i>
+//             <div class="text-[10px] md:text-xs uppercase font-semibold text-slate-500 dark:text-slate-400 text-center">Số câu đúng</div>
+//             <div class="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${statCorrectCount} <span class="text-xs md:text-sm text-slate-400 font-normal">/ ${activeQuizData.length}</span></div>
+//           </div>
+//           <div class="bg-slate-50 dark:bg-slate-800/50 p-3 md:p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+//             <i class="fa-solid fa-percent text-blue-500 text-lg md:text-xl mb-1 md:mb-2"></i>
+//             <div class="text-[10px] md:text-xs uppercase font-semibold text-slate-500 dark:text-slate-400 text-center">Tỷ lệ chính xác</div>
+//             <div class="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${rate}%</div>
+//           </div>
+//           <div class="bg-slate-50 dark:bg-slate-800/50 p-3 md:p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+//             <i class="fa-solid fa-fire text-orange-500 text-lg md:text-xl mb-1 md:mb-2"></i>
+//             <div class="text-[10px] md:text-xs uppercase font-semibold text-slate-500 dark:text-slate-400 text-center">Chuỗi hiện tại</div>
+//             <div class="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${currentStreak}</div>
+//           </div>
+//           <div class="bg-slate-50 dark:bg-slate-800/50 p-3 md:p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+//             <i class="fa-solid fa-trophy text-yellow-500 text-lg md:text-xl mb-1 md:mb-2"></i>
+//             <div class="text-[10px] md:text-xs uppercase font-semibold text-slate-500 dark:text-slate-400 text-center">Kỷ lục chuỗi</div>
+//             <div class="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${maxStreak}</div>
+//           </div>
+//         </div>
+
+//         <button onclick="playSound('click'); showResult=false; applySettings();"
+//           class="w-full md:w-auto bg-primary hover:bg-primaryHover text-white font-medium rounded-xl md:rounded-lg px-6 py-3.5 md:py-3 flex items-center justify-center gap-2 mx-auto transition-transform hover:scale-105 shadow-md active:scale-95">
+//           <i class="fa-solid fa-rotate-right"></i> Làm lại đề này
+//         </button>
+//       </div>`;
+//     return;
+//   }
+
+//   const q = activeQuizData[currentQuestion];
+//   const userAns = selectedAnswers[currentQuestion];
+
+//   let optionsHtml = "";
+//   q.options.forEach((opt, idx) => {
+//     let btnClass = "bg-white dark:bg-darkCard border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary active:bg-slate-100 dark:active:bg-slate-800 text-slate-700 dark:text-slate-300";
+//     let iconHtml = `<span class="w-7 h-7 md:w-6 md:h-6 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-sm md:text-xs font-bold text-slate-500 mr-3 shrink-0">${String.fromCharCode(65 + idx)}</span>`;
+
+//     if (userAns !== null) {
+//       if (idx === q.correct) {
+//         btnClass = "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500 text-emerald-800 dark:text-emerald-400 font-medium z-10 shadow-md";
+//         iconHtml = `<i class="fa-solid fa-circle-check text-emerald-500 text-2xl md:text-xl mr-3 shrink-0 animate-pop-in"></i>`;
+//       } else if (idx === userAns) {
+//         btnClass = "bg-red-50 dark:bg-red-900/20 border-red-400 text-red-800 dark:text-red-400 font-medium z-10 animate-shake";
+//         iconHtml = `<i class="fa-solid fa-circle-xmark text-red-500 text-2xl md:text-xl mr-3 shrink-0"></i>`;
+//       } else {
+//         btnClass = "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-50 cursor-not-allowed";
+//       }
+//     } else if (peekMode) {
+//       // NẾU BẬT XEM TRƯỚC: Chỉ bôi xanh đáp án đúng, các đáp án khác giữ nguyên để user bấm chọn
+//       if (idx === q.correct) {
+//         btnClass = "bg-emerald-50/70 dark:bg-emerald-900/10 border-emerald-400 border-dashed text-emerald-700 dark:text-emerald-300 font-medium z-10";
+//         iconHtml = `<i class="fa-solid fa-eye text-emerald-500 text-2xl md:text-xl mr-3 shrink-0 animate-pop-in"></i>`;
+//       }
+//     }
+
+//     optionsHtml += `
+//       <button onclick="${userAns === null ? `selectOption(${idx})` : 'void(0)'}"
+//         class="w-full text-left p-4 md:p-4 min-h-[3.5rem] rounded-xl md:rounded-lg border-2 transition-all duration-200 flex items-center ${btnClass}">
+//         ${iconHtml}
+//         <span class="leading-relaxed text-[15px] md:text-base break-words w-full">${opt.replace(/^[A-D]\.\s*/, '')}</span>
+//       </button>`;
+//   });
+
+//   let explanationHtml = "";
+//   // Hiển thị giải thích nếu user ĐÃ TRẢ LỜI hoặc đang BẬT XEM TRƯỚC
+//   if (userAns !== null || peekMode) {
+//     explanationHtml = `
+//       <div class="animate-pop-in mt-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-xl md:rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base text-slate-700 dark:text-slate-300 shadow-inner">
+//         <div class="font-bold text-primary dark:text-blue-400 flex items-center gap-2 mb-2">
+//             <i class="fa-solid fa-lightbulb text-yellow-500"></i> ${peekMode && userAns === null ? 'Gợi ý / Giải thích:' : 'Giải thích:'}
+//         </div>
+//         <p class="whitespace-pre-line leading-relaxed">${q.explanation}</p>
+//       </div>`;
+//   }
+
+//   let helperBtnsHtml = "";
+
+//   // Nút Audio (nếu có)
+//   if (q.ttsText && q.ttsText.trim() !== "") {
+//     helperBtnsHtml += `
+//       <button onclick="toggleTTS(this)"
+//         class="flex-1 flex items-center justify-center gap-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-4 transition-colors shadow-sm active:bg-indigo-200">
+//         <i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio
+//       </button>
+//     `;
+//   }
+
+//   // Nút Xem Trước Đáp Án (chỉ hiện khi chưa trả lời)
+//   if (userAns === null) {
+//     helperBtnsHtml += `
+//         <button onclick="togglePeek()"
+//           class="flex-1 flex items-center justify-center gap-2 ${peekMode ? 'bg-amber-500 text-white shadow-md btn-pulse-emerald' : 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 shadow-sm'} font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-4 transition-colors active:scale-95">
+//           <i class="fa-solid ${peekMode ? 'fa-eye-slash' : 'fa-eye'} text-lg"></i> ${peekMode ? 'Ẩn Đáp Án' : 'Xem Đáp Án'}
+//         </button>
+//       `;
+//   }
+
+//   const nextBtnClass = userAns !== null
+//     ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-md btn-pulse-blue'
+//     : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
+
+//   app.innerHTML = `
+//     <div class="w-full bg-white dark:bg-darkCard md:rounded-xl border-y md:border border-slate-200 dark:border-slate-700 p-4 md:p-8 shadow-sm flex flex-col gap-4 pb-28 md:pb-8">
+
+//       <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-slate-200 dark:border-slate-700 pb-3 md:pb-4 gap-2 md:gap-4">
+//         <div class="flex flex-wrap gap-2 md:gap-3">
+//             <span class="inline-flex items-center gap-1.5 font-bold text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">
+//                 Câu ${currentQuestion + 1} / ${activeQuizData.length}
+//             </span>
+//             <span class="inline-flex items-center gap-1.5 font-medium text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-800 truncate max-w-[200px] md:max-w-none">
+//                 <i class="fa-solid fa-bookmark opacity-70"></i> ${chapterNames[q.chapter] ? chapterNames[q.chapter].split(':')[0] : 'Part ' + q.chapter}
+//             </span>
+//         </div>
+//         <div class="self-end md:self-auto flex items-center gap-1.5 font-medium text-xs md:text-sm text-slate-600 dark:text-slate-400 mt-1 md:mt-0">
+//           <i class="fa-solid fa-fire text-orange-500"></i> Chuỗi: <span class="font-bold text-slate-800 dark:text-slate-200">${currentStreak}</span>
+//         </div>
+//       </div>
+
+//       <div class="flex flex-row gap-3 mt-1 mb-2 w-full md:w-auto md:max-w-md">
+//          ${helperBtnsHtml}
+//       </div>
+
+//       <div class="w-full text-[15px] md:text-base">${q.question}</div>
+//       <div class="flex flex-col gap-2.5 md:gap-3 mt-2">${optionsHtml}</div>
+//       ${explanationHtml}
+//     </div>
+
+//     <div class="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-darkCard/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 p-3 md:relative md:bg-transparent md:dark:bg-transparent md:border-none md:p-0 md:mt-6 z-50 flex justify-between items-center gap-3 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] md:shadow-none">
+
+//         <button onclick="goBack()" ${currentQuestion === 0 ? "disabled" : ""}
+//           class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-2 md:px-5 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
+//           <i class="fa-solid fa-arrow-left"></i> <span class="text-sm md:text-base">Trước</span>
+//         </button>
+
+//         ${currentQuestion === activeQuizData.length - 1 && userAns !== null
+//       ? `<button onclick="submitQuiz()" class="flex-[2] md:flex-none flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-4 md:px-8 active:scale-95 transition-transform shadow-md btn-pulse-emerald animate-pop-in">
+//                 <i class="fa-solid fa-flag-checkered"></i> <span class="text-sm md:text-base">Nộp Bài</span>
+//                </button>`
+//       : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
+//                 class="flex-[2] md:flex-none flex items-center justify-center gap-2 ${nextBtnClass} font-bold md:font-medium rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-4 md:px-5 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
+//                 <span class="text-sm md:text-base">Câu Tiếp</span> <i class="fa-solid fa-arrow-right"></i>
+//                </button>`
+//     }
+//     </div>`;
+// }
 function render() {
   const app = document.getElementById("app");
   if (!app) return;
@@ -488,7 +650,6 @@ function render() {
         btnClass = "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-50 cursor-not-allowed";
       }
     } else if (peekMode) {
-      // NẾU BẬT XEM TRƯỚC: Chỉ bôi xanh đáp án đúng, các đáp án khác giữ nguyên để user bấm chọn
       if (idx === q.correct) {
         btnClass = "bg-emerald-50/70 dark:bg-emerald-900/10 border-emerald-400 border-dashed text-emerald-700 dark:text-emerald-300 font-medium z-10";
         iconHtml = `<i class="fa-solid fa-eye text-emerald-500 text-2xl md:text-xl mr-3 shrink-0 animate-pop-in"></i>`;
@@ -504,7 +665,6 @@ function render() {
   });
 
   let explanationHtml = "";
-  // Hiển thị giải thích nếu user ĐÃ TRẢ LỜI hoặc đang BẬT XEM TRƯỚC
   if (userAns !== null || peekMode) {
     explanationHtml = `
       <div class="animate-pop-in mt-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-xl md:rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base text-slate-700 dark:text-slate-300 shadow-inner">
@@ -516,8 +676,6 @@ function render() {
   }
 
   let helperBtnsHtml = "";
-
-  // Nút Audio (nếu có)
   if (q.ttsText && q.ttsText.trim() !== "") {
     helperBtnsHtml += `
       <button onclick="toggleTTS(this)"
@@ -526,8 +684,6 @@ function render() {
       </button>
     `;
   }
-
-  // Nút Xem Trước Đáp Án (chỉ hiện khi chưa trả lời)
   if (userAns === null) {
     helperBtnsHtml += `
         <button onclick="togglePeek()"
@@ -542,48 +698,71 @@ function render() {
     : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
 
   app.innerHTML = `
-    <div class="w-full bg-white dark:bg-darkCard md:rounded-xl border-y md:border border-slate-200 dark:border-slate-700 p-4 md:p-8 shadow-sm flex flex-col gap-4 pb-28 md:pb-8">
+    <div class="flex w-full max-w-6xl mx-auto items-stretch justify-center gap-4 relative">
       
-      <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-slate-200 dark:border-slate-700 pb-3 md:pb-4 gap-2 md:gap-4">
-        <div class="flex flex-wrap gap-2 md:gap-3">
-            <span class="inline-flex items-center gap-1.5 font-bold text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">
-                Câu ${currentQuestion + 1} / ${activeQuizData.length}
-            </span>
-            <span class="inline-flex items-center gap-1.5 font-medium text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-800 truncate max-w-[200px] md:max-w-none">
-                <i class="fa-solid fa-bookmark opacity-70"></i> ${chapterNames[q.chapter] ? chapterNames[q.chapter].split(':')[0] : 'Part ' + q.chapter}
-            </span>
-        </div>
-        <div class="self-end md:self-auto flex items-center gap-1.5 font-medium text-xs md:text-sm text-slate-600 dark:text-slate-400 mt-1 md:mt-0">
-          <i class="fa-solid fa-fire text-orange-500"></i> Chuỗi: <span class="font-bold text-slate-800 dark:text-slate-200">${currentStreak}</span>
-        </div>
-      </div>
-      
-      <div class="flex flex-row gap-3 mt-1 mb-2 w-full md:w-auto md:max-w-md">
-         ${helperBtnsHtml}
+      <div class="hidden md:flex flex-col justify-center">
+          <button onclick="goBack()" ${currentQuestion === 0 ? "disabled" : ""}
+            class="shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white dark:bg-darkCard border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-slate-500 dark:text-slate-400 transition-all shadow-sm active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed">
+            <i class="fa-solid fa-chevron-left text-xl"></i>
+          </button>
       </div>
 
-      <div class="w-full text-[15px] md:text-base">${q.question}</div>
-      <div class="flex flex-col gap-2.5 md:gap-3 mt-2">${optionsHtml}</div>
-      ${explanationHtml}
+      <div class="w-full max-w-3xl bg-white dark:bg-darkCard md:rounded-2xl border-y md:border border-slate-200 dark:border-slate-700 p-4 md:p-8 shadow-sm flex flex-col gap-4 pb-28 md:pb-8">
+        
+        <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-slate-200 dark:border-slate-700 pb-3 md:pb-4 gap-2 md:gap-4">
+          <div class="flex flex-wrap gap-2 md:gap-3">
+              <span class="inline-flex items-center gap-1.5 font-bold text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">
+                  Câu ${currentQuestion + 1} / ${activeQuizData.length}
+              </span>
+              <span class="inline-flex items-center gap-1.5 font-medium text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-800 truncate max-w-[200px] md:max-w-none">
+                  <i class="fa-solid fa-bookmark opacity-70"></i> ${chapterNames[q.chapter] ? chapterNames[q.chapter].split(':')[0] : 'Part ' + q.chapter}
+              </span>
+          </div>
+          <div class="self-end md:self-auto flex items-center gap-1.5 font-medium text-xs md:text-sm text-slate-600 dark:text-slate-400 mt-1 md:mt-0">
+            <i class="fa-solid fa-fire text-orange-500"></i> Chuỗi: <span class="font-bold text-slate-800 dark:text-slate-200">${currentStreak}</span>
+          </div>
+        </div>
+        
+        <div class="flex flex-row gap-3 mt-1 mb-2 w-full md:w-auto md:max-w-md">
+          ${helperBtnsHtml}
+        </div>
+
+        <div class="w-full text-[15px] md:text-base">${q.question}</div>
+        <div class="flex flex-col gap-2.5 md:gap-3 mt-2">${optionsHtml}</div>
+        ${explanationHtml}
+      </div>
+
+      <div class="hidden md:flex flex-col justify-center">
+          ${currentQuestion === activeQuizData.length - 1 && userAns !== null
+      ? `<button onclick="submitQuiz()" class="shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white transition-all shadow-md active:scale-95 btn-pulse-emerald animate-pop-in tooltip" title="Nộp bài">
+                  <i class="fa-solid fa-check-double text-xl"></i>
+                 </button>`
+      : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
+                  class="shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white dark:bg-darkCard border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-slate-500 dark:text-slate-400 transition-all shadow-sm active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed">
+                  <i class="fa-solid fa-chevron-right text-xl"></i>
+                 </button>`
+    }
+      </div>
+
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-darkCard/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 p-3 md:relative md:bg-transparent md:dark:bg-transparent md:border-none md:p-0 md:mt-6 z-50 flex justify-between items-center gap-3 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] md:shadow-none">
-        
+    <div class="md:hidden flex fixed bottom-0 left-0 w-full bg-white/95 dark:bg-darkCard/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 p-3 z-50 justify-between items-center gap-3 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
         <button onclick="goBack()" ${currentQuestion === 0 ? "disabled" : ""}
-          class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-2 md:px-5 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
-          <i class="fa-solid fa-arrow-left"></i> <span class="text-sm md:text-base">Trước</span>
+          class="flex-1 flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-xl py-3.5 px-2 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
+          <i class="fa-solid fa-arrow-left"></i> <span class="text-sm">Trước</span>
         </button>
 
         ${currentQuestion === activeQuizData.length - 1 && userAns !== null
-      ? `<button onclick="submitQuiz()" class="flex-[2] md:flex-none flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-4 md:px-8 active:scale-95 transition-transform shadow-md btn-pulse-emerald animate-pop-in">
-                <i class="fa-solid fa-flag-checkered"></i> <span class="text-sm md:text-base">Nộp Bài</span>
+      ? `<button onclick="submitQuiz()" class="flex-[2] flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl py-3.5 px-4 active:scale-95 transition-transform shadow-md btn-pulse-emerald animate-pop-in">
+                <i class="fa-solid fa-flag-checkered"></i> <span class="text-sm">Nộp Bài</span>
                </button>`
       : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
-                class="flex-[2] md:flex-none flex items-center justify-center gap-2 ${nextBtnClass} font-bold md:font-medium rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-4 md:px-5 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
-                <span class="text-sm md:text-base">Câu Tiếp</span> <i class="fa-solid fa-arrow-right"></i>
+                class="flex-[2] flex items-center justify-center gap-2 ${nextBtnClass} font-bold rounded-xl py-3.5 px-4 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
+                <span class="text-sm">Câu Tiếp</span> <i class="fa-solid fa-arrow-right"></i>
                </button>`
     }
-    </div>`;
+    </div>
+  `;
 }
 
 window.selectOption = function (idx) {
