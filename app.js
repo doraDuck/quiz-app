@@ -1,5 +1,5 @@
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const STORAGE_KEY = "toeic_quiz_progress_v3"; 
+const STORAGE_KEY = "toeic_quiz_progress_v3";
 
 function playSound(type) {
   if (audioCtx.state === "suspended") audioCtx.resume();
