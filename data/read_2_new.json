@@ -1,0 +1,1482 @@
+{
+  "test_name": "Toeic Test",
+  "section": "Reading",
+  "note": "",
+  "parts": [
+    {
+      "part_number": 0,
+      "title": "Incomplete Sentences",
+      "description": "Read each sentence. Select the one answer (A), (B), (C), or (D) that best completes the sentence.",
+      "question_groups": [
+        {
+          "group_id": "p5_standalone",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 101,
+              "question_text": "Did you hear ________ the foreman said about the need for improved safety measures on the building site?",
+              "has_image": false,
+              "options": {
+                "A": "which",
+                "B": "that",
+                "C": "what",
+                "D": "why"
+              },
+              "answer": "C",
+              "explanation": "Only this relative pronoun (meaning 'the things which') can come before the phrase 'said about'."
+            },
+            {
+              "question_number": 102,
+              "question_text": "Do you know how long Darren ________ for HTL International before he came here?",
+              "has_image": false,
+              "options": {
+                "A": "has worked",
+                "B": "is working",
+                "C": "worked",
+                "D": "works"
+              },
+              "answer": "C",
+              "explanation": "We use the past simple for a completed past action."
+            },
+            {
+              "question_number": 103,
+              "question_text": "We regret we no longer accept checks, so pay the enclosed invoice ________ by credit card or debit card.",
+              "has_image": false,
+              "options": {
+                "A": "also",
+                "B": "each",
+                "C": "both",
+                "D": "either"
+              },
+              "answer": "D",
+              "explanation": "The conjunction used here is 'either … or', expressing choice."
+            },
+            {
+              "question_number": 104,
+              "question_text": "After they disembarked from the ferry, all the passengers had to go ________ customs and immigration before being allowed onto the island.",
+              "has_image": false,
+              "options": {
+                "A": "through",
+                "B": "over",
+                "C": "by",
+                "D": "into"
+              },
+              "answer": "A",
+              "explanation": "This phrasal verb is used with official procedures (i.e. clearing customs)."
+            },
+            {
+              "question_number": 105,
+              "question_text": "Travelers were upset when they heard the announcement that their train had been ________ by poor weather and would not be arriving for another 30 minutes.",
+              "has_image": false,
+              "options": {
+                "A": "canceled",
+                "B": "delayed",
+                "C": "crashed",
+                "D": "overrun"
+              },
+              "answer": "B",
+              "explanation": "Here, only 'delayed + by' can be used here."
+            },
+            {
+              "question_number": 106,
+              "question_text": "I am responsible for making sure that all the fruit and vegetables we ________ for use in our restaurant are of the highest quality.",
+              "has_image": false,
+              "options": {
+                "A": "select",
+                "B": "nominate",
+                "C": "elect",
+                "D": "decide"
+              },
+              "answer": "A",
+              "explanation": "The verb 'select' (meaning 'decide to use') fits the sense of this sentence."
+            },
+            {
+              "question_number": 107,
+              "question_text": "Please complete this form carefully and be sure to write ________ at all times.",
+              "has_image": false,
+              "options": {
+                "A": "tangibly",
+                "B": "readily",
+                "C": "legibly",
+                "D": "eligibly"
+              },
+              "answer": "C",
+              "explanation": "This adverb (meaning 'clearly') collocates with the verb 'write'."
+            },
+            {
+              "question_number": 108,
+              "question_text": "Mr. Gonzales is an important client, but two hundred miles ________ a long way to drive just for a brief meeting.",
+              "has_image": false,
+              "options": {
+                "A": "is",
+                "B": "are",
+                "C": "have",
+                "D": "has"
+              },
+              "answer": "A",
+              "explanation": "A distance (i.e. miles) takes a singular subject."
+            },
+            {
+              "question_number": 109,
+              "question_text": "In order to cut costs, officials at Fairhaven City Hall decided to outsource waste management operations to a ________ city.",
+              "has_image": false,
+              "options": {
+                "A": "neighborhood",
+                "B": "neighbor",
+                "C": "neighboring",
+                "D": "neighborly"
+              },
+              "answer": "C",
+              "explanation": "Here, this adjective (meaning 'adjacent') is needed to describe the noun 'city'."
+            },
+            {
+              "question_number": 110,
+              "question_text": "I do not agree that the responsibility for this mistake is completely ________, because there were others involved in the decision, too.",
+              "has_image": false,
+              "options": {
+                "A": "mine",
+                "B": "me",
+                "C": "myself",
+                "D": "my"
+              },
+              "answer": "A",
+              "explanation": "The possessive pronoun completes this sentence."
+            },
+            {
+              "question_number": 111,
+              "question_text": "We decided to ________ the services of a website developer to help us create a more accessible online presence.",
+              "has_image": false,
+              "options": {
+                "A": "engage",
+                "B": "appoint",
+                "C": "connect",
+                "D": "assign"
+              },
+              "answer": "A",
+              "explanation": "This verb completes the collocation 'engage the services of'."
+            },
+            {
+              "question_number": 112,
+              "question_text": "After a long period of low growth, it appears the recession has finally hit and the ________ situation is starting to affect small businesses.",
+              "has_image": false,
+              "options": {
+                "A": "economy",
+                "B": "economic",
+                "C": "economical",
+                "D": "economized"
+              },
+              "answer": "B",
+              "explanation": "Here, this adjective is needed to describe the noun 'situation'."
+            },
+            {
+              "question_number": 113,
+              "question_text": "We were all very tired after working so hard, but when we saw the finished results we knew our efforts had not been ________.",
+              "has_image": false,
+              "options": {
+                "A": "wasted",
+                "B": "hopeless",
+                "C": "useless",
+                "D": "misused"
+              },
+              "answer": "A",
+              "explanation": "This adjective (meaning 'in vain') collocates with 'efforts'."
+            },
+            {
+              "question_number": 114,
+              "question_text": "________ the favorable exchange rate at the moment, our overseas sales for the last quarter have exceeded all expectations.",
+              "has_image": false,
+              "options": {
+                "A": "Seeing as",
+                "B": "Thanks to",
+                "C": "Given that",
+                "D": "Provided that"
+              },
+              "answer": "B",
+              "explanation": "This preposition (meaning 'Because of') is used here."
+            },
+            {
+              "question_number": 115,
+              "question_text": "Mrs. Hwang ________ recently promoted to Assistant Vice President of Human Resources, which is great news.",
+              "has_image": false,
+              "options": {
+                "A": "is",
+                "B": "has",
+                "C": "was",
+                "D": "did"
+              },
+              "answer": "C",
+              "explanation": "The past simple passive completes this sentence."
+            },
+            {
+              "question_number": 116,
+              "question_text": "Spare parts for all our coffee machines are ________ available online or from any good kitchen retailer.",
+              "has_image": false,
+              "options": {
+                "A": "simply",
+                "B": "easily",
+                "C": "justly",
+                "D": "openly"
+              },
+              "answer": "B",
+              "explanation": "This adverb (meaning 'with no trouble') collocates with the adjective 'available'."
+            },
+            {
+              "question_number": 117,
+              "question_text": "The graduation ceremony will start ________ 15 minutes, so we need to hurry or we might not get a seat.",
+              "has_image": false,
+              "options": {
+                "A": "in",
+                "B": "at",
+                "C": "on",
+                "D": "under"
+              },
+              "answer": "A",
+              "explanation": "Only 'in' (meaning 'within a certain time') fits here."
+            },
+            {
+              "question_number": 118,
+              "question_text": "We regret that since you did not follow the recommended guidelines for servicing your intruder alarm, we cannot offer a ________ now that a fault has developed.",
+              "has_image": false,
+              "options": {
+                "A": "refund",
+                "B": "discount",
+                "C": "concession",
+                "D": "reward"
+              },
+              "answer": "A",
+              "explanation": "This noun (meaning 'reimbursement') fits the meaning of the sentence."
+            },
+            {
+              "question_number": 119,
+              "question_text": "Any expenses that you incur while officially ________ business must be submitted to the accounts payable department together with the original receipts.",
+              "has_image": false,
+              "options": {
+                "A": "in",
+                "B": "at",
+                "C": "to",
+                "D": "on"
+              },
+              "answer": "D",
+              "explanation": "This preposition completes the phrase 'on business'."
+            },
+            {
+              "question_number": 120,
+              "question_text": "Dominga Torres was given an award by the Federation of Women Workers in recognition of her extraordinary ________ to the cause of equal pay for women.",
+              "has_image": false,
+              "options": {
+                "A": "devotion",
+                "B": "commotion",
+                "C": "promotion",
+                "D": "emotion"
+              },
+              "answer": "A",
+              "explanation": "This noun (meaning 'dedication') + 'to' fits the meaning of the sentence."
+            },
+            {
+              "question_number": 121,
+              "question_text": "Initial results look promising, but we need to ________ all the research data very carefully before drawing any conclusions.",
+              "has_image": false,
+              "options": {
+                "A": "estimate",
+                "B": "evaluate",
+                "C": "calculate",
+                "D": "dedicate"
+              },
+              "answer": "B",
+              "explanation": "This verb (meaning 'assess') is needed here."
+            },
+            {
+              "question_number": 122,
+              "question_text": "After I explained my symptoms to the pharmacist and asked for advice, she ________ me to go and see my doctor as soon as possible.",
+              "has_image": false,
+              "options": {
+                "A": "will tell",
+                "B": "was telling",
+                "C": "tells",
+                "D": "told"
+              },
+              "answer": "D",
+              "explanation": "The past simple is used as the action is in the past."
+            },
+            {
+              "question_number": 123,
+              "question_text": "Since the network had received so many complaints, it was clear that they did not have ________ option but to withdraw the TV advertisement.",
+              "has_image": false,
+              "options": {
+                "A": "no",
+                "B": "any",
+                "C": "some",
+                "D": "each"
+              },
+              "answer": "B",
+              "explanation": "Here, 'any' is used after the negative."
+            },
+            {
+              "question_number": 124,
+              "question_text": "Scientists want ________ the results of their study on alternative biofuels early in the new year.",
+              "has_image": false,
+              "options": {
+                "A": "publishing",
+                "B": "publish",
+                "C": "to publish",
+                "D": "published"
+              },
+              "answer": "C",
+              "explanation": "After the verb 'want' the infinitive with 'to' is used."
+            },
+            {
+              "question_number": 125,
+              "question_text": "Industry analysts stated that, due to the incredibly hot summer last year, sales of air conditioning units had ________ been greater.",
+              "has_image": false,
+              "options": {
+                "A": "ever",
+                "B": "always",
+                "C": "never",
+                "D": "not"
+              },
+              "answer": "C",
+              "explanation": "Here the adverb 'never' (meaning 'at no time in the past') is needed."
+            },
+            {
+              "question_number": 126,
+              "question_text": "There can be no ________ way to celebrate our 1000th order than by having a party for all the staff and their families.",
+              "has_image": false,
+              "options": {
+                "A": "good",
+                "B": "better",
+                "C": "most",
+                "D": "best"
+              },
+              "answer": "B",
+              "explanation": "The structure used here is 'no + comparative'."
+            },
+            {
+              "question_number": 127,
+              "question_text": "Personally I liked the presentation, but ________ the people I spoke to said they found it rather dull.",
+              "has_image": false,
+              "options": {
+                "A": "most",
+                "B": "most of",
+                "C": "every one",
+                "D": "almost"
+              },
+              "answer": "B",
+              "explanation": "We say 'most of the people' (i.e. 'most people')."
+            },
+            {
+              "question_number": 128,
+              "question_text": "This new desk is very heavy, so I need ________ assistance moving it to the corner office.",
+              "has_image": false,
+              "options": {
+                "A": "some",
+                "B": "any",
+                "C": "an",
+                "D": "much"
+              },
+              "answer": "A",
+              "explanation": "Before the uncountable noun 'assistance' we use 'some' to complete this positive sentence."
+            },
+            {
+              "question_number": 129,
+              "question_text": "Reports that interest rates will go up two percent next week are at ________ unconfirmed.",
+              "has_image": false,
+              "options": {
+                "A": "present",
+                "B": "current",
+                "C": "moment",
+                "D": "recent"
+              },
+              "answer": "A",
+              "explanation": "Here, 'at present' means 'at the moment' or 'currently'."
+            },
+            {
+              "question_number": 130,
+              "question_text": "One of the main advantages to being ________ near an airport is that transportation costs for our goods are, of course, much lower than they would otherwise be.",
+              "has_image": false,
+              "options": {
+                "A": "location",
+                "B": "locating",
+                "C": "located",
+                "D": "locate"
+              },
+              "answer": "C",
+              "explanation": "The past participle completes this adverbial clause expressing reason."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_number": 0,
+      "title": "Text Completion",
+      "description": "Read each text. For each blank, select the one answer (A), (B), (C), or (D) that best completes the text.",
+      "question_groups": [
+        {
+          "group_id": "p6_q131_134",
+          "passage_content": "Mr. Sean Connor\n142 West 17th Street\nNew York City, NY 10110\n\nJune 17\n\nDear Mr. Connor:\n\nThank you for your letter of May 23. I apologize for the difficulty you have [131] contacting our Customer Service department. We recently had a new telephone system installed and this has caused some disruption.\n\nIn regard to the Go VX12 computer monitor you purchased, please return it to [132], so we can determine the problem and repair it. If a repair is not possible, we [133] a replacement. Simply stick the enclosed pre-paid shipping label to the front of the box and mail it to us as soon as possible.\n\nOnce again, I apologize for the time it has taken to deal with this matter. [134]\n\nYours sincerely,\nElizabeth Anderson\nCustomer Service Representative",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 131,
+              "question_text": "Select the word that best fits blank [131].",
+              "has_image": false,
+              "options": {
+                "A": "expanded",
+                "B": "expected",
+                "C": "experienced",
+                "D": "expressed"
+              },
+              "answer": "C",
+              "explanation": "The collocation used here is 'experience difficulty'."
+            },
+            {
+              "question_number": 132,
+              "question_text": "Select the word that best fits blank [132].",
+              "has_image": false,
+              "options": {
+                "A": "theirs",
+                "B": "us",
+                "C": "them",
+                "D": "its"
+              },
+              "answer": "B",
+              "explanation": "The object pronoun is needed here."
+            },
+            {
+              "question_number": 133,
+              "question_text": "Select the word that best fits blank [133].",
+              "has_image": false,
+              "options": {
+                "A": "send",
+                "B": "will send",
+                "C": "are sending",
+                "D": "have sent"
+              },
+              "answer": "B",
+              "explanation": "The future simple is the only tense that fits the meaning of this sentence."
+            },
+            {
+              "question_number": 134,
+              "question_text": "Select the sentence that best fits blank [134].",
+              "has_image": false,
+              "options": {
+                "A": "A customer service agent will contact you shortly.",
+                "B": "Thank you for choosing Go Direct.",
+                "C": "We look forward to your order.",
+                "D": "Please refer to our shipping guidelines."
+              },
+              "answer": "B",
+              "explanation": "This sentence fits best as it concludes the letter in a standard way. (A) confuses the context, as Ms. Anderson is a customer services agent. Mr. Connor is not placing an order (C). Shipping is mentioned, but there is no need to refer to any guidelines (D)."
+            }
+          ]
+        },
+        {
+          "group_id": "p6_q135_138",
+          "passage_content": "HOBSON OFFICE FURNITURE\nSummer Sale\nDon't Miss Our Great Discounts\n\nHobson Office Furniture is proud to announce our annual summer sale. Come and [135] the largest office furniture store in Manchester, with a wide range of fantastic oak furniture to choose from. We have thirty years of experience [136] quality furniture to businesses across the U.K.\n\nAll of our furniture [137] from solid oak, and comes fully assembled. Change the look and feel of your office with our superb range of furniture, which combines strength and beauty you can only find in natural oak.\n\nVisit our store today and enjoy up to three years' interest-free credit on your first order!\n✓ Spend over £1000 and receive a free executive chair worth £200!\n✓ All prices include tax – no hidden extras!\n✓ Free premium delivery service – every item delivered to the room of your choice!\n✓ 7-day money back guarantee!\n\n[138]",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 135,
+              "question_text": "Select the word that best fits blank [135].",
+              "has_image": false,
+              "options": {
+                "A": "collect",
+                "B": "examine",
+                "C": "browse",
+                "D": "purchase"
+              },
+              "answer": "C",
+              "explanation": "In this case, only the verb 'browse' can relate to the object 'furniture store'."
+            },
+            {
+              "question_number": 136,
+              "question_text": "Select the word that best fits blank [136].",
+              "has_image": false,
+              "options": {
+                "A": "supplying",
+                "B": "supplier",
+                "C": "supply",
+                "D": "supplied"
+              },
+              "answer": "A",
+              "explanation": "Here, the gerund is used after the phrase 'to have experience in' (+ing)."
+            },
+            {
+              "question_number": 137,
+              "question_text": "Select the word that best fits blank [137].",
+              "has_image": false,
+              "options": {
+                "A": "is made",
+                "B": "made",
+                "C": "makes",
+                "D": "has made"
+              },
+              "answer": "A",
+              "explanation": "The present simple passive is needed here."
+            },
+            {
+              "question_number": 138,
+              "question_text": "Select the sentence that best fits blank [138].",
+              "has_image": false,
+              "options": {
+                "A": "Over 200 stores nationwide!",
+                "B": "All prices correct at time of advertising",
+                "C": "Online applications only",
+                "D": "Sale starts Monday, June 2"
+              },
+              "answer": "D",
+              "explanation": "This fits best as this gives the start date for the sale. (A) is incorrect as the company has only one store. No prices are given (B). Readers are encouraged to visit our store (not go online) and they are not applying for anything (C)."
+            }
+          ]
+        },
+        {
+          "group_id": "p6_q139_142",
+          "passage_content": "To: All staff\nFrom: Christine Besson\nSubject: Year End Purchase Invoice Completion\n\nWith the end of the financial year [139] approaching, can you please all go through your Purchase Order books to ensure that all the necessary invoices are included?\n\nI probably don't need to [140] you, but this is very important. We need to have the original invoices for all goods and services that were delivered by June 30th. If necessary therefore, you must contact your supplier to obtain a June-dated invoice. After you [141] this, please pass the authorized invoice to the Finance Department.\n\nFor accurate accounting purposes, please keep the Finance Department updated on any supplier discrepancy issues at the end of the year.\n[142]",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 139,
+              "question_text": "Select the word that best fits blank [139].",
+              "has_image": false,
+              "options": {
+                "A": "fast",
+                "B": "faster",
+                "C": "fastest",
+                "D": "faster than"
+              },
+              "answer": "A",
+              "explanation": "Here, 'fast' is used as an adverb (meaning 'quickly') to describe the verb 'approaching'."
+            },
+            {
+              "question_number": 140,
+              "question_text": "Select the word that best fits blank [140].",
+              "has_image": false,
+              "options": {
+                "A": "remember",
+                "B": "remove",
+                "C": "remind",
+                "D": "remit"
+              },
+              "answer": "C",
+              "explanation": "This verb (meaning 'tell someone something they already know') fits here."
+            },
+            {
+              "question_number": 141,
+              "question_text": "Select the word that best fits blank [141].",
+              "has_image": false,
+              "options": {
+                "A": "did",
+                "B": "have done",
+                "C": "had done",
+                "D": "were doing"
+              },
+              "answer": "B",
+              "explanation": "We use the present perfect to show sequence in the future following 'After'."
+            },
+            {
+              "question_number": 142,
+              "question_text": "Select the sentence that best fits blank [142].",
+              "has_image": false,
+              "options": {
+                "A": "Thank you for returning these promptly.",
+                "B": "Suppliers should contact me personally.",
+                "C": "Hoping to hear from you soon.",
+                "D": "Your cooperation is appreciated."
+              },
+              "answer": "D",
+              "explanation": "The memo asks staff to make sure they have original invoices. This sentence is a logical conclusion, thanking staff for complying with this request."
+            }
+          ]
+        },
+        {
+          "group_id": "p6_q143_146",
+          "passage_content": "Legal Requirements for Notice Periods\n\nThe Employment Rights Act states that both the employer and the employee are legally [143] to a minimum period of notice before an employee leaves a company or organization. Contracts should therefore be compliant with these laws.\nThe minimum notice period is:\n• One week for employees who have been with your company or organization for more than a month, but less than two years\n• Two weeks for employees who have been with your company or organization for longer than two years\nThe period of notice required then increases by one week for each year the employee [144], up to a maximum of 12 weeks.\n\nEmployment contracts can be ended for many reasons: resignation, dismissal, redundancy, or retirement. [145]\n\nPlease note that these rules do not apply to retiring employees who are older than the retirement age. In addition, for fixed term contracts no notice need be given.\n\n[146] an employee without giving the legally-required notice period could result in a claim for wrongful dismissal. Only in cases of gross misconduct can dismissal without notice be justified.",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 143,
+              "question_text": "Select the word that best fits blank [143].",
+              "has_image": false,
+              "options": {
+                "A": "authorized",
+                "B": "enabled",
+                "C": "entitled",
+                "D": "allowed"
+              },
+              "answer": "C",
+              "explanation": "To be 'entitled' to something means to have the right to it."
+            },
+            {
+              "question_number": 144,
+              "question_text": "Select the word that best fits blank [144].",
+              "has_image": false,
+              "options": {
+                "A": "was working",
+                "B": "has worked",
+                "C": "is worked",
+                "D": "had been working"
+              },
+              "answer": "B",
+              "explanation": "Because the sentence begins by using the present tense 'increases' (to describe something that is generally true), we need the present perfect tense to describe the whole period of time the employee has worked."
+            },
+            {
+              "question_number": 145,
+              "question_text": "Select the sentence that best fits blank [145].",
+              "has_image": false,
+              "options": {
+                "A": "It is unusual to encounter problems.",
+                "B": "Many older workers want flexible hours.",
+                "C": "Notice should always be given in writing.",
+                "D": "Some employees prefer to retire early."
+              },
+              "answer": "C",
+              "explanation": "This sentence fits best as it links clearly to the topic of employment notice."
+            },
+            {
+              "question_number": 146,
+              "question_text": "Select the word that best fits blank [146].",
+              "has_image": false,
+              "options": {
+                "A": "Terminating",
+                "B": "Terminate",
+                "C": "Terminated",
+                "D": "Termination"
+              },
+              "answer": "A",
+              "explanation": "The gerund 'Terminating' (meaning 'Dismissing someone from employment') correctly completes this noun phrase."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_number": 0,
+      "title": "Reading Comprehension",
+      "description": "Read the texts and select the best answer (A), (B), (C), or (D) for each question.",
+      "question_groups": [
+        {
+          "group_id": "p7_q147_148",
+          "passage_content": "These days, more and more people are making purchases online. As a result, there is a lot of financial information floating around out there on the internet. So, if you're not doing so already, you need to take measures to protect yourself.\n\nOne rule that is often quoted is to never use the same password twice. The problem with this rule is that it can be very difficult to remember many different online passwords. One solution is to simplify things by using variations on the same theme. For example, you could choose passwords that are all the names of streets where you have lived, countries you have visited, your favorite animals, the colors of the rainbow, and so on. Adding numbers to the ends of the words will provide even greater password security.\n\nExperts also warn that consumers should never write down passwords. That is, of course, generally true. However, forgetting a password can cause a great deal of inconvenience. It can be safe to note your passwords, as long as you disguise them in some way. Add a few extra letters and numbers at the beginning and end, or 'hide' them in a note to an imaginary friend. If you do write down your passwords, then you should definitely remember to always keep them separate from the accounts they relate to. Following a few simple rules can help you to keep access to your money safe and secure.",
+          "passage_title": "Keep your Money Safe Online",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 147,
+              "question_text": "Who is this article intended for?",
+              "has_image": false,
+              "options": {
+                "A": "Online shoppers",
+                "B": "Security experts",
+                "C": "Website developers",
+                "D": "Software engineers"
+              },
+              "answer": "A",
+              "explanation": "The article refers to making purchases online and adds 'you need to take measure to protect yourself'."
+            },
+            {
+              "question_number": 148,
+              "question_text": "What is implied about the use of passwords for online security?",
+              "has_image": false,
+              "options": {
+                "A": "Many passwords look alike.",
+                "B": "Passwords must be kept secure.",
+                "C": "Some passwords are easy to copy.",
+                "D": "It can be hard to think of new passwords."
+              },
+              "answer": "B",
+              "explanation": "The steps suggested in the article all relate to keeping passwords secure. (A), (C) and (D) cannot be inferred."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q149_150",
+          "passage_content": "Jim Crawley (May 22, 11:12 A.M.): Hi Sophie. Are you on your way to WX Laboratories?\nSophie Blane (May 22, 11:16 A.M.): Yes. On the train now. Arrive in about 10m, I think.\nJim Crawley (May 22, 11:18 A.M.): Saul Benson just called. He said they've had a fire alarm so everyone is out in the street. Huge disruption...\nSophie Blane (May 22, 11:19 A.M.): What? A fire!\nJim Crawley (May 22, 11:20 A.M.): No, it's just a drill. Every few months they do a full drill.\nSophie Blane (May 22, 11:20 A.M.): Huh. So, what's happening?\nJim Crawley (May 22, 11:21 A.M.): He says he needs to push back the meeting to 12:30. Is that OK?\nSophie Blane (May 22, 11:22 A.M.): I don't see why not. There's a coffee shop across from their building. I can catch up with some paperwork there.\nJim Crawley (May 22, 11:22 A.M.): OK. Good luck with the pitch.\nSophie Blane (May 22, 11:23 A.M.): Thanks! See you this afternoon for the sales meeting. In my office, remember.\nJim Crawley (May 22, 11:24 A.M.): Sure. See you there.",
+          "passage_title": "Text Message Chain – Jim Crawley & Sophie Blane",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 149,
+              "question_text": "At 11:22 A.M., what does Ms. Blane mean when she writes, 'I don't see why not'?",
+              "has_image": false,
+              "options": {
+                "A": "She does not understand the reasons.",
+                "B": "She dislikes the new schedule.",
+                "C": "She is agreeing to a change of plan.",
+                "D": "She wants to clarify some points."
+              },
+              "answer": "C",
+              "explanation": "The phrase 'I don't see why not' (meaning 'Yes, of course') is used to indicate you agree to something. Here, Ms. Blane is saying the change in time for her meeting with Mr. Benson is no problem for her."
+            },
+            {
+              "question_number": 150,
+              "question_text": "What will Ms. Blane most likely do next?",
+              "has_image": false,
+              "options": {
+                "A": "Deliver some paperwork",
+                "B": "See Mr. Crawley in her office",
+                "C": "Contact Mr. Benson",
+                "D": "Arrive at her destination"
+              },
+              "answer": "D",
+              "explanation": "Ms. Blane is traveling by train. At 11:16 A.M. she writes she will arrive in about 10m. The exchange finishes at 11:24 A.M. (A), (B), and (C) cannot be inferred."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q151_153",
+          "passage_content": "From: n.henshaw@cityofcarlington.gov\nTo: Undisclosed recipients\nDate: Nov. 11\nSubject: Feedback session\n\nHello All,\nSorry it's a bit late, but I'm just e-mailing to confirm that the 'My Life, My Choice' Web site launch is arranged for Wednesday the 17th.\n\nAs for the final feedback session, please come to City Hall at 10:30 tomorrow. I have booked Training Room 4 in that building, because it has around ten computers we can use to check the new Web site. I will make sure that doughnuts and coffee are there to help us all think creatively! We will try to finish by noon.\n\nUnfortunately, we do not have any designated visitor parking. If you are driving, you can try to park on East Street (see the attached map). There should be plenty of spaces so hopefully it won't be too difficult for anyone. We will naturally reimburse travel expenses.\n\nFor those of you who are unable to make the session tomorrow, please send your feedback either by e-mailing myself or Katja Weitz (k.weitz@cityofcarlington.gov). Alternatively, you can use the feedback form that I'm attaching. Please let us have any feedback by November 15.\n\nYour views are very important. Thank you again for all the ideas, time, and effort you have put into helping with the development of our new Web site. As members of the public, and users of Carlington City Hall services, your suggestions have been invaluable in making our new Web site more attractive and accessible.\n\nLooking forward to seeing those that can make it tomorrow.\nBest regards,\nNancy Henshaw\nStrategic Development Manager",
+          "passage_title": "E-mail – Feedback Session (from Nancy Henshaw)",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 151,
+              "question_text": "Who is Ms. Henshaw writing this e-mail to?",
+              "has_image": false,
+              "options": {
+                "A": "Workers at City Hall",
+                "B": "Computer trainers",
+                "C": "A group of local citizens",
+                "D": "The Strategic Development department"
+              },
+              "answer": "C",
+              "explanation": "The e-mail refers to readers 'As members of the public'. (A) relates to Ms. Henshaw and Ms. Weitz, who work at (D). (B) is not mentioned."
+            },
+            {
+              "question_number": 152,
+              "question_text": "In which position marked [1], [2], [3], and [4] does the following sentence best belong? 'We hope you like the difference!'",
+              "has_image": false,
+              "options": {
+                "A": "[1]",
+                "B": "[2]",
+                "C": "[3]",
+                "D": "[4]"
+              },
+              "answer": "D",
+              "explanation": "This sentence fits best here as it refers to the new Web site mentioned previously."
+            },
+            {
+              "question_number": 153,
+              "question_text": "When will the feedback session take place?",
+              "has_image": false,
+              "options": {
+                "A": "On November 11",
+                "B": "On November 12",
+                "C": "On November 15",
+                "D": "On November 17"
+              },
+              "answer": "B",
+              "explanation": "The e-mail states the meeting will take place 'at 10:30 tomorrow'. The date is Nov. 11. (C) is the deadline for e-mailing feedback. (D) refers to the launch of the new website."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q154_156",
+          "passage_content": "This table shows popular full-time occupations for women in the US, with median weekly earnings by industry sector.\n\nOccupation | Total employed (women, thousands) | Total employed (men+women, thousands) | Percent women | Women's median usual weekly earnings $\nSecretaries and admin assistants | 2941 | 3014 | 97.5 | 667\nRegistered nurses | 2527 | 2859 | 88.3 | 1143\nElementary and middle school teachers | 2273 | 2827 | 80.4 | 982\nCashiers | 2280 | 3157 | 72.2 | 386\nCustomer service representatives | 1213 | 1873 | 64.8 | 598\nMaids and cleaners | 1267 | 1416 | 89.4 | 396\nChildcare workers | 1141 | 1238 | 92.1 | 412\nManagers | 1093 | 2817 | 38.8 | 1176\nAccountants | 979 | 1609 | 60.8 | 987\nTeacher assistants | 884 | 966 | 91.5 | 505",
+          "passage_title": "Women in Work – 21st Century Employment Trends",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 154,
+              "question_text": "According to the table, in which occupation are women the least well-paid?",
+              "has_image": false,
+              "options": {
+                "A": "Cashiers",
+                "B": "Maids and cleaners",
+                "C": "Childcare workers",
+                "D": "Teacher assistants"
+              },
+              "answer": "A",
+              "explanation": "The median usual weekly earnings for female cashiers is given as $386."
+            },
+            {
+              "question_number": 155,
+              "question_text": "Which of these occupations has the lowest percentage of women?",
+              "has_image": false,
+              "options": {
+                "A": "Accountants",
+                "B": "Customer service representatives",
+                "C": "Registered nurses",
+                "D": "Managers"
+              },
+              "answer": "D",
+              "explanation": "Only 38.8 percent of managers are women, according to the chart."
+            },
+            {
+              "question_number": 156,
+              "question_text": "Which of the following statements is true?",
+              "has_image": false,
+              "options": {
+                "A": "Elementary and middle school teachers have the highest salaries.",
+                "B": "Three quarters of customer service representatives are women.",
+                "C": "Female registered nurses earn almost the same as female managers.",
+                "D": "There are more female childcare workers than female secretaries."
+              },
+              "answer": "C",
+              "explanation": "The chart states that female registered nurses earn an average of $1143 per week, and female managers earn an average of $1176 per week. This is almost the same."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q157_158",
+          "passage_content": "F1 Translation Services\nBUILDING BRIDGES BETWEEN YOU AND YOUR CUSTOMERS\n\nIn international business, it is vital to make sure you get your point across. So for reliable translation support, use the professionals. F1 Translation Services is a premier translation company with more than 15 years' experience in professional translation.\n\nIf you need to deliver accurate, locally relevant and culturally connected products in any market, we can help. No matter where your clients are, or what language they speak, we will help you to succeed in global businesses.\n\nWe have a proven track record in legal, financial, medical, engineering, manufacturing, and technical fields. Many of our clients are leading Fortune 500 companies operating worldwide.\n\nF1 provides: high-quality, reliable service / accurate translation / speedy delivery / competitive rates / personal service\n\nWe have a world-class team of language experts from all corners of the globe. Call for information about our executive 'premium' service, which guarantees your documents translated and returned within 24 hours. Contact F1Translation Services – the only translation service you'll ever need. Call 1-888-344-8112 or visit www.F1-translation-services.com.",
+          "passage_title": "Advertisement – F1 Translation Services",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 157,
+              "question_text": "What can be inferred about F1Translation Services?",
+              "has_image": false,
+              "options": {
+                "A": "Their low prices mean they are very successful.",
+                "B": "They translate many different types of documents.",
+                "C": "They do not translate documents for private individuals.",
+                "D": "Many government departments use their services."
+              },
+              "answer": "B",
+              "explanation": "The ad mentions they have experience in translating legal, financial, medical, engineering, manufacturing, and technical documents. (A) is not mentioned. (C) and (D) cannot be inferred."
+            },
+            {
+              "question_number": 158,
+              "question_text": "Which of these claims is NOT made in the advertisement?",
+              "has_image": false,
+              "options": {
+                "A": "Clients include many top international companies.",
+                "B": "All translators are fully qualified professionals.",
+                "C": "Documents can be translated into any language.",
+                "D": "Translations can be made within a single day."
+              },
+              "answer": "B",
+              "explanation": "Clients include 'leading Fortune 500 companies' (A). No matter '…what language' can be translated as their translators are 'from all corners of the globe' (C). They can translate within 24 hours if necessary (D). Only (B) is not mentioned."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q159_161",
+          "passage_content": "Mr. Prabhakar Shinde\nHuman Resources Manager\nWeston Shipping Ltd.\n735 Strand Road\nMumbai 140 105 India\n\nSeptember 25\n\nDear Mr. Shinde:\n\nIt is with great regret that I am writing to inform you of my decision to resign from Weston Shipping Ltd. I intend to leave my current position as Shift Supervisor at the Mumbai branch at the end of next month. In accordance with my contractual obligations, my last day will be Oct 31.\n\nI have greatly enjoyed my time with Weston Shipping Ltd. In the three years I have worked here, I believe I have made a significant contribution to the company. However, I now feel that in order to achieve my career objectives, I need to move on to a fresh challenge.\n\nI would like to express my sincere appreciation for all the support you have given me during my time with the company. I especially value the training opportunities I have had while working here, which have allowed me to obtain a higher level of professional qualifications. The opportunities for growth you have provided me during my time here will prove useful in my next job as Operations Manager with Asia Maritime. Before I move on, I will do my best to ensure a smooth handover of my current projects and responsibilities.\n\nI hope you can understand the reasons for my decision. I wish you, and Weston Shipping Ltd., every success in the future.\n\nYours sincerely,\nRaymond Cheng\nShift Supervisor",
+          "passage_title": "Letter – Raymond Cheng to Mr. Prabhakar Shinde (Resignation)",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 159,
+              "question_text": "Why is Mr. Cheng leaving Weston Shipping Ltd.?",
+              "has_image": false,
+              "options": {
+                "A": "He has found a better job elsewhere.",
+                "B": "He wants more professional support.",
+                "C": "He has reached the end of his contract.",
+                "D": "He wants greater training opportunities."
+              },
+              "answer": "A",
+              "explanation": "Mr. Cheng is leaving his position as Shift Supervisor for the more senior position of Operations Manager at another company. (B) refers to all the support he has already received. (C) is not mentioned. (D) refers to the training opportunities he has already had."
+            },
+            {
+              "question_number": 160,
+              "question_text": "What can be inferred about Mr. Cheng?",
+              "has_image": false,
+              "options": {
+                "A": "He does not get along with Mr. Shinde.",
+                "B": "He has played a big part in Weston Shipping Ltd.'s success.",
+                "C": "He intends to leave the region shortly.",
+                "D": "He is better qualified now than he was three years ago."
+              },
+              "answer": "D",
+              "explanation": "Mr. Cheng writes he has a 'higher level of professional qualifications' now. (A) and (C) cannot be inferred. (B) refers to Mr Cheng's personal opinion that he has made a significant contribution."
+            },
+            {
+              "question_number": 161,
+              "question_text": "The word 'handover' in paragraph 3, line 5, is closest in meaning to:",
+              "has_image": false,
+              "options": {
+                "A": "conclusion",
+                "B": "report",
+                "C": "transfer",
+                "D": "supply"
+              },
+              "answer": "C",
+              "explanation": "Here, the noun 'handover' means 'transfer' or 'passing on'."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q162_165",
+          "passage_content": "To: All Staff\nFrom: Nigel McGuiness\nSubject: Cost-cutting\n\nAs you all know, in these difficult economic times the company is making every effort to save money wherever we can. As a result, it has been decided that we will no longer employ an outside cleaning agency. We have therefore canceled our contract with Avon Cleaning Services, effective immediately. From now on, it is up to all of us to keep our own work areas and offices clean.\n\nTo help with this, one green recycling bin has been ordered for each office. These will be delivered next week, and placed in a corner. Please make sure that all recyclable trash is placed in this bin.\n\nSomeone from each office needs to be responsible for taking out the trash every collection day (Wednesday for recyclable and Friday for regular trash). Other people can take turns vacuuming and dusting (preferably on Fridays, late in the afternoon). Appropriate equipment, cleaning products, etc. will be kept in the large storage cabinet behind the reception desk. Department supervisors will draw up a schedule.\n\nThis measure will obviously save us money (around $2,300 per month). We also suspect that the company will end up throwing away less trash, and so this will help us meet our 'corporate social responsibility' goal of reducing the waste we generate.\n\nThank you for your cooperation.",
+          "passage_title": "Memo – Nigel McGuiness (Cost-cutting)",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 162,
+              "question_text": "What is the main purpose of this memo?",
+              "has_image": false,
+              "options": {
+                "A": "To announce the arrival of recycling bins",
+                "B": "To inform employees of extra responsibilities",
+                "C": "To encourage workers to reduce waste",
+                "D": "To introduce a different cleaning agency"
+              },
+              "answer": "B",
+              "explanation": "Employees now have to keep their own work areas and offices clean. The recycling bins have been ordered, but they haven't arrived (A). Workers may end up throwing away less trash (C), but this is not the aim of the memo. (D) is incorrect, as they will be doing the cleaning themselves."
+            },
+            {
+              "question_number": 163,
+              "question_text": "What is NOT mentioned as a benefit of the new system?",
+              "has_image": false,
+              "options": {
+                "A": "It will save money.",
+                "B": "It will reduce waste.",
+                "C": "It will promote recycling.",
+                "D": "It will be easy to manage."
+              },
+              "answer": "D",
+              "explanation": "The memo states they will save around $2,300 per month (A). There will be less trash (B) and workers are encouraged to put recyclable trash in the green bins (C). Only (D) is not mentioned."
+            },
+            {
+              "question_number": 164,
+              "question_text": "Who will carry out the tasks?",
+              "has_image": false,
+              "options": {
+                "A": "The reception staff",
+                "B": "Department supervisors",
+                "C": "All company employees",
+                "D": "One person from each office"
+              },
+              "answer": "C",
+              "explanation": "The tasks will be carried out by all of us. (A) refers to where the cleaning products will be kept. (B) refers to those who will organize the system. (D) refers to the employees who will take out the trash on collection days."
+            },
+            {
+              "question_number": 165,
+              "question_text": "The word 'measure' in paragraph 4, line 1, is closest in meaning to:",
+              "has_image": false,
+              "options": {
+                "A": "decision",
+                "B": "result",
+                "C": "action",
+                "D": "proposal"
+              },
+              "answer": "C",
+              "explanation": "Here, the noun 'measure' means 'action' or 'step'."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q166_168",
+          "passage_content": "Mountain Business Solutions\n387 Broadway, Suite 12, Denver, CO 80982\n\nMr. Adam Curran\nBrancaster Academy\n162 Bannock Street\nDenver, CO 80904\n\nJanuary 7\n\nDear Mr. Curran\n\nYour Linux D400 Pro Copy Machine is now protected by Mountain Business Solutions.\n\nWelcome to Mountain Business Solutions, the specialists in office equipment and appliance insurance, providing protection against unexpected repair costs.\n\n[1] Your policy number is GTY 009630227. Please keep this number safe, as you will need to mention it if it becomes necessary to call for assistance. [2] Please read the accompanying Extended Warranty and make sure that you fully understand the terms and conditions of your insurance plan. To make a claim at any time, just follow the instructions in this document. [3]\n\nAs a Mountain Business Solutions customer, you can also call our friendly customer service department, free of charge. If you have any queries about your policy, do not hesitate to call us during office hours at 1-800-473-8833. All calls are answered within ten seconds. Remember, we are here to help.\n\nYou are in good hands with Mountain Business Solutions. [4]\n\nKenneth Gimson\nSales Director, Mountain Business Solutions\n\nP.S. Did you know that we can protect all your company's equipment against theft, accidental damage, flooding and fire damage? Coverage is available for all office equipment under eight years old, and is normally renewable for the useful life of the device. Call to ask about our comprehensive office-contents coverage.",
+          "passage_title": "Letter – Mountain Business Solutions to Mr. Adam Curran",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 166,
+              "question_text": "What kind of company is Mountain Business Solutions?",
+              "has_image": false,
+              "options": {
+                "A": "A manufacturer of business equipment",
+                "B": "An insurance company",
+                "C": "A debt collection agency",
+                "D": "A computer repair specialist"
+              },
+              "answer": "B",
+              "explanation": "The company specializes in office equipment and appliance insurance."
+            },
+            {
+              "question_number": 167,
+              "question_text": "In which position marked [1], [2], [3], and [4] does the following sentence best belong? 'Your warranty is enclosed.'",
+              "has_image": false,
+              "options": {
+                "A": "[1]",
+                "B": "[2]",
+                "C": "[3]",
+                "D": "[4]"
+              },
+              "answer": "A",
+              "explanation": "This sentence fits best here as the 'policy number' that follows directly relates to the warranty."
+            },
+            {
+              "question_number": 168,
+              "question_text": "Why might Mr. Curran need his policy number?",
+              "has_image": false,
+              "options": {
+                "A": "To order other products in the future",
+                "B": "To help pay any unexpected bills",
+                "C": "To ask for another quote from Mountain Business Solutions",
+                "D": "To quote if the copy machine breaks down"
+              },
+              "answer": "D",
+              "explanation": "He will need the policy number if it becomes necessary to call for assistance."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q169_171",
+          "passage_content": "Business Ethics Seminar\nOctober 11–12\nAtlanta International Business School\n\nSuitable for professionals from any field, this seminar provides a comprehensive introduction to the subject of ethics in business. Participants explore the topic from a variety of angles, through in-depth analysis from leading experts in ethics education, articles, case studies, and computer simulation exercises. Participants are encouraged to develop their own insights. This seminar is designed to help future business leaders greatly increase their understanding of this topic.\n\nLee Meyer is Professor of Business Ethics at AIBS, and a member of the Institute for Corporate Ethics. He is the author of the hugely popular 'Ethics in Business,' and is well known for his regular appearances on radio and television.\n\nFee:\nAIBS Members $900, Non-members $1,395\n10% discount for bookings received before September 11\nRefunds will be granted if written cancellation is received by e-mail or fax ONLY, and at least 30 days in advance. Please allow 6–8 weeks for a refund. An administration fee of 150 USD will apply.\n\nTravel:\nFrom the airport: Express Shuttle transportation is recommended. The cost is 12 USD one way per person. A cab will take an estimated 15 minutes and cost approximately 20 USD one way.\nBy car: Follow the signs to Downtown and get on East Street. Take the overpass and follow to North Harbor Island. AIBS International is adjacent to the Atlanta Pacific Hotel.\n\nAccommodations:\nThe nearest hotel is the Atlanta Pacific, on Franklin Street. AIBS has negotiated a preferential rate of $150 (double room, single occupancy) for delegates. Please quote code AP821X when making your booking.",
+          "passage_title": "Business Ethics Seminar – Atlanta International Business School",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 169,
+              "question_text": "Which of the following is NOT stated about Professor Meyer?",
+              "has_image": false,
+              "options": {
+                "A": "He works at Atlanta International Business School.",
+                "B": "He has written a best-selling book on business ethics.",
+                "C": "He is a famous media celebrity.",
+                "D": "He chairs an important professional organization."
+              },
+              "answer": "D",
+              "explanation": "He is Professor of Business Ethics at AIBS (A), and is author of a hugely popular book (B). He is also well known for his regular appearances on radio and television (C). Only (D) is not mentioned."
+            },
+            {
+              "question_number": 170,
+              "question_text": "How much will non-members receive if they cancel three weeks before the seminar?",
+              "has_image": false,
+              "options": {
+                "A": "$0",
+                "B": "$150",
+                "C": "$900",
+                "D": "$1,245"
+              },
+              "answer": "A",
+              "explanation": "Cancellations must be at least 30 days in advance. (B) refers to the administration fee payable. (C) is the cost for AIBS members, and (D) is the cost for non-members, less the administration fee."
+            },
+            {
+              "question_number": 171,
+              "question_text": "What should people do if they want to stay overnight at the Atlanta Pacific hotel?",
+              "has_image": false,
+              "options": {
+                "A": "Reserve a room within 30 days",
+                "B": "Make a reservation by e-mail or fax",
+                "C": "Quote code AP821X when booking",
+                "D": "Go there by Express Shuttle"
+              },
+              "answer": "C",
+              "explanation": "Participants are encouraged to quote code AP821X when making your booking. (A) and (B) refer to the cancellation procedures. (D) refers to transport from the airport."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q172_175",
+          "passage_content": "FAX – ARMITAGE CHEMICALS, INC.\nTo: Julia West | From: Curtis Elliot | Time: 09:35 | Date: April 17 | Pages: 1 | Subject: Ms. Fouroux\n\nDear Ms. West:\n\nIt was nice speaking to you just now. Thank you for appreciating that this can be a stressful business. Your efforts to process Ms. Fouroux's application are much appreciated.\n\nAs requested, this fax is in further support of Ms. Fouroux's application for an H-1B visa. I can confirm that she has been offered a temporary, full-time position at this company, and is due to start work as a Junior Research Engineer in our facility in Columbus, Nebraska on the first of next month. She has a Bachelor's Degree in Chemical Engineering, and applicable polyethylene manufacturing experience. Her contract is for six months. However, we fully expect that she will perform her duties satisfactorily and, assuming this is the case, she will then be offered a permanent position.\n\nPlease be assured that this is a bona fide application. As her start date is quickly approaching, I would be grateful if you could process this application without delay, so that Ms. Fouroux may start work here as scheduled. I understand that all requirements have been met, and all necessary documents have been sent. If you require any further information in support of this matter, please get in touch with me directly.\n\nThank you once again for your thoroughness in processing Ms. Fouroux's application.\n\nSincerely,\nCurtis Elliot\nHuman Resources Manager, Armitage Chemicals",
+          "passage_title": "Fax – Armitage Chemicals, Inc. (Re: Ms. Fouroux)",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 172,
+              "question_text": "What is the main purpose of this fax?",
+              "has_image": false,
+              "options": {
+                "A": "To make an offer of employment",
+                "B": "To support a visa to work in the United States",
+                "C": "To confirm a job applicant's qualifications",
+                "D": "To thank Ms. Fouroux's employer"
+              },
+              "answer": "B",
+              "explanation": "The fax is in support of Ms. Fouroux's application for an H-1B visa. She already has a job offer (A). (C) is mentioned but is not the main purpose of the fax. (D) is not mentioned."
+            },
+            {
+              "question_number": 173,
+              "question_text": "Who most likely is Julia West?",
+              "has_image": false,
+              "options": {
+                "A": "Mr. Elliot's supervisor",
+                "B": "Ms. Fouroux's current employer",
+                "C": "A U.S. immigration official",
+                "D": "An engineer at Armitage Chemicals"
+              },
+              "answer": "C",
+              "explanation": "As Ms. West is asked to process the application, and the job is for Columbus, Nebraska, it can be inferred that she is a U.S. immigration official."
+            },
+            {
+              "question_number": 174,
+              "question_text": "What will probably happen to Ms. Fouroux in November?",
+              "has_image": false,
+              "options": {
+                "A": "She will be given a permanent job.",
+                "B": "She will leave Nebraska.",
+                "C": "She will be awarded a Master's degree.",
+                "D": "She will be promoted to Research Engineer."
+              },
+              "answer": "A",
+              "explanation": "Ms. Fouroux is due to start work next month. The fax is sent is April. After the initial contract for six months (i.e. in November), Mr. Elliot states she will then be offered a permanent position. (B) and (C) cannot be inferred. (D) is not mentioned."
+            },
+            {
+              "question_number": 175,
+              "question_text": "What does Mr. Elliot hope Ms. West will do?",
+              "has_image": false,
+              "options": {
+                "A": "Deal with the visa application quickly",
+                "B": "Send more detailed information",
+                "C": "Approve Ms. Fouroux's schedule",
+                "D": "Provide further support"
+              },
+              "answer": "A",
+              "explanation": "He asks Ms. West to process this application without delay, because the date Ms. Fouroux is due to start work is quickly approaching."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q176_180",
+          "passage_content": "Letter 1 – Louise Almodovar to Mrs. Brenda Timson (Global Gateway):\nIn response to your advertisement in Ocean Discovery Monthly for a Cruise Sales Consultant, I am enclosing my résumé and other supporting documents.\n\nFor the last three years I have worked as a Travel Advisor at Vernon's in Kansas City. I believe this has given me the skills I need to fulfill the role of Cruise Sales Consultant. I am used to dealing with clients and matching them to their ideal vacations. As well as booking package vacations, I also manage tailor-made vacations, and regularly make bookings to destinations in Asia, Europe, and other locations worldwide.\n\nI have a Bachelor's Degree in Hospitality Management from Wichita College. As you will see from the enclosed certificates, I am qualified in the use of the Worldplan, Viewdata and Galileo booking systems. I have a passion for travel, and have first-hand experience of many popular destinations around the world. I consider myself a self-motivated team player, and am proficient in English, written and oral. The letters of recommendation I enclose attest to my abilities. I would welcome the chance to further my career with Global Gateway.\n\nSincerely,\nLouise Almodovar\n\nLetter 2 – Global Gateway to Ms. Louise Almodovar:\nThank you for your interest in Global Gateway, and your recent application for the position of Cruise Sales Consultant. I am pleased to inform you that you have been shortlisted and are invited to come in for an interview on Friday, March 16, at 2:30 P.M. at our offices.\n\nWe will reimburse any transportation costs you may incur to attend the interview, so please bring any original train or bus receipts with you when you come. Please also bring evidence of your academic qualifications, and proof of your right to work in the US (if appropriate). I would be grateful if you could call my personal assistant, Emma Cardew, at 451-2424 to confirm your attendance.\n\nWe look forward to meeting you.\nBrenda Timson\nMrs. Brenda Timson, Recruitment Manager",
+          "passage_title": "Two Letters – Louise Almodovar & Global Gateway",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 176,
+              "question_text": "What kind of company is Global Gateway?",
+              "has_image": false,
+              "options": {
+                "A": "A magazine publisher",
+                "B": "A ship builder",
+                "C": "An airline",
+                "D": "A travel agency"
+              },
+              "answer": "D",
+              "explanation": "In her cover letter, Ms. Almodovar refers to travel and booking package vacations. She works as a Travel Advisor and wants to further her career. We can therefore infer that Global Gateway is a travel agency."
+            },
+            {
+              "question_number": 177,
+              "question_text": "What did Ms. Almodovar fail to include in her application?",
+              "has_image": false,
+              "options": {
+                "A": "A résumé",
+                "B": "A diploma",
+                "C": "Her professional qualifications",
+                "D": "Some references"
+              },
+              "answer": "B",
+              "explanation": "She has included her résumé (A), certificates showing competency in various travel booking systems (C), and letters of recommendation (D). Mrs. Timson asks to see evidence of her academic qualifications, which implies a diploma (a document proving academic achievement in the U.S.) was not included in Ms. Almodovar's application."
+            },
+            {
+              "question_number": 178,
+              "question_text": "Which of the following abilities does Ms. Almodovar NOT mention in her letter?",
+              "has_image": false,
+              "options": {
+                "A": "She has good communication skills.",
+                "B": "She works well with other people.",
+                "C": "She is experienced in customer service.",
+                "D": "She speaks several foreign languages."
+              },
+              "answer": "D",
+              "explanation": "In her letter Ms. Almodovar mentions she is proficient in English (A), she is a team player (B) and is used to dealing with clients (C). Although she says she has traveled widely, she does not mention she can speak any foreign languages (D)."
+            },
+            {
+              "question_number": 179,
+              "question_text": "What can be inferred from Mrs. Timson's letter?",
+              "has_image": false,
+              "options": {
+                "A": "She is unsure of Ms. Almodovar's employment status.",
+                "B": "She will not be at the interview on March 16.",
+                "C": "She would prefer Ms. Almodovar to take the train.",
+                "D": "She is impressed by Ms. Almodovar's qualifications."
+              },
+              "answer": "A",
+              "explanation": "Mrs. Timson asks for proof of your right to work in the U.S. (if appropriate)."
+            },
+            {
+              "question_number": 180,
+              "question_text": "What should Ms. Almodovar do next?",
+              "has_image": false,
+              "options": {
+                "A": "Contact Global Gateway",
+                "B": "Send more documentation",
+                "C": "Prepare a shortlist",
+                "D": "Buy a bus ticket"
+              },
+              "answer": "A",
+              "explanation": "Mrs. Timson asks Ms. Almodovar to call my personal assistant … to confirm your attendance."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q181_185",
+          "passage_content": "Article – 'Science Park Aims for the Stars' by William Raynor:\nCoalport Science Park this week announced the completion of an ambitious program of expansion to the site. Begun over a year ago, the work has cost nearly £3 million to complete. The park, which was first opened in 2008, is home to a number of top international research companies. The park's Development Director, Dr. Bill Townsend, spoke of the transformation, 'Coalport Science Park has a world-class reputation for innovation and excellence. We have built a state-of-the-art Research and Development Center and a new science laboratory. We hope that these facilities will attract more leading companies to the park.' Dr. Townsend added that there are also three new office buildings, which double the office accommodations for academics and businesses.\n\nHowever, the project is not without its opponents. Some sources say the latest phase of development cost almost £1 million more than originally planned. In addition, there are doubts that the changes will be enough to turn around the fortunes of the ailing development. In recent months, declining profits among the high tech sector has resulted in job losses for over 60 workers at the park, leading to concerns about its long-term future.\n\nE-mail – Dr. Bill Townsend to William Raynor:\nFrom: b.townsend@csp.co.uk | To: WilliamRaynor@businessmonthly.co.uk | Date: April 18 | Subject: Your recent article on Coalport Science Park\n\nDear Mr. Raynor,\n\nI was extremely disappointed to read so many inaccuracies in your article about Coalport Science Park, published in this month's edition of Business Monthly.\n\nDuring your visit here, and in our subsequent interview by phone, I made every effort to answer all your questions clearly and in detail. The cost of the recent development actually came to £2,750,000. Although true that this is higher than the original estimate of £2.3 million, it is clearly well below the figure given by your 'sources.' What's more, the job losses you mention relate only to one company, NIC Technologies. They have relocated their manufacturing plant to China as part of their global restructuring program. This does not mean they are reducing their stake in the park. Quite the contrary, they intend to hire more than 80 personnel over the coming months as they expand their Research facility here.\n\nWe are not an 'ailing development.' I would appreciate it if you could print a correction along the lines noted above in your next issue.\n\nSincerely,\nDr. Bill Townsend\nDevelopment Director, Coalport Science Park",
+          "passage_title": "Article & E-mail – Coalport Science Park",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 181,
+              "question_text": "What is the main purpose of the article?",
+              "has_image": false,
+              "options": {
+                "A": "To promote a science park",
+                "B": "To announce job losses",
+                "C": "To advertise new office space",
+                "D": "To report on a major development"
+              },
+              "answer": "D",
+              "explanation": "The article covers the expansion of Coalport Science Park. (A) is incorrect as the final paragraph does not promote the park. Job losses (B) and space (C) are mentioned, but are not the main purpose of the article."
+            },
+            {
+              "question_number": 182,
+              "question_text": "What can be inferred from Dr. Townsend's e-mail?",
+              "has_image": false,
+              "options": {
+                "A": "He is not happy with Mr. Raynor's article.",
+                "B": "Coalport Science Park is in financial difficulty.",
+                "C": "He is employed by NIC Technologies.",
+                "D": "He is worried about the future of the park."
+              },
+              "answer": "A",
+              "explanation": "Mr. Townsend writes he was extremely disappointed by inaccuracies in the article. (B) and (D) cannot be inferred. (C) is incorrect as he is the park's Development Director."
+            },
+            {
+              "question_number": 183,
+              "question_text": "In the e-mail, the word 'stake' in paragraph 2, line 6, is closest in meaning to:",
+              "has_image": false,
+              "options": {
+                "A": "trust",
+                "B": "interest",
+                "C": "potential",
+                "D": "investment"
+              },
+              "answer": "B",
+              "explanation": "Here, the word 'stake' means 'investment' or 'involvement'."
+            },
+            {
+              "question_number": 184,
+              "question_text": "How much did the Coalport Science Park expansion cost?",
+              "has_image": false,
+              "options": {
+                "A": "£1 million",
+                "B": "£2.3 million",
+                "C": "£2.75 million",
+                "D": "£3 million"
+              },
+              "answer": "C",
+              "explanation": "Mr. Townsend states the development came to £2,750,000. (B) is the estimated cost. (A) is the amount over budget some sources claim. (D) is the inaccurate figure mentioned in the article."
+            },
+            {
+              "question_number": 185,
+              "question_text": "Which of these statements about NIC Technologies is true?",
+              "has_image": false,
+              "options": {
+                "A": "They plan to close their facility at Coalport Science Park.",
+                "B": "They will soon employ more workers than they had before.",
+                "C": "They manufacture all their products in China now.",
+                "D": "They have been hit by poor profits in the high tech sector."
+              },
+              "answer": "B",
+              "explanation": "The article refers to job losses for over 60 workers. Mr. Townsend writes that these relate only to one company, NIC Technologies. He goes on to say that NIC Technologies intend to hire more than 80 personnel over the coming months. The company will therefore soon employ more workers than they had before."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q186_190",
+          "passage_content": "Web page – Health Protection Report: Business Closures (March):\nChuck's Chicken (1605 Grant Avenue): Operating without a permit; temperature abuse of potentially hazardous foods\nKing Kong Kitchens (675 Hudson Blvd): Food prepared under insanitary conditions; failure to ensure mechanical dishwasher is capable of sanitizing utensils and tableware\nThe Lemon Tree (1514 Main Street): Poor general sanitation; food contact surfaces of equipment not thoroughly cleaned and sanitized\nThe Healthy Cook (88 Brocklebank Street): Poor general sanitation; evidence of rodent infestation\nDeli Delight (1200 Lakeshore Blvd): Inadequate protection of food from potential contamination; inoperative plumbing and failure to provide handwashing facilities\nSnickety Snacks (75 Wendell Street): Failure to protect food from contamination; food prepared under insanitary conditions\n\nManual – Table of Contents (Food Safety):\nCh.1 Introduction to food safety (p.3), Ch.2 Food safety legislation (p.5), Ch.3 Foodborne illnesses (p.9), Ch.4 Chemical hazards (p.11), Ch.5 Physical hazards (p.13), Ch.6 Allergens (p.14), Ch.7 Microorganisms, bacteria, and potentially hazardous foods (p.16), Ch.8 Temperature and safety (p.19), Ch.9 Food storage (p.29), Ch.10 Cross-contamination (p.33), Ch.11 Equipment care (p.35), Ch.12 Personal hygiene (p.38), Ch.13 Cleaning and sanitizing (p.43), Ch.14 Pest control (p.46), Ch.15 Food safety management (p.49), Ch.16 Appendices (p.55)\n\nText Messages – Jim (plumber) & Stefan:\nJim (09:05): Hello, Jim the plumber here. I'll be with you very shortly. Am just driving down Cleveland Avenue. Satnav down. Where exactly are you?\nStefan (09:06): Drive almost the full length of Cleveland Avenue. You'll see the Green Flag Garage and Tire Center on your left. Take the next left after that - we're about 500 yards along.\nJim (09:07): Thanks. How about parking?\nStefan (09:08): On the street outside. It's not too busy right now. We're next to the Day and Night Supermarket.\nJim (09:08): Thanks. Almost there. See you in a few minutes.",
+          "passage_title": "Web page, Manual & Text Messages – Health Protection / Food Safety",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 186,
+              "question_text": "Why are the businesses mentioned in the Web page closed?",
+              "has_image": false,
+              "options": {
+                "A": "Insufficient cleaning staff",
+                "B": "Lack of hot water",
+                "C": "Health code violations",
+                "D": "Out-of-date permit"
+              },
+              "answer": "C",
+              "explanation": "The businesses listed in the Web page have all been closed for a variety of health protection reasons."
+            },
+            {
+              "question_number": 187,
+              "question_text": "Which chapter in the manual would the owner of The Healthy Cook be particularly advised to read?",
+              "has_image": false,
+              "options": {
+                "A": "Chapter 4",
+                "B": "Chapter 6",
+                "C": "Chapter 8",
+                "D": "Chapter 14"
+              },
+              "answer": "D",
+              "explanation": "The notice states that The Healthy Cook is closed due to a rodent infestation. Chapter 14 of the manual covers Pest control. Rodents are pests."
+            },
+            {
+              "question_number": 188,
+              "question_text": "Which topic is NOT discussed in the manual?",
+              "has_image": false,
+              "options": {
+                "A": "Site security",
+                "B": "Handwashing",
+                "C": "Refrigeration",
+                "D": "Food poisoning"
+              },
+              "answer": "A",
+              "explanation": "Site (here meaning, business premises) security is not covered in the manual. Handwashing (B) is covered in Chapter 12. Refrigeration (C) is covered in Chapter 8. Food poisoning (D) is covered in Chapters 3 and 7."
+            },
+            {
+              "question_number": 189,
+              "question_text": "What is the purpose of Jim's text message?",
+              "has_image": false,
+              "options": {
+                "A": "To request directions",
+                "B": "To introduce himself",
+                "C": "To apologize for a delay",
+                "D": "To reserve a parking bay"
+              },
+              "answer": "A",
+              "explanation": "Jim texts to ask 'Where exactly are you?' He needs directions as his Satnav is down (meaning, not working)."
+            },
+            {
+              "question_number": 190,
+              "question_text": "Where is Jim most likely traveling to?",
+              "has_image": false,
+              "options": {
+                "A": "Grant Avenue",
+                "B": "Main Street",
+                "C": "Lakeshore Blvd",
+                "D": "Wendell Street"
+              },
+              "answer": "C",
+              "explanation": "In his text, Jim introduces himself as the plumber. We can see in the Web page that Deli Delight in Lakeshore Blvd was closed due to inoperative plumbing and failure to provide handwashing facilities. Jim is most likely going to fix this."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q191_195",
+          "passage_content": "Notice:\nJoin us for the 5th Annual Halloween Fun Run\nSaturday October 30th | 10:00 A.M. | Race starts at Washington Park\nPut on your running shoes and your Halloween costume (if you're brave enough!).\nThere will be prizes for the top three finishers, and for the three best costumes\n★ 10-mile entry fee $15 | ★ 5-mile entry fee $10 | ★ Children's run/walk/toddle entry fee $1\nTo sign up to run please visit the Web site halloweenfunruns.com.\nBook by August 31st and get a 10% early bird discount off the entry fee.\n\nE-mail 1 – Leonie Bartlett to All staff (August 25):\nI registered earlier today for the five-mile Halloween Fun Run that will be taking place at the end of October. I'm running to help a charity called Kids Are All Right, which sends books to children's hospitals and orphanages in the developing world. It's a very worthy charity, so please support me by sponsoring me. If you have any ideas for a suitable costume I can wear, or if you have a costume at home that I could borrow, please let me know.\nThank you all in advance.\nLeonie\n\nE-mail 2 – Kim Wyrko to Leonie Bartlett (August 26):\nWell done on signing up for the fun run. Where do you get your energy? You put me to shame! I'll be happy to sponsor you for $3 a mile. I'll be back from the Milan conference that day, so will pay you Monday – if you make it ☺\nGood luck!\nKim\nP.S. I wish I could think of an original idea for your costume, but I can't!",
+          "passage_title": "Notice & E-mails – 5th Annual Halloween Fun Run",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 191,
+              "question_text": "What is NOT suggested about the Fun Run?",
+              "has_image": false,
+              "options": {
+                "A": "It has been held before.",
+                "B": "It is a themed run.",
+                "C": "It is for adults only.",
+                "D": "Dress-up is optional."
+              },
+              "answer": "C",
+              "explanation": "According to the notice, there is a Children's run. The race is the 5th Annual Halloween Fun Run, so it has taken place four times before (A). It has a Halloween theme (B), and you need to wear Halloween costume only 'if you're brave enough' (D)."
+            },
+            {
+              "question_number": 192,
+              "question_text": "What is indicated about Leonie?",
+              "has_image": false,
+              "options": {
+                "A": "She paid $9 to enter the event.",
+                "B": "She will take part with a friend.",
+                "C": "This is her first Halloween Fun Run.",
+                "D": "She supports many charities."
+              },
+              "answer": "A",
+              "explanation": "In her e-mail dated August 25, Leonie writes she registered earlier today for the five-mile run. The notice states a 10% early bird discount applies to those booking before August 31, and the 5-mile entry fee is $10. We can deduce that Leonie will pay $9 instead of $10. (B), (C), and (D) cannot be inferred."
+            },
+            {
+              "question_number": 193,
+              "question_text": "What type of work is Leonie's charity involved in?",
+              "has_image": false,
+              "options": {
+                "A": "International development",
+                "B": "The promotion of literacy",
+                "C": "Illness and disability",
+                "D": "Children's safety"
+              },
+              "answer": "B",
+              "explanation": "Leonie's charity sends books to children's hospitals and orphanages. (A) wrongly associates international development with the developing world. (C) and (D) wrongly associate illness and safety with children's health and welfare issues."
+            },
+            {
+              "question_number": 194,
+              "question_text": "Why is Kim not taking part in the event?",
+              "has_image": false,
+              "options": {
+                "A": "She cannot think of a costume to wear.",
+                "B": "She forgot to register in time.",
+                "C": "She does not have the energy.",
+                "D": "She will be away on business."
+              },
+              "answer": "D",
+              "explanation": "Kim writes she will be back from the Milan conference that day (i.e., the day of the event, Oct 30th). She cannot participate as she will be away."
+            },
+            {
+              "question_number": 195,
+              "question_text": "How much will Kim give Leonie if she completes the fun run?",
+              "has_image": false,
+              "options": {
+                "A": "$3",
+                "B": "$10",
+                "C": "$15",
+                "D": "$30"
+              },
+              "answer": "C",
+              "explanation": "Kim says she will sponsor Leonie $3 a mile, and Leonie is entering the 5-mile race. 5 × $3 = $15."
+            }
+          ]
+        },
+        {
+          "group_id": "p7_q196_200",
+          "passage_content": "E-mail – Richard Etherington to Professor Olaf Johansson (November 12):\nDear Professor Johansson,\nI received your contact details from Dr. William Booth, Director of the Inter-Continental Exchange Program at your university. I am writing to ask you about the possibility of visiting your faculty for a few days in February next year as part of an academic staff exchange within the Program.\nI am Senior Lecturer in the Department of English Literature in Bradford University, England. I specialize in 19th-century literature – you may know my latest book, which was published in June, 'Frankenstein, Dracula, and the Victorian Horror Novel'. However, I also teach the poetry and literature of other periods. I could offer your students lectures on any aspect of English literature. I will be speaking at a conference in San Jose on Monday, February 17, and would like, if possible, to come to you for the rest of that week.\nI look forward to hearing from you.\nSincerely,\nRichard Etherington, Ph.D\nSenior Lecturer, Department of English Literature, Bradford University\n\nSchedule – Spring Semester, Month: February:\nMonday 17: Year 1 An Introduction to Phonetics (Dr. Durkin, 10:05–10:55), Year 3 Advanced Phonetics (Dr. Durkin, 11:05–11:55), Year 1 Grammar and Syntax (Prof. Johansson, 13:35–14:25), Year 2 The Victorian Novel (Dr. Fernandez, 14:35–15:25)\nTuesday 18: Year 3 Grammar and Syntax (Prof. Johansson, 10:05–10:55), Year 2 Grammar and Syntax (Prof. Johansson, 11:05–11:55), Year 1 An Introduction to Poetry (Dr. Fernandez, 13:35–14:25), Year 3 Comparative Linguistics (Dr. Simm, 14:35–15:25)\nWednesday 19: Year 2 Shakespeare (Dr. Latimer, 10:05–10:55), Year 2 The Novels of Charles Dickens (Dr. Fernandez, 11:05–11:55), Year 3 Shakespeare (Dr. Latimer, 14:35–15:25)\nThursday 20: Year 3 European Realism (Dr. Fernandez, 10:05–10:55), Year 3 Comparative Linguistics (Dr. Simm, 11:05–11:55), Year 3 Old English (Dr. Durkin, 13:35–14:25), Year 2 Tennyson and the Victorian poets (Dr. Latimer, 14:35–15:25)\nFriday 21: Year 2 Phonetics (Dr. Durkin, 10:05–10:55), Year 1 Shakespeare (Dr. Latimer, 11:05–11:55), Year 3 English Literary Criticism (Dr. Fernandez, 14:35–15:25)\n\nMemo – Professor Olaf Johansson to Teaching staff, English Faculty (November 27):\nDear all,\nDr. Richard Etherington of Bradford University would like to come and teach in this department for a few days in February of next year, as a participant in the Inter-Continental Exchange Program.\nAs you know, normally I refuse such requests as a new, short-term teacher can be disruptive for the students. Also, Dr. Etherington's specialty – the Victorian horror novel – is not taught as a separate subject here. However, I am aware that Dr. Fernandez, who is our Victorian and 19th-century specialist, will be away on a financial and administrative training course for the week beginning February 17. It might be useful if Dr. Etherington covered Dr. Fernandez's classes during that week; her students would then not lose out on tuition.\nIf Dr. Etherington comes, I would like to ensure that he is made to feel welcome. If any of you would be happy to allow him to sit in on your classes, then I'm sure he would appreciate that. I will invite him out to dinner one evening, and if any of you could offer him hospitality too, I'm sure he would like that.\nThank you for your co-operation in this matter.\nRegards,\nOlaf Johansson\nHead of English Faculty, University of Southern Sacramento",
+          "passage_title": "E-mail, Schedule & Memo – Inter-Continental Exchange Program",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 196,
+              "question_text": "What can be inferred about Dr. Etherington?",
+              "has_image": false,
+              "options": {
+                "A": "He is a United Kingdom national.",
+                "B": "He often speaks at conferences.",
+                "C": "He is the author of more than one book.",
+                "D": "He was recommended by Dr. Booth."
+              },
+              "answer": "D",
+              "explanation": "Dr. Etherington refers to my latest book, so we can deduce he has written more than one. (A) and (B) cannot be inferred. Dr. Booth only gave him Professor Johansson's contact details, not a recommendation (D)."
+            },
+            {
+              "question_number": 197,
+              "question_text": "What would Professor Johansson like his staff to do?",
+              "has_image": false,
+              "options": {
+                "A": "Receive training in financial management",
+                "B": "Provide cover for an absent colleague",
+                "C": "Offer accommodation to an overseas lecturer",
+                "D": "Allow a visiting lecturer to attend their classes"
+              },
+              "answer": "D",
+              "explanation": "Professor Johansson asks faculty members to allow him to sit in on your classes. (A) wrongly associates 'training in financial management' with the 'financial and administrative training course' that Dr. Fernandez will attend. (B) is incorrect as Professor Johansson does not ask them to provide cover for her anyway. (C) wrongly confuses offering accommodation with offering hospitality."
+            },
+            {
+              "question_number": 198,
+              "question_text": "How many classes will Dr. Etherington teach while at the University of Southern Sacramento?",
+              "has_image": false,
+              "options": {
+                "A": "2",
+                "B": "4",
+                "C": "5",
+                "D": "7"
+              },
+              "answer": "B",
+              "explanation": "Dr. Etherington will teach Dr. Fernandez's classes. According to the schedule Dr. Fernandez teaches five classes. However, Dr. Etherington will be at a conference on Monday 17, so will only be available to teach four classes."
+            },
+            {
+              "question_number": 199,
+              "question_text": "Whose classes would Dr. Etherington also be competent to teach?",
+              "has_image": false,
+              "options": {
+                "A": "Professor Johansson",
+                "B": "Dr. Durkin",
+                "C": "Dr. Latimer",
+                "D": "Dr. Simm"
+              },
+              "answer": "C",
+              "explanation": "Dr. Etherington teaches poetry and literature of various periods, and can offer lectures on any aspect of English literature. We can see from the schedule that Dr. Latimer teaches English literature."
+            },
+            {
+              "question_number": 200,
+              "question_text": "Why will Professor Johansson most likely approve Dr. Etherington's request?",
+              "has_image": false,
+              "options": {
+                "A": "The two men are personal friends.",
+                "B": "The timing of the visit is convenient.",
+                "C": "He wants to go to England in return.",
+                "D": "Dr. Booth has asked him to agree."
+              },
+              "answer": "B",
+              "explanation": "Prof. Johansson writes that it might be useful if Dr. Etherington covered Dr. Fernandez's classes during that week she is away. (A), (C), and (D) are not suggested."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

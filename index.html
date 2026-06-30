@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Ôn Tập TOEIC</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a',
+                        darkCard: '#1e293b',
+                        primary: '#2563eb',
+                        primaryHover: '#1d4ed8'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark body {
+            background-color: #0f172a;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+        button:focus, select:focus, input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+        }
+
+        /* ==========================================
+           HIỆU ỨNG ĐỘNG (ANIMATIONS)
+           ========================================== */
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        @keyframes pulseGlowBlue {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        @keyframes pulseGlowEmerald {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .animate-slide-up { animation: slideInUp 0.4s ease-out forwards; }
+        .animate-pop-in { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .animate-shake { animation: shake 0.4s ease-in-out forwards; }
+        .btn-pulse-blue { animation: pulseGlowBlue 1.5s infinite; }
+        .btn-pulse-emerald { animation: pulseGlowEmerald 1.5s infinite; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+    <header class="w-full bg-white dark:bg-darkCard border-b border-slate-200 dark:border-slate-700 p-4 flex justify-between items-center shadow-sm sticky top-0 z-40">
+        <h1 class="text-xl md:text-2xl font-bold tracking-wide flex items-center gap-2 text-primary dark:text-blue-400">
+            <i class="fa-solid fa-graduation-cap animate-pop-in"></i> TOEIC QUIZ SYSTEM
+        </h1>
+        <div class="flex items-center gap-4">
+            <button onclick="toggleDarkMode()" id="themeToggleBtn"
+                class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 px-4 py-2 rounded-lg font-medium transition-colors">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+                <span id="themeText">Giao diện tối</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="w-full max-w-5xl mx-auto mt-6 p-4">
+        <div class="bg-white dark:bg-darkCard p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap gap-6 items-end animate-slide-up">
+            
+            <div class="flex flex-col gap-2 flex-1 min-w-[280px]">
+                <label class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider">
+                    <i class="fa-solid fa-file-lines mr-1"></i> 1. Chọn bài thi
+                </label>
+                <select id="testSelector" onchange="loadSelectedTest()"
+                    class="w-full bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-2.5 font-medium cursor-pointer hover:border-primary transition-colors focus:border-primary">
+                    <option value="data/listen_1_new.json">Listening Test 1 (Part 1-4)</option>
+                    <option value="data/listen_2_new.json">Listening Test 2 (Part 1-4)</option>
+                    <option value="data/read_1_new.json">Reading Test 1 (Part 5-7)</option>
+                    <option value="data/read_2_new.json">Reading Test 2 (Part 5-7)</option>
+                </select>
+                <div class="text-xs font-medium text-slate-500 dark:text-slate-400" id="dataSourceStatus">Đang chờ tải dữ liệu...</div>
+            </div>
+
+            <div class="flex flex-col gap-2 flex-1 min-w-[250px] relative">
+                <label class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider">
+                    <i class="fa-solid fa-list-check mr-1"></i> 2. Lọc theo Parts
+                </label>
+                <button id="chapterDropdownBtn" onclick="toggleChapterDropdown()"
+                    class="w-full bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-2.5 font-medium text-left flex justify-between items-center hover:border-primary transition-colors focus:border-primary">
+                    <span id="chapterDropdownBtnText" class="truncate pr-4">Đang tải cấu trúc...</span>
+                    <i class="fa-solid fa-chevron-down text-slate-400"></i>
+                </button>
+
+                <div id="chapterDropdownMenu"
+                    class="hidden absolute left-0 top-[100%] mt-2 z-50 w-full bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-600 rounded-lg shadow-lg max-h-64 overflow-y-auto animate-pop-in">
+                    <div class="p-3 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 sticky top-0 z-10">
+                        <label class="flex items-center gap-3 cursor-pointer font-medium hover:text-primary transition-colors">
+                            <input type="checkbox" id="selectAllChapters"
+                                class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary" checked
+                                onchange="toggleAllChapters(this)">
+                            Chọn tất cả các phần
+                        </label>
+                    </div>
+                    <div id="chapterList" class="p-2 flex flex-col">
+                        </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-end gap-3 min-w-[180px]">
+                <label class="flex items-center gap-2 cursor-pointer text-sm font-medium hover:text-primary transition-colors select-none py-1">
+                    <input type="checkbox" id="randomToggle" class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary" checked>
+                    <i class="fa-solid fa-shuffle text-slate-400"></i> Trộn câu hỏi
+                </label>
+                <button onclick="playSound('click'); applySettings()"
+                    class="bg-primary hover:bg-primaryHover text-white rounded-lg font-bold py-2.5 px-6 flex items-center justify-center gap-2 transition-transform transform hover:scale-105 shadow-md">
+                    <i class="fa-solid fa-play"></i> Làm Đề Mới
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <main id="app" class="w-full max-w-5xl mx-auto flex-grow flex items-center justify-center p-4 mb-10"></main>
+
+    <script src="app.js"></script>
+</body>
+</html>
