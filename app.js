@@ -1,3 +1,7 @@
+/**
+ * app.js — Hệ thống quản lý và Render Quiz TOEIC chuyên dụng (Đã fix lỗi trộn A,B,C,D & Thêm tính năng Xem trước đáp án)
+ */
+
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const STORAGE_KEY = "toeic_quiz_progress_v4";
 
@@ -49,11 +53,10 @@ function playStreakSound(streak) {
 // ─────────────────────────────────────────────────────
 // HỆ THỐNG ĐỌC AUDIO GIỌNG AI (TEXT-TO-SPEECH)
 // ─────────────────────────────────────────────────────
-
 window.toggleTTS = function (btn) {
   if (window.speechSynthesis.speaking) {
     window.speechSynthesis.cancel();
-    btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe Audio (Giọng AI)';
+    btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)';
     btn.classList.remove('animate-pulse');
     return;
   }
@@ -62,42 +65,46 @@ window.toggleTTS = function (btn) {
   if (!text) return;
 
   const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 0.88;
+  utterance.pitch = 1.0;
 
-  // 1. TÙY CHỈNH TỐC ĐỘ VÀ ĐỘ TRẦM BỔNG
-  utterance.rate = 0.87; // 0.85 là chậm hơn bình thường một chút, lý tưởng để học
-  utterance.pitch = 1.0; // 1.0 là bình thường (có thể chỉnh từ 0 đến 2)
+  // const availableVoices = window.speechSynthesis.getVoices();
+  // const britishVoice = availableVoices.find(voice => voice.lang === 'en-GB' || voice.lang === 'en_GB');
 
-  // 2. TÙY CHỈNH GIỌNG ĐỌC (TÌM GIỌNG ANH-ANH)
-  // Lấy danh sách tất cả các giọng có trên máy của người dùng
+  // if (britishVoice) {
+  //     utterance.voice = britishVoice; 
+  // } else {
+  //     utterance.lang = 'en-US';       
+  // }
+
   const availableVoices = window.speechSynthesis.getVoices();
+  // Lọc ra tất cả các giọng đọc tiếng Anh có trên máy
+  const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
 
-  // Cố gắng tìm một giọng đọc của Vương quốc Anh (en-GB)
-  const britishVoice = availableVoices.find(voice => voice.lang === 'en-GB' || voice.lang === 'en_GB');
-
-  if (britishVoice) {
-    utterance.voice = britishVoice; // Nếu có giọng UK thì dùng giọng UK
+  // Nếu máy có giọng tiếng Anh, chọn ngẫu nhiên 1 giọng
+  if (englishVoices.length > 0) {
+    const randomVoice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
+    utterance.voice = randomVoice;
   } else {
-    utterance.lang = 'en-US';       // Nếu không có thì quay về Anh-Mỹ mặc định
+    utterance.lang = 'en-US';
   }
 
-  btn.innerHTML = '<i class="fa-solid fa-circle-stop text-red-500"></i> Đang phát... (Nhấp để dừng)';
+
+  btn.innerHTML = '<i class="fa-solid fa-circle-stop text-red-500 text-lg"></i> Đang phát...';
   btn.classList.add('animate-pulse');
 
   utterance.onend = function () {
-    btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe Audio (Giọng AI)';
+    btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)';
     btn.classList.remove('animate-pulse');
   };
 
   window.speechSynthesis.speak(utterance);
 }
 
-// Lưu ý nhỏ: Các trình duyệt đôi khi mất một tích tắc để load danh sách giọng, 
-// ta gọi hàm này một lần lúc khởi động để "mồi" cho trình duyệt chuẩn bị sẵn giọng.
-window.speechSynthesis.getVoices();
-// Dừng audio nếu chuyển câu hỏi khác
 function stopAudio() {
   if (window.speechSynthesis) window.speechSynthesis.cancel();
 }
+window.speechSynthesis.getVoices(); // Mồi load giọng
 
 // KHỞI TẠO STATE
 let rawQuestions = [];
@@ -109,6 +116,7 @@ let currentQuestion = 0;
 let selectedAnswers = [];
 let isCurrentAnswered = false;
 let showResult = false;
+let peekMode = false;      // THÊM: Trạng thái đang bật "Xem trước đáp án"
 
 let statCorrectCount = 0;
 let currentStreak = 0;
@@ -176,12 +184,10 @@ document.addEventListener("click", function (e) {
   }
 });
 
-/** BỘ CHUYỂN ĐỔI (ADAPTER) - Có gom kịch bản đọc Audio */
 function convertToeicJsonToQuizData(toeicJson) {
   let mappedQuestions = [];
   let chapters = {};
 
-  // Xác định xem đây có phải là bài Listening không để kích hoạt Audio AI
   let isListeningSection = (toeicJson.section || "").toLowerCase().includes("listen") ||
     (toeicJson.test_name || "").toLowerCase().includes("listen");
 
@@ -199,12 +205,12 @@ function convertToeicJsonToQuizData(toeicJson) {
 
           if (group.passage_content) {
             let typeBadge = group.passage_type ? `<span class="inline-flex items-center gap-1 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-2.5 py-1 rounded-md text-xs font-bold mb-3 uppercase tracking-wider"><i class="fa-solid fa-tag"></i> ${group.passage_type}</span><br>` : "";
-            contextHtml += `<div class="mb-5 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-sm md:text-base max-h-72 overflow-y-auto leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>`;
+            contextHtml += `<div class="mb-5 p-4 md:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-[14px] md:text-base max-h-72 overflow-y-auto leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>`;
           }
 
           if (group.script && Array.isArray(group.script)) {
             let scriptHtml = group.script.map(s => `<span class="font-bold text-primary dark:text-blue-400">${s.speaker}:</span> <span class="text-slate-700 dark:text-slate-300">${s.line}</span>`).join("<br><br>");
-            contextHtml += `<div class="mb-5 p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-sm md:text-base max-h-72 overflow-y-auto shadow-inner">
+            contextHtml += `<div class="mb-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base max-h-72 overflow-y-auto shadow-inner">
                               <div class="font-bold mb-3 text-slate-800 dark:text-slate-200 border-b border-blue-200 dark:border-slate-600 pb-2"><i class="fa-solid fa-headphones mr-2"></i> Audio Transcript:</div>
                               ${scriptHtml}
                              </div>`;
@@ -234,20 +240,14 @@ function convertToeicJsonToQuizData(toeicJson) {
                 else { qText = imgHtml + `<div class="mt-4">${qText}</div>`; }
               }
 
-              // ==========================================
-              // XÂY DỰNG VĂN BẢN ĐỂ AI ĐỌC (TTS TEXT)
-              // ==========================================
               let ttsRawText = "";
               if (isListeningSection || toeicJson.test_name.includes("listen")) {
-                // Đọc Audio Transcript (nếu có)
                 if (group.script && Array.isArray(group.script)) {
                   ttsRawText += group.script.map(s => s.line).join(". ") + ". ";
                 }
-                // Đọc câu hỏi (loại trừ các câu hỏi rỗng của Part 1)
                 if (q.question_text) {
                   ttsRawText += "Question. " + q.question_text + ". ";
                 }
-                // Đọc đáp án A, B, C, D
                 let optKeys = Object.keys(q.options || {});
                 optKeys.forEach(k => {
                   ttsRawText += k + ". " + q.options[k] + ". ";
@@ -275,7 +275,7 @@ function convertToeicJsonToQuizData(toeicJson) {
                 correct: correctIndex,
                 explanation: q.explanation || "Không có giải thích chi tiết.",
                 chapter: chapterId,
-                ttsText: ttsRawText // Lưu lại kịch bản để AI đọc
+                ttsText: ttsRawText
               });
             });
           }
@@ -286,7 +286,6 @@ function convertToeicJsonToQuizData(toeicJson) {
   return { chapterNames: chapters, questions: mappedQuestions };
 }
 
-/** FETCH DỮ LIỆU VÀ KHÔI PHỤC TIẾN TRÌNH */
 async function loadSelectedTest() {
   stopAudio();
   const fileRoute = document.getElementById("testSelector").value;
@@ -383,18 +382,11 @@ window.applySettings = function () {
 
   const isRandom = document.getElementById("randomToggle")?.checked;
   if (isRandom) {
+    // CHỈ TRỘN THỨ TỰ CÂU HỎI. KHÔNG TRỘN A, B, C, D NỮA!
     for (let i = filtered.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
     }
-    filtered.forEach(q => {
-      const currentCorrectText = q.options[q.correct];
-      for (let i = q.options.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
-      }
-      q.correct = q.options.indexOf(currentCorrectText);
-    });
   }
 
   activeQuizData = filtered;
@@ -402,6 +394,7 @@ window.applySettings = function () {
   selectedAnswers = new Array(activeQuizData.length).fill(null);
   isCurrentAnswered = false;
   showResult = false;
+  peekMode = false;
   statCorrectCount = 0;
   currentStreak = 0;
   maxStreak = 0;
@@ -410,9 +403,18 @@ window.applySettings = function () {
   render();
 };
 
+
 // ─────────────────────────────────────────────────────
-// HỆ THỐNG RENDER 
+// HỆ THỐNG RENDER (CÓ NÚT XEM TRƯỚC ĐÁP ÁN)
 // ─────────────────────────────────────────────────────
+
+// Hàm bật/tắt xem trước đáp án
+window.togglePeek = function () {
+  playSound("click");
+  peekMode = !peekMode;
+  render();
+}
+
 function render() {
   const app = document.getElementById("app");
   if (!app) return;
@@ -470,7 +472,6 @@ function render() {
   const q = activeQuizData[currentQuestion];
   const userAns = selectedAnswers[currentQuestion];
 
-  // Tối ưu các nút đáp án (Touch target to hơn, padding rộng hơn trên mobile)
   let optionsHtml = "";
   q.options.forEach((opt, idx) => {
     let btnClass = "bg-white dark:bg-darkCard border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary active:bg-slate-100 dark:active:bg-slate-800 text-slate-700 dark:text-slate-300";
@@ -486,6 +487,12 @@ function render() {
       } else {
         btnClass = "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-50 cursor-not-allowed";
       }
+    } else if (peekMode) {
+      // NẾU BẬT XEM TRƯỚC: Chỉ bôi xanh đáp án đúng, các đáp án khác giữ nguyên để user bấm chọn
+      if (idx === q.correct) {
+        btnClass = "bg-emerald-50/70 dark:bg-emerald-900/10 border-emerald-400 border-dashed text-emerald-700 dark:text-emerald-300 font-medium z-10";
+        iconHtml = `<i class="fa-solid fa-eye text-emerald-500 text-2xl md:text-xl mr-3 shrink-0 animate-pop-in"></i>`;
+      }
     }
 
     optionsHtml += `
@@ -497,25 +504,37 @@ function render() {
   });
 
   let explanationHtml = "";
-  if (userAns !== null) {
+  // Hiển thị giải thích nếu user ĐÃ TRẢ LỜI hoặc đang BẬT XEM TRƯỚC
+  if (userAns !== null || peekMode) {
     explanationHtml = `
       <div class="animate-pop-in mt-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-xl md:rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base text-slate-700 dark:text-slate-300 shadow-inner">
         <div class="font-bold text-primary dark:text-blue-400 flex items-center gap-2 mb-2">
-            <i class="fa-solid fa-lightbulb text-yellow-500"></i> Giải thích:
+            <i class="fa-solid fa-lightbulb text-yellow-500"></i> ${peekMode && userAns === null ? 'Gợi ý / Giải thích:' : 'Giải thích:'}
         </div>
         <p class="whitespace-pre-line leading-relaxed">${q.explanation}</p>
       </div>`;
   }
 
-  // Tối ưu nút Audio: Full width trên điện thoại, viền bo tròn hơn để dễ bấm
-  let audioBtnHtml = "";
+  let helperBtnsHtml = "";
+
+  // Nút Audio (nếu có)
   if (q.ttsText && q.ttsText.trim() !== "") {
-    audioBtnHtml = `
+    helperBtnsHtml += `
       <button onclick="toggleTTS(this)"
-        class="mt-1 mb-4 w-full md:w-auto flex items-center justify-center gap-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-6 transition-colors shadow-sm active:bg-indigo-200">
-        <i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)
+        class="flex-1 flex items-center justify-center gap-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-4 transition-colors shadow-sm active:bg-indigo-200">
+        <i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio
       </button>
     `;
+  }
+
+  // Nút Xem Trước Đáp Án (chỉ hiện khi chưa trả lời)
+  if (userAns === null) {
+    helperBtnsHtml += `
+        <button onclick="togglePeek()"
+          class="flex-1 flex items-center justify-center gap-2 ${peekMode ? 'bg-amber-500 text-white shadow-md btn-pulse-emerald' : 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 shadow-sm'} font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-4 transition-colors active:scale-95">
+          <i class="fa-solid ${peekMode ? 'fa-eye-slash' : 'fa-eye'} text-lg"></i> ${peekMode ? 'Ẩn Đáp Án' : 'Xem Đáp Án'}
+        </button>
+      `;
   }
 
   const nextBtnClass = userAns !== null
@@ -539,12 +558,12 @@ function render() {
         </div>
       </div>
       
-      ${audioBtnHtml}
+      <div class="flex flex-row gap-3 mt-1 mb-2 w-full md:w-auto md:max-w-md">
+         ${helperBtnsHtml}
+      </div>
 
       <div class="w-full text-[15px] md:text-base">${q.question}</div>
-      
       <div class="flex flex-col gap-2.5 md:gap-3 mt-2">${optionsHtml}</div>
-      
       ${explanationHtml}
     </div>
 
@@ -590,6 +609,7 @@ window.selectOption = function (idx) {
     setTimeout(() => {
       if (currentQuestion < activeQuizData.length - 1 && selectedAnswers[currentQuestion] === q.correct) {
         stopAudio();
+        peekMode = false; // Reset peekMode khi qua câu mới
         currentQuestion++;
         isCurrentAnswered = selectedAnswers[currentQuestion] !== null;
         saveProgress();
@@ -601,6 +621,7 @@ window.selectOption = function (idx) {
 
 window.goBack = function () {
   stopAudio();
+  peekMode = false;
   playSound("click");
   if (currentQuestion > 0) {
     currentQuestion--;
@@ -612,6 +633,7 @@ window.goBack = function () {
 
 window.goNext = function () {
   stopAudio();
+  peekMode = false;
   playSound("click");
   if (currentQuestion < activeQuizData.length - 1) {
     currentQuestion++;
