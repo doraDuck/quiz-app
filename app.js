@@ -1,5 +1,5 @@
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const STORAGE_KEY = "toeic_quiz_progress_v3";
+const STORAGE_KEY = "toeic_quiz_progress_v4";
 
 function playSound(type) {
   if (audioCtx.state === "suspended") audioCtx.resume();
@@ -10,8 +10,8 @@ function playSound(type) {
 
   if (type === "correct") {
     osc.type = "sine";
-    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); 
-    osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1); 
+    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+    osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
     gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
     osc.start(); osc.stop(audioCtx.currentTime + 0.4);
@@ -46,24 +46,74 @@ function playStreakSound(streak) {
   osc.start(); osc.stop(audioCtx.currentTime + 0.3);
 }
 
+// ─────────────────────────────────────────────────────
+// HỆ THỐNG ĐỌC AUDIO GIỌNG AI (TEXT-TO-SPEECH)
+// ─────────────────────────────────────────────────────
+
+window.toggleTTS = function (btn) {
+  if (window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe Audio (Giọng AI)';
+    btn.classList.remove('animate-pulse');
+    return;
+  }
+
+  let text = activeQuizData[currentQuestion].ttsText;
+  if (!text) return;
+
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  // 1. TÙY CHỈNH TỐC ĐỘ VÀ ĐỘ TRẦM BỔNG
+  utterance.rate = 0.87; // 0.85 là chậm hơn bình thường một chút, lý tưởng để học
+  utterance.pitch = 1.0; // 1.0 là bình thường (có thể chỉnh từ 0 đến 2)
+
+  // 2. TÙY CHỈNH GIỌNG ĐỌC (TÌM GIỌNG ANH-ANH)
+  // Lấy danh sách tất cả các giọng có trên máy của người dùng
+  const availableVoices = window.speechSynthesis.getVoices();
+
+  // Cố gắng tìm một giọng đọc của Vương quốc Anh (en-GB)
+  const britishVoice = availableVoices.find(voice => voice.lang === 'en-GB' || voice.lang === 'en_GB');
+
+  if (britishVoice) {
+    utterance.voice = britishVoice; // Nếu có giọng UK thì dùng giọng UK
+  } else {
+    utterance.lang = 'en-US';       // Nếu không có thì quay về Anh-Mỹ mặc định
+  }
+
+  btn.innerHTML = '<i class="fa-solid fa-circle-stop text-red-500"></i> Đang phát... (Nhấp để dừng)';
+  btn.classList.add('animate-pulse');
+
+  utterance.onend = function () {
+    btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Nghe Audio (Giọng AI)';
+    btn.classList.remove('animate-pulse');
+  };
+
+  window.speechSynthesis.speak(utterance);
+}
+
+// Lưu ý nhỏ: Các trình duyệt đôi khi mất một tích tắc để load danh sách giọng, 
+// ta gọi hàm này một lần lúc khởi động để "mồi" cho trình duyệt chuẩn bị sẵn giọng.
+window.speechSynthesis.getVoices();
+// Dừng audio nếu chuyển câu hỏi khác
+function stopAudio() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+}
+
 // KHỞI TẠO STATE
-let rawQuestions = [];     
-let chapterNames = {};     
-let selectedChapters = []; 
+let rawQuestions = [];
+let chapterNames = {};
+let selectedChapters = [];
 
-let activeQuizData = [];   
-let currentQuestion = 0;   
-let selectedAnswers = [];  
+let activeQuizData = [];
+let currentQuestion = 0;
+let selectedAnswers = [];
 let isCurrentAnswered = false;
-let showResult = false;    
+let showResult = false;
 
-let statCorrectCount = 0;  
-let currentStreak = 0;     
-let maxStreak = 0;         
+let statCorrectCount = 0;
+let currentStreak = 0;
+let maxStreak = 0;
 
-// ─────────────────────────────────────────────────────
-// HỆ THỐNG LƯU TRỮ TIẾN TRÌNH LÀM BÀI (LOCAL STORAGE)
-// ─────────────────────────────────────────────────────
 function saveProgress() {
   const state = {
     testRoute: document.getElementById("testSelector").value,
@@ -85,11 +135,9 @@ function loadProgress(currentFileRoute) {
   if (saved) {
     try {
       const state = JSON.parse(saved);
-      // Chỉ khôi phục nếu đang ở cùng một bài thi và dữ liệu hợp lệ
       if (state.testRoute === currentFileRoute && state.activeQuizData && state.activeQuizData.length > 0) {
-        // Kiểm tra xem bài có đang dang dở không
         if (!state.showResult && state.selectedAnswers.some(ans => ans !== null)) {
-            if (confirm("Lưu ý: Bạn có một bài làm đang dang dở cho đề này. Bạn có muốn tiếp tục làm không?")) {
+          if (confirm("Lưu ý: Bạn có một bài làm đang dang dở cho đề này. Bạn có muốn tiếp tục làm không?")) {
             selectedChapters = state.selectedChapters || [];
             currentQuestion = state.currentQuestion || 0;
             selectedAnswers = state.selectedAnswers || [];
@@ -99,12 +147,12 @@ function loadProgress(currentFileRoute) {
             currentStreak = state.currentStreak || 0;
             maxStreak = state.maxStreak || 0;
             activeQuizData = state.activeQuizData;
-            
+
             renderChapterCheckboxes();
-            return true; 
-            } else {
+            return true;
+          } else {
             localStorage.removeItem(STORAGE_KEY);
-            }
+          }
         }
       }
     } catch (e) {
@@ -115,24 +163,28 @@ function loadProgress(currentFileRoute) {
   return false;
 }
 
-window.toggleChapterDropdown = function() {
-    const menu = document.getElementById("chapterDropdownMenu");
-    if(menu) menu.classList.toggle("hidden");
+window.toggleChapterDropdown = function () {
+  const menu = document.getElementById("chapterDropdownMenu");
+  if (menu) menu.classList.toggle("hidden");
 };
 
-document.addEventListener("click", function(e) {
-    const btn = document.getElementById("chapterDropdownBtn");
-    const menu = document.getElementById("chapterDropdownMenu");
-    if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.add("hidden");
-    }
+document.addEventListener("click", function (e) {
+  const btn = document.getElementById("chapterDropdownBtn");
+  const menu = document.getElementById("chapterDropdownMenu");
+  if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+    menu.classList.add("hidden");
+  }
 });
 
-/** BỘ CHUYỂN ĐỔI (ADAPTER) */
+/** BỘ CHUYỂN ĐỔI (ADAPTER) - Có gom kịch bản đọc Audio */
 function convertToeicJsonToQuizData(toeicJson) {
   let mappedQuestions = [];
   let chapters = {};
-  
+
+  // Xác định xem đây có phải là bài Listening không để kích hoạt Audio AI
+  let isListeningSection = (toeicJson.section || "").toLowerCase().includes("listen") ||
+    (toeicJson.test_name || "").toLowerCase().includes("listen");
+
   if (toeicJson.parts && Array.isArray(toeicJson.parts)) {
     toeicJson.parts.forEach((part, index) => {
       let chapterId = (part.part_number && part.part_number !== 0) ? part.part_number : (index + 1);
@@ -140,36 +192,36 @@ function convertToeicJsonToQuizData(toeicJson) {
 
       if (part.question_groups && Array.isArray(part.question_groups)) {
         part.question_groups.forEach(group => {
-          
+
           let contextHtml = "";
           if (group.context_text) contextHtml += `<div class="text-sm italic text-slate-500 dark:text-slate-400 mb-3"><i class="fa-solid fa-circle-info mr-1"></i> ${group.context_text}</div>`;
           if (group.passage_title) contextHtml += `<div class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-2">${group.passage_title}</div>`;
 
           if (group.passage_content) {
-             let typeBadge = group.passage_type ? `<span class="inline-flex items-center gap-1 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-2.5 py-1 rounded-md text-xs font-bold mb-3 uppercase tracking-wider"><i class="fa-solid fa-tag"></i> ${group.passage_type}</span><br>` : "";
-             contextHtml += `<div class="mb-5 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-sm md:text-base max-h-72 overflow-y-auto leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>`;
+            let typeBadge = group.passage_type ? `<span class="inline-flex items-center gap-1 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-2.5 py-1 rounded-md text-xs font-bold mb-3 uppercase tracking-wider"><i class="fa-solid fa-tag"></i> ${group.passage_type}</span><br>` : "";
+            contextHtml += `<div class="mb-5 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-sm md:text-base max-h-72 overflow-y-auto leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>`;
           }
-          
+
           if (group.script && Array.isArray(group.script)) {
-             let scriptHtml = group.script.map(s => `<span class="font-bold text-primary dark:text-blue-400">${s.speaker}:</span> <span class="text-slate-700 dark:text-slate-300">${s.line}</span>`).join("<br><br>");
-             contextHtml += `<div class="mb-5 p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-sm md:text-base max-h-72 overflow-y-auto shadow-inner">
+            let scriptHtml = group.script.map(s => `<span class="font-bold text-primary dark:text-blue-400">${s.speaker}:</span> <span class="text-slate-700 dark:text-slate-300">${s.line}</span>`).join("<br><br>");
+            contextHtml += `<div class="mb-5 p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-sm md:text-base max-h-72 overflow-y-auto shadow-inner">
                               <div class="font-bold mb-3 text-slate-800 dark:text-slate-200 border-b border-blue-200 dark:border-slate-600 pb-2"><i class="fa-solid fa-headphones mr-2"></i> Audio Transcript:</div>
                               ${scriptHtml}
                              </div>`;
           }
 
           if (group.graphic_description) {
-             contextHtml += `<div class="mb-4 p-4 bg-amber-50 dark:bg-amber-900/10 rounded-lg border-l-4 border-amber-500 text-sm italic text-slate-700 dark:text-slate-300"><i class="fa-solid fa-image mr-2 text-amber-500"></i>[Mô tả hình ảnh/biểu đồ: ${group.graphic_description}]</div>`;
+            contextHtml += `<div class="mb-4 p-4 bg-amber-50 dark:bg-amber-900/10 rounded-lg border-l-4 border-amber-500 text-sm italic text-slate-700 dark:text-slate-300"><i class="fa-solid fa-image mr-2 text-amber-500"></i>[Mô tả hình ảnh/biểu đồ: ${group.graphic_description}]</div>`;
           }
 
           if (group.questions && Array.isArray(group.questions)) {
             group.questions.forEach(q => {
               let qText = q.question_text ? q.question_text.trim() : "";
-              
+
               if (q.has_image && q.image_ref) {
                 let imgDesc = q.image_description ? `<div class="text-sm text-slate-500 dark:text-slate-400 mt-3 text-center"><i class="fa-solid fa-closed-captioning mr-1"></i> ${q.image_description}</div>` : "";
                 let imgSrc = q.image_ref;
-                if (!imgSrc.match(/\.(jpeg|jpg|gif|png|svg)$/i)) imgSrc += ".png"; 
+                if (!imgSrc.match(/\.(jpeg|jpg|gif|png|svg)$/i)) imgSrc += ".png";
 
                 let imgHtml = `
                 <div class="w-full max-w-md my-4 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm bg-white dark:bg-slate-800 p-2">
@@ -178,8 +230,28 @@ function convertToeicJsonToQuizData(toeicJson) {
                     ${imgDesc}
                 </div>`;
 
-                if (qText === "") { qText = imgHtml; } 
+                if (qText === "") { qText = imgHtml; }
                 else { qText = imgHtml + `<div class="mt-4">${qText}</div>`; }
+              }
+
+              // ==========================================
+              // XÂY DỰNG VĂN BẢN ĐỂ AI ĐỌC (TTS TEXT)
+              // ==========================================
+              let ttsRawText = "";
+              if (isListeningSection || toeicJson.test_name.includes("listen")) {
+                // Đọc Audio Transcript (nếu có)
+                if (group.script && Array.isArray(group.script)) {
+                  ttsRawText += group.script.map(s => s.line).join(". ") + ". ";
+                }
+                // Đọc câu hỏi (loại trừ các câu hỏi rỗng của Part 1)
+                if (q.question_text) {
+                  ttsRawText += "Question. " + q.question_text + ". ";
+                }
+                // Đọc đáp án A, B, C, D
+                let optKeys = Object.keys(q.options || {});
+                optKeys.forEach(k => {
+                  ttsRawText += k + ". " + q.options[k] + ". ";
+                });
               }
 
               let fullQuestionText = `${contextHtml}
@@ -191,18 +263,19 @@ function convertToeicJsonToQuizData(toeicJson) {
                         ${qText}
                     </div>
                 </div>`;
-              
+
               let optionKeys = Object.keys(q.options || {});
               let optionsArray = optionKeys.map(key => `${key}. ${q.options[key]}`);
               let correctIndex = optionKeys.indexOf(q.answer);
-              if (correctIndex === -1) correctIndex = 0; 
+              if (correctIndex === -1) correctIndex = 0;
 
               mappedQuestions.push({
                 question: fullQuestionText,
                 options: optionsArray,
                 correct: correctIndex,
                 explanation: q.explanation || "Không có giải thích chi tiết.",
-                chapter: chapterId
+                chapter: chapterId,
+                ttsText: ttsRawText // Lưu lại kịch bản để AI đọc
               });
             });
           }
@@ -215,14 +288,15 @@ function convertToeicJsonToQuizData(toeicJson) {
 
 /** FETCH DỮ LIỆU VÀ KHÔI PHỤC TIẾN TRÌNH */
 async function loadSelectedTest() {
+  stopAudio();
   const fileRoute = document.getElementById("testSelector").value;
   const status = document.getElementById("dataSourceStatus");
-  if(status) status.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Đang tải: ${fileRoute}...`;
+  if (status) status.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Đang tải: ${fileRoute}...`;
 
   try {
     const response = await fetch(fileRoute);
     if (!response.ok) throw new Error("Mất kết nối tới file");
-    
+
     let jsonData = await response.json();
     if (jsonData.parts) jsonData = convertToeicJsonToQuizData(jsonData);
 
@@ -230,27 +304,26 @@ async function loadSelectedTest() {
     chapterNames = jsonData.chapterNames || {};
 
     selectedChapters = Object.keys(chapterNames).map(k => String(k));
-    
-    // Kiểm tra và khôi phục tiến trình từ LocalStorage
+
     const isRestored = loadProgress(fileRoute);
-    
+
     if (!isRestored) {
-        renderChapterCheckboxes();
-        applySettings();
+      renderChapterCheckboxes();
+      applySettings();
     } else {
-        render(); // Render lại bài đang làm dở
+      render();
     }
 
-    if(status) status.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 mr-1 animate-pop-in"></i> Nạp dữ liệu thành công!`;
+    if (status) status.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 mr-1 animate-pop-in"></i> Nạp dữ liệu thành công!`;
   } catch (error) {
     console.error(error);
-    if(status) status.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-500 mr-1"></i> Lỗi tải file. Vui lòng chạy qua Live Server.`;
+    if (status) status.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-500 mr-1"></i> Lỗi tải file. Vui lòng chạy qua Live Server.`;
   }
 }
 
 function renderChapterCheckboxes() {
   const container = document.getElementById("chapterList");
-  if (!container) return; 
+  if (!container) return;
   container.innerHTML = "";
 
   const keys = Object.keys(chapterNames);
@@ -276,16 +349,16 @@ function renderChapterCheckboxes() {
   updateDropdownButtonText();
 }
 
-window.onChapterCheckboxChange = function() {
+window.onChapterCheckboxChange = function () {
   const boxes = document.querySelectorAll(".chapter-box");
   selectedChapters = [];
   boxes.forEach(box => { if (box.checked) selectedChapters.push(String(box.value)); });
   const selectAll = document.getElementById("selectAllChapters");
-  if(selectAll) selectAll.checked = (selectedChapters.length === boxes.length);
+  if (selectAll) selectAll.checked = (selectedChapters.length === boxes.length);
   updateDropdownButtonText();
 };
 
-window.toggleAllChapters = function(master) {
+window.toggleAllChapters = function (master) {
   const boxes = document.querySelectorAll(".chapter-box");
   selectedChapters = [];
   boxes.forEach(box => {
@@ -303,7 +376,8 @@ function updateDropdownButtonText() {
   else btnText.innerText = `Đang chọn (${selectedChapters.length}) Part`;
 }
 
-window.applySettings = function() {
+window.applySettings = function () {
+  stopAudio();
   let filtered = rawQuestions.filter(q => selectedChapters.includes(String(q.chapter)));
   if (filtered.length === 0) { alert("Vui lòng tích chọn ít nhất 1 Part để học!"); return; }
 
@@ -337,7 +411,7 @@ window.applySettings = function() {
 };
 
 // ─────────────────────────────────────────────────────
-// HỆ THỐNG RENDER (CÓ GẮN ANIMATION)
+// HỆ THỐNG RENDER 
 // ─────────────────────────────────────────────────────
 function render() {
   const app = document.getElementById("app");
@@ -345,10 +419,10 @@ function render() {
 
   if (activeQuizData.length === 0) {
     app.innerHTML = `
-      <div class="animate-slide-up bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-10 shadow-sm text-center w-full max-w-lg mx-auto">
+      <div class="animate-slide-up bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-6 md:p-10 shadow-sm text-center w-full mx-4 max-w-lg">
         <i class="fa-solid fa-box-open text-4xl text-slate-300 dark:text-slate-600 mb-4"></i>
-        <h3 class="font-bold text-xl text-slate-700 dark:text-slate-300">Đề thi đang trống</h3>
-        <p class="text-slate-500 mt-2">Vui lòng tải dữ liệu hoặc kiểm tra lại bộ lọc Part.</p>
+        <h3 class="font-bold text-lg md:text-xl text-slate-700 dark:text-slate-300">Đề thi đang trống</h3>
+        <p class="text-slate-500 text-sm mt-2">Vui lòng tải dữ liệu hoặc kiểm tra lại bộ lọc Part.</p>
       </div>`;
     return;
   }
@@ -356,37 +430,37 @@ function render() {
   if (showResult) {
     const rate = ((statCorrectCount / activeQuizData.length) * 100).toFixed(1);
     app.innerHTML = `
-      <div class="animate-slide-up bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-8 shadow-sm w-full max-w-3xl mx-auto text-center">
-        <div class="animate-pop-in inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-4">
-            <i class="fa-solid fa-flag-checkered text-3xl"></i>
+      <div class="animate-slide-up bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-6 md:p-8 shadow-sm w-full mx-4 max-w-3xl text-center">
+        <div class="animate-pop-in inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-4">
+            <i class="fa-solid fa-flag-checkered text-2xl md:text-3xl"></i>
         </div>
-        <h2 class="text-2xl font-bold mb-8 text-slate-800 dark:text-slate-100">KẾT QUẢ BÀI LÀM</h2>
+        <h2 class="text-xl md:text-2xl font-bold mb-6 text-slate-800 dark:text-slate-100">KẾT QUẢ BÀI LÀM</h2>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center hover:scale-105 transition-transform duration-300">
-            <i class="fa-solid fa-check-circle text-emerald-500 text-xl mb-2"></i>
-            <div class="text-xs uppercase font-semibold text-slate-500 dark:text-slate-400">Số câu đúng</div>
-            <div class="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${statCorrectCount} <span class="text-sm text-slate-400 font-normal">/ ${activeQuizData.length}</span></div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
+          <div class="bg-slate-50 dark:bg-slate-800/50 p-3 md:p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+            <i class="fa-solid fa-check-circle text-emerald-500 text-lg md:text-xl mb-1 md:mb-2"></i>
+            <div class="text-[10px] md:text-xs uppercase font-semibold text-slate-500 dark:text-slate-400 text-center">Số câu đúng</div>
+            <div class="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${statCorrectCount} <span class="text-xs md:text-sm text-slate-400 font-normal">/ ${activeQuizData.length}</span></div>
           </div>
-          <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center hover:scale-105 transition-transform duration-300">
-            <i class="fa-solid fa-percent text-blue-500 text-xl mb-2"></i>
-            <div class="text-xs uppercase font-semibold text-slate-500 dark:text-slate-400">Tỷ lệ chính xác</div>
-            <div class="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${rate}%</div>
+          <div class="bg-slate-50 dark:bg-slate-800/50 p-3 md:p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+            <i class="fa-solid fa-percent text-blue-500 text-lg md:text-xl mb-1 md:mb-2"></i>
+            <div class="text-[10px] md:text-xs uppercase font-semibold text-slate-500 dark:text-slate-400 text-center">Tỷ lệ chính xác</div>
+            <div class="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${rate}%</div>
           </div>
-          <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center hover:scale-105 transition-transform duration-300">
-            <i class="fa-solid fa-fire text-orange-500 text-xl mb-2"></i>
-            <div class="text-xs uppercase font-semibold text-slate-500 dark:text-slate-400">Chuỗi hiện tại</div>
-            <div class="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${currentStreak}</div>
+          <div class="bg-slate-50 dark:bg-slate-800/50 p-3 md:p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+            <i class="fa-solid fa-fire text-orange-500 text-lg md:text-xl mb-1 md:mb-2"></i>
+            <div class="text-[10px] md:text-xs uppercase font-semibold text-slate-500 dark:text-slate-400 text-center">Chuỗi hiện tại</div>
+            <div class="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${currentStreak}</div>
           </div>
-          <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center hover:scale-105 transition-transform duration-300">
-            <i class="fa-solid fa-trophy text-yellow-500 text-xl mb-2"></i>
-            <div class="text-xs uppercase font-semibold text-slate-500 dark:text-slate-400">Kỷ lục chuỗi</div>
-            <div class="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${maxStreak}</div>
+          <div class="bg-slate-50 dark:bg-slate-800/50 p-3 md:p-4 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col items-center">
+            <i class="fa-solid fa-trophy text-yellow-500 text-lg md:text-xl mb-1 md:mb-2"></i>
+            <div class="text-[10px] md:text-xs uppercase font-semibold text-slate-500 dark:text-slate-400 text-center">Kỷ lục chuỗi</div>
+            <div class="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">${maxStreak}</div>
           </div>
         </div>
 
         <button onclick="playSound('click'); showResult=false; applySettings();"
-          class="bg-primary hover:bg-primaryHover text-white font-medium rounded-lg px-8 py-3 flex items-center justify-center gap-2 mx-auto transition-transform hover:scale-105 shadow-md">
+          class="w-full md:w-auto bg-primary hover:bg-primaryHover text-white font-medium rounded-xl md:rounded-lg px-6 py-3.5 md:py-3 flex items-center justify-center gap-2 mx-auto transition-transform hover:scale-105 shadow-md active:scale-95">
           <i class="fa-solid fa-rotate-right"></i> Làm lại đề này
         </button>
       </div>`;
@@ -395,21 +469,20 @@ function render() {
 
   const q = activeQuizData[currentQuestion];
   const userAns = selectedAnswers[currentQuestion];
-  
+
+  // Tối ưu các nút đáp án (Touch target to hơn, padding rộng hơn trên mobile)
   let optionsHtml = "";
   q.options.forEach((opt, idx) => {
-    let btnClass = "bg-white dark:bg-darkCard border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:shadow-md hover:scale-[1.01]";
-    let iconHtml = `<span class="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-xs font-bold text-slate-500 mr-3 shrink-0">${String.fromCharCode(65 + idx)}</span>`;
-    
+    let btnClass = "bg-white dark:bg-darkCard border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary active:bg-slate-100 dark:active:bg-slate-800 text-slate-700 dark:text-slate-300";
+    let iconHtml = `<span class="w-7 h-7 md:w-6 md:h-6 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-sm md:text-xs font-bold text-slate-500 mr-3 shrink-0">${String.fromCharCode(65 + idx)}</span>`;
+
     if (userAns !== null) {
       if (idx === q.correct) {
-        // Nổi bật hiệu ứng cho nút ĐÚNG
-        btnClass = "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500 text-emerald-800 dark:text-emerald-400 font-medium z-10 shadow-md transform scale-[1.02] transition-transform"; 
-        iconHtml = `<i class="fa-solid fa-circle-check text-emerald-500 text-xl mr-3 shrink-0 animate-pop-in"></i>`;
+        btnClass = "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500 text-emerald-800 dark:text-emerald-400 font-medium z-10 shadow-md";
+        iconHtml = `<i class="fa-solid fa-circle-check text-emerald-500 text-2xl md:text-xl mr-3 shrink-0 animate-pop-in"></i>`;
       } else if (idx === userAns) {
-        // Rung lắc nhẹ cho nút SAI
-        btnClass = "bg-red-50 dark:bg-red-900/20 border-red-400 text-red-800 dark:text-red-400 font-medium z-10 shadow-sm animate-shake"; 
-        iconHtml = `<i class="fa-solid fa-circle-xmark text-red-500 text-xl mr-3 shrink-0"></i>`;
+        btnClass = "bg-red-50 dark:bg-red-900/20 border-red-400 text-red-800 dark:text-red-400 font-medium z-10 animate-shake";
+        iconHtml = `<i class="fa-solid fa-circle-xmark text-red-500 text-2xl md:text-xl mr-3 shrink-0"></i>`;
       } else {
         btnClass = "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-50 cursor-not-allowed";
       }
@@ -417,70 +490,84 @@ function render() {
 
     optionsHtml += `
       <button onclick="${userAns === null ? `selectOption(${idx})` : 'void(0)'}"
-        class="w-full text-left p-4 rounded-lg border-2 transition-all duration-200 flex items-center ${btnClass}">
+        class="w-full text-left p-4 md:p-4 min-h-[3.5rem] rounded-xl md:rounded-lg border-2 transition-all duration-200 flex items-center ${btnClass}">
         ${iconHtml}
-        <span class="leading-relaxed">${opt.replace(/^[A-D]\.\s*/, '')}</span>
+        <span class="leading-relaxed text-[15px] md:text-base break-words w-full">${opt.replace(/^[A-D]\.\s*/, '')}</span>
       </button>`;
   });
 
   let explanationHtml = "";
   if (userAns !== null) {
     explanationHtml = `
-      <div class="animate-pop-in mt-6 p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-sm md:text-base text-slate-700 dark:text-slate-300 shadow-inner">
+      <div class="animate-pop-in mt-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-xl md:rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base text-slate-700 dark:text-slate-300 shadow-inner">
         <div class="font-bold text-primary dark:text-blue-400 flex items-center gap-2 mb-2">
-            <i class="fa-solid fa-lightbulb text-yellow-500"></i> Giải thích đáp án:
+            <i class="fa-solid fa-lightbulb text-yellow-500"></i> Giải thích:
         </div>
         <p class="whitespace-pre-line leading-relaxed">${q.explanation}</p>
       </div>`;
   }
 
-  // Nút Pulse phát sáng thu hút thao tác khi đã trả lời xong
-  const nextBtnClass = userAns !== null 
-    ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-md btn-pulse-blue' 
-    : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300';
+  // Tối ưu nút Audio: Full width trên điện thoại, viền bo tròn hơn để dễ bấm
+  let audioBtnHtml = "";
+  if (q.ttsText && q.ttsText.trim() !== "") {
+    audioBtnHtml = `
+      <button onclick="toggleTTS(this)"
+        class="mt-1 mb-4 w-full md:w-auto flex items-center justify-center gap-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-6 transition-colors shadow-sm active:bg-indigo-200">
+        <i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)
+      </button>
+    `;
+  }
+
+  const nextBtnClass = userAns !== null
+    ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-md btn-pulse-blue'
+    : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
 
   app.innerHTML = `
-    <div class="animate-slide-up w-full bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-6 md:p-8 shadow-sm flex flex-col gap-5">
+    <div class="w-full bg-white dark:bg-darkCard md:rounded-xl border-y md:border border-slate-200 dark:border-slate-700 p-4 md:p-8 shadow-sm flex flex-col gap-4 pb-28 md:pb-8">
       
-      <div class="flex flex-wrap justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-4 gap-4">
-        <div class="flex gap-3">
-            <span class="inline-flex items-center gap-1.5 font-medium text-xs md:text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 transition-colors">
-            <i class="fa-solid fa-list-ol text-slate-400"></i> Câu ${currentQuestion + 1} / ${activeQuizData.length}
+      <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-slate-200 dark:border-slate-700 pb-3 md:pb-4 gap-2 md:gap-4">
+        <div class="flex flex-wrap gap-2 md:gap-3">
+            <span class="inline-flex items-center gap-1.5 font-bold text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">
+                Câu ${currentQuestion + 1} / ${activeQuizData.length}
             </span>
-            <span class="inline-flex items-center gap-1.5 font-medium text-xs md:text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-800">
-            <i class="fa-solid fa-bookmark opacity-70"></i> ${chapterNames[q.chapter] ? chapterNames[q.chapter].split(':')[0] : 'Part ' + q.chapter}
+            <span class="inline-flex items-center gap-1.5 font-medium text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-800 truncate max-w-[200px] md:max-w-none">
+                <i class="fa-solid fa-bookmark opacity-70"></i> ${chapterNames[q.chapter] ? chapterNames[q.chapter].split(':')[0] : 'Part ' + q.chapter}
             </span>
         </div>
-        <div class="flex items-center gap-1.5 font-medium text-sm text-slate-600 dark:text-slate-400">
-          <i class="fa-solid fa-fire text-orange-500 animate-pop-in"></i> Chuỗi: <span class="font-bold text-slate-800 dark:text-slate-200">${currentStreak}</span>
+        <div class="self-end md:self-auto flex items-center gap-1.5 font-medium text-xs md:text-sm text-slate-600 dark:text-slate-400 mt-1 md:mt-0">
+          <i class="fa-solid fa-fire text-orange-500"></i> Chuỗi: <span class="font-bold text-slate-800 dark:text-slate-200">${currentStreak}</span>
         </div>
       </div>
+      
+      ${audioBtnHtml}
 
-      <div class="w-full">${q.question}</div>
-      <div class="flex flex-col gap-3 mt-4">${optionsHtml}</div>
+      <div class="w-full text-[15px] md:text-base">${q.question}</div>
+      
+      <div class="flex flex-col gap-2.5 md:gap-3 mt-2">${optionsHtml}</div>
+      
       ${explanationHtml}
+    </div>
 
-      <div class="flex justify-between items-center pt-6 mt-2 gap-4">
+    <div class="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-darkCard/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 p-3 md:relative md:bg-transparent md:dark:bg-transparent md:border-none md:p-0 md:mt-6 z-50 flex justify-between items-center gap-3 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] md:shadow-none">
+        
         <button onclick="goBack()" ${currentQuestion === 0 ? "disabled" : ""}
-          class="flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg py-2.5 px-5 transition-transform hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100">
-          <i class="fa-solid fa-arrow-left"></i> <span class="hidden sm:inline">Câu Trước</span>
+          class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-2 md:px-5 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
+          <i class="fa-solid fa-arrow-left"></i> <span class="text-sm md:text-base">Trước</span>
         </button>
 
-        ${
-          currentQuestion === activeQuizData.length - 1 && userAns !== null
-            ? `<button onclick="submitQuiz()" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-lg py-2.5 px-8 transition-transform hover:scale-105 shadow-md btn-pulse-emerald animate-pop-in">
-                <i class="fa-solid fa-flag-checkered"></i> Nộp Bài
+        ${currentQuestion === activeQuizData.length - 1 && userAns !== null
+      ? `<button onclick="submitQuiz()" class="flex-[2] md:flex-none flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-4 md:px-8 active:scale-95 transition-transform shadow-md btn-pulse-emerald animate-pop-in">
+                <i class="fa-solid fa-flag-checkered"></i> <span class="text-sm md:text-base">Nộp Bài</span>
                </button>`
-            : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
-                class="flex items-center justify-center gap-2 ${nextBtnClass} font-medium rounded-lg py-2.5 px-5 transition-transform hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100">
-                <span class="hidden sm:inline">Câu Tiếp</span> <i class="fa-solid fa-arrow-right"></i>
+      : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
+                class="flex-[2] md:flex-none flex items-center justify-center gap-2 ${nextBtnClass} font-bold md:font-medium rounded-xl md:rounded-lg py-3.5 md:py-2.5 px-4 md:px-5 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
+                <span class="text-sm md:text-base">Câu Tiếp</span> <i class="fa-solid fa-arrow-right"></i>
                </button>`
-        }
-      </div>
+    }
     </div>`;
 }
 
-window.selectOption = function(idx) {
+window.selectOption = function (idx) {
   if (selectedAnswers[currentQuestion] !== null) return;
   const q = activeQuizData[currentQuestion];
   selectedAnswers[currentQuestion] = idx;
@@ -502,6 +589,7 @@ window.selectOption = function(idx) {
   if (idx === q.correct && currentQuestion < activeQuizData.length - 1) {
     setTimeout(() => {
       if (currentQuestion < activeQuizData.length - 1 && selectedAnswers[currentQuestion] === q.correct) {
+        stopAudio();
         currentQuestion++;
         isCurrentAnswered = selectedAnswers[currentQuestion] !== null;
         saveProgress();
@@ -511,7 +599,8 @@ window.selectOption = function(idx) {
   }
 };
 
-window.goBack = function() {
+window.goBack = function () {
+  stopAudio();
   playSound("click");
   if (currentQuestion > 0) {
     currentQuestion--;
@@ -521,7 +610,8 @@ window.goBack = function() {
   }
 };
 
-window.goNext = function() {
+window.goNext = function () {
+  stopAudio();
   playSound("click");
   if (currentQuestion < activeQuizData.length - 1) {
     currentQuestion++;
@@ -531,7 +621,8 @@ window.goNext = function() {
   }
 };
 
-window.submitQuiz = function() {
+window.submitQuiz = function () {
+  stopAudio();
   playSound("click");
   showResult = true;
   saveProgress();
@@ -539,20 +630,20 @@ window.submitQuiz = function() {
   render();
 };
 
-window.toggleDarkMode = function() {
+window.toggleDarkMode = function () {
   playSound("click");
   const html = document.documentElement;
   const icon = document.getElementById("themeIcon");
   const text = document.getElementById("themeText");
-  
+
   if (html.classList.contains("dark")) {
     html.classList.remove("dark");
-    if(icon) icon.className = "fa-solid fa-moon";
-    if(text) text.innerText = "Giao diện tối";
+    if (icon) icon.className = "fa-solid fa-moon";
+    if (text) text.innerText = "Giao diện tối";
   } else {
     html.classList.add("dark");
-    if(icon) icon.className = "fa-solid fa-sun";
-    if(text) text.innerText = "Giao diện sáng";
+    if (icon) icon.className = "fa-solid fa-sun";
+    if (text) text.innerText = "Giao diện sáng";
   }
 };
 
