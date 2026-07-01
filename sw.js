@@ -1,4 +1,4 @@
-const CACHE_NAME = 'toeic-quiz-v2'; // Đổi tên cache để làm mới
+const CACHE_NAME = 'toeic-quiz-v3'; // Đổi tên cache để làm mới
 
 // Các file cốt lõi của dự án (sửa lại đường dẫn data/)
 const CORE_ASSETS = [

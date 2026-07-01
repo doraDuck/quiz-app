@@ -3,7 +3,11 @@
  */
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const STORAGE_KEY = "toeic_quiz_progress_v4";
+const STORAGE_KEY = "toeic_quiz_progress_v2";
+
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
 
 
 function playSound(type) {
@@ -52,174 +56,56 @@ function playStreakSound(streak) {
 }
 
 // ─────────────────────────────────────────────────────
-// HỆ THỐNG ĐỌC AUDIO GIỌNG AI (DÙNG PUTER API)
-// ─────────────────────────────────────────────────────
-// let currentPuterAudio = null; // Biến lưu file âm thanh của Puter
-
-// window.toggleTTS = function(btn) {
-//     // 1. NẾU ĐANG PHÁT MÀ BẤM LẠI -> DỪNG PHÁT
-//     if (currentPuterAudio && !currentPuterAudio.paused) {
-//         currentPuterAudio.pause();
-//         currentPuterAudio.currentTime = 0;
-//         btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)';
-//         btn.classList.remove('animate-pulse');
-//         return;
-//     }
-
-//     let text = activeQuizData[currentQuestion].ttsText;
-//     if(!text) return;
-
-//     // Thêm dấu phẩy để ngắt quãng A, B, C, D tạo khoảng nghỉ
-//     text = text.replace(/([A-D]\.)/g, ', , , , $1');
-
-//     // 2. HIỂN THỊ TRẠNG THÁI ĐANG TẢI (Vì API cần gọi lên mạng)
-//     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-lg"></i> Đang kết nối AI...';
-
-//     // 3. GỌI PUTER API
-//     puter.ai.txt2speech(text)
-//     .then(audio => {
-//         currentPuterAudio = audio; // Lưu lại để ấn dừng được
-
-//         // Đổi giao diện nút khi bắt đầu phát
-//         btn.innerHTML = '<i class="fa-solid fa-circle-stop text-red-500 text-lg"></i> Đang phát...';
-//         btn.classList.add('animate-pulse');
-
-//         // Trả lại UI khi đọc xong
-//         audio.onended = function() {
-//             btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)';
-//             btn.classList.remove('animate-pulse');
-//         };
-
-//         audio.play(); // Chạy âm thanh
-//     })
-//     .catch(err => {
-//         console.error("Lỗi tải giọng đọc Puter: ", err);
-//         btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-yellow-500 text-lg"></i> Lỗi Mạng';
-//         setTimeout(() => {
-//             btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)';
-//         }, 2000);
-//     });
-// }
-
-// function stopAudio() {
-//     // Dừng âm thanh của Puter khi chuyển câu hỏi
-//     if (currentPuterAudio && !currentPuterAudio.paused) {
-//         currentPuterAudio.pause();
-//         currentPuterAudio.currentTime = 0;
-//     }
-//     // Dừng luôn cả trình đọc cũ (nếu còn kẹt)
-//     if (window.speechSynthesis) window.speechSynthesis.cancel();
-// }
-
-
-
-// ─────────────────────────────────────────────────────
 // HỆ THỐNG ĐỌC AUDIO GIỌNG AI (DÙNG PUTER API - CÓ PRELOAD)
 // ─────────────────────────────────────────────────────
-let currentPuterAudio = null;
-let preloadedAudioDict = {}; // Kho chứa toàn bộ âm thanh đã tải
-let audioQueue = []; // Danh sách các câu chờ tải
-let isProcessingQueue = false;
-
-const openaiVoices = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'];
-
-// Hàm 1: Bắt đầu đưa tất cả câu hỏi vào danh sách chờ tải ngầm
-window.startAudioPreloadQueue = function() {
-    preloadedAudioDict = {};
-    audioQueue = [];
-    if (!activeQuizData || activeQuizData.length === 0) return;
-
-    // Đẩy toàn bộ số thứ tự câu hỏi vào hàng đợi
-    for(let i = 0; i < activeQuizData.length; i++) {
-        if(activeQuizData[i].ttsText) {
-            audioQueue.push(i);
-        }
-    }
-    
-    // Nếu chưa chạy thì bắt đầu chạy hàng đợi
-    if(!isProcessingQueue) {
-        processAudioQueue();
-    }
-};
-
-// Hàm 2: Âm thầm xử lý tải từng câu một (Tránh bị khóa API do request quá nhanh)
-function processAudioQueue() {
-    if(audioQueue.length === 0) {
-        isProcessingQueue = false;
-        console.log("Đã tải ngầm toàn bộ âm thanh xong!");
-        return;
-    }
-    
-    isProcessingQueue = true;
-    let targetIndex = audioQueue.shift(); // Lấy câu đầu tiên ra tải
-
-    let text = activeQuizData[targetIndex].ttsText;
-    text = text.replace(/([A-D]\.)/g, ', , , $1');
-    const randomVoice = openaiVoices[Math.floor(Math.random() * openaiVoices.length)];
-
-    puter.ai.txt2speech(text, { provider: "openai", voice: randomVoice })
-    .then(audio => {
-        preloadedAudioDict[targetIndex] = audio; // Cất vào kho
-        // Nghỉ ngơi 0.5 giây rồi tải tiếp câu sau để không bị nghẽn mạng
-        setTimeout(processAudioQueue, 500); 
-    })
-    .catch(err => {
-        console.error("Lỗi tải ngầm câu " + targetIndex, err);
-        // Nếu lỗi do rớt mạng mạng, đợi 2s rồi tải tiếp câu sau
-        setTimeout(processAudioQueue, 2000);
-    });
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
 
-// Hàm 3: Xử lý nút bấm nghe
-window.toggleTTS = function (btn) {
-    if (currentPuterAudio && !currentPuterAudio.paused) {
-        currentPuterAudio.pause();
-        currentPuterAudio.currentTime = 0;
-        btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)';
+window.toggleTTS = function(btn) {
+    // Nếu đang đọc thì dừng lại
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio';
         btn.classList.remove('animate-pulse');
         return;
     }
 
-    // NẾU ÂM THANH ĐÃ ĐƯỢC TẢI SẴN TRONG KHO -> PHÁT LUÔN!
-    if (preloadedAudioDict[currentQuestion]) {
-        currentPuterAudio = preloadedAudioDict[currentQuestion];
-        playPreloadedAudio(btn);
-        return;
-    }
-
-    // TRƯỜNG HỢP HIẾM: Nếu bạn bấm quá nhanh (chạy nhanh hơn cả tốc độ tải ngầm) -> Tải trực tiếp
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-lg"></i> Đang tải...';
     let text = activeQuizData[currentQuestion].ttsText;
+    if(!text) return;
+    
+    // Vẫn giữ tính năng ngắt nhịp (đợi 1 chút) trước khi đọc A, B, C, D
     text = text.replace(/([A-D]\.)/g, ', , , $1');
-    const randomVoice = openaiVoices[Math.floor(Math.random() * openaiVoices.length)];
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.88; // Tốc độ vừa phải
+    
+    // Săn lùng giọng đọc tốt nhất trên máy
+    const availableVoices = window.speechSynthesis.getVoices();
+    const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
 
-    puter.ai.txt2speech(text, { provider: "openai", voice: randomVoice })
-    .then(audio => {
-        preloadedAudioDict[currentQuestion] = audio; // Cất vào kho
-        currentPuterAudio = audio;
-        playPreloadedAudio(btn);
-    })
-    .catch(err => {
-        btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-yellow-500 text-lg"></i> Lỗi Mạng';
-        setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)'; }, 2000);
-    });
-}
-
-function playPreloadedAudio(btn) {
+    // Chọn ngẫu nhiên 1 giọng tiếng Anh để đọc
+    if (englishVoices.length > 0) {
+        utterance.voice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
+    } else {
+        utterance.lang = 'en-US'; // Dự phòng an toàn
+    }
+    // Đổi giao diện
     btn.innerHTML = '<i class="fa-solid fa-circle-stop text-red-500 text-lg"></i> Đang phát...';
     btn.classList.add('animate-pulse');
-    currentPuterAudio.onended = function () {
-        btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)';
+    
+    // Khi đọc xong khôi phục lại nút
+    utterance.onend = function() {
+        btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio';
         btn.classList.remove('animate-pulse');
     };
-    currentPuterAudio.play();
+    
+    // Phát ngay lập tức không cần tải mạng!
+    window.speechSynthesis.speak(utterance);
 }
 
 function stopAudio() {
-    if (currentPuterAudio && !currentPuterAudio.paused) {
-        currentPuterAudio.pause();
-        currentPuterAudio.currentTime = 0;
-    }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
 }
 
 // KHỞI TẠO STATE
@@ -516,7 +402,7 @@ window.applySettings = function () {
   maxStreak = 0;
 
   saveProgress();
-  startAudioPreloadQueue();
+  // startAudioPreloadQueue();
   render();
 };
 
