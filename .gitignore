@@ -1,4 +1,4 @@
 data/
 app.js
 manifest.json
-sw.json
+sw.js
