@@ -92,31 +92,32 @@ window.toggleTTS = function(btn) {
     // }
 
 
-// Lấy tất cả giọng trên máy
+// Lấy toàn bộ danh sách giọng tiếng Anh trên máy
     const availableVoices = window.speechSynthesis.getVoices();
-    
-    // 1. DANH SÁCH ĐEN: Chứa các từ khóa của những giọng robot, quái gở, trẻ con trên iOS/Mac
-    const weirdVoices = [
-        'Albert', 'Bad News', 'Bahh', 'Bells', 'Boing', 'Bubbles', 'Cellos', 
-        'Deranged', 'Good News', 'Hysterical', 'Pipe Organ', 'Trinoids', 'Whisper', 
-        'Zarvox', 'Superstar', 'Jester', 'Wobble', 'Eddy', 'Flo', 'Grandpa', 
-        'Grandma', 'Reed', 'Rocko', 'Sandy', 'Shelley', 'Ralph', 'Fred'
-    ];
+    const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
 
-    // 2. Lọc giọng: Phải là tiếng Anh VÀ không được nằm trong danh sách đen
-    const englishVoices = availableVoices.filter(voice => {
-        const isEnglish = voice.lang.startsWith('en');
-        // Kiểm tra xem tên giọng có chứa từ khóa cấm nào không
-        const isWeird = weirdVoices.some(badName => voice.name.includes(badName));
+    // 1. ĐẶC TRỊ IOS: Săn tìm giọng "Samantha" (Giọng chuẩn, nghiêm túc nhất của Apple)
+    const samanthaVoice = englishVoices.find(voice => voice.name.includes('Samantha'));
+
+    if (samanthaVoice) {
+        // Nếu là iPhone/iPad/Mac và có Samantha -> Ép cố định dùng duy nhất giọng này, không random nữa!
+        utterance.voice = samanthaVoice;
+    } 
+    // 2. ĐỐI VỚI WINDOWS / ANDROID (Không có Samantha)
+    else if (englishVoices.length > 0) {
+        // Lọc bỏ bớt các giọng lạ/giọng nhí nhố nếu có trên hệ điều hành khác
+        const safeVoices = englishVoices.filter(voice => 
+            !voice.name.toLowerCase().includes('juniors') && 
+            !voice.name.toLowerCase().includes('child')
+        );
         
-        return isEnglish && !isWeird; // Chỉ lấy giọng Tiếng Anh chuẩn
-    });
-
-    // Chọn ngẫu nhiên 1 giọng xịn để đọc
-    if (englishVoices.length > 0) {
-        utterance.voice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
+        if (safeVoices.length > 0) {
+            utterance.voice = safeVoices[Math.floor(Math.random() * safeVoices.length)];
+        } else {
+            utterance.voice = englishVoices[0];
+        }
     } else {
-        utterance.lang = 'en-US'; // Dự phòng an toàn
+        utterance.lang = 'en-US'; // Dự phòng cuối cùng
     }
 
     // Đổi giao diện
