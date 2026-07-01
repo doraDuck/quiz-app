@@ -5,6 +5,10 @@
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const STORAGE_KEY = "toeic_quiz_progress_v4";
 
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
 function playSound(type) {
   if (audioCtx.state === "suspended") audioCtx.resume();
   const osc = audioCtx.createOscillator();
@@ -69,16 +73,34 @@ window.toggleTTS = function (btn) {
   utterance.rate = 0.89;
   utterance.pitch = 1.0;
 
-  const availableVoices = window.speechSynthesis.getVoices();
-  // Lọc ra tất cả các giọng đọc tiếng Anh   có trên máy
-  const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
+  // const availableVoices = window.speechSynthesis.getVoices();
+  // // Lọc ra tất cả các giọng đọc tiếng Anh   có trên máy
+  // const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
 
-  // Nếu máy có giọng tiếng Anh, chọn ngẫu nhiên 1 giọng
-  if (englishVoices.length > 0) {
-    const randomVoice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
-    utterance.voice = randomVoice;
+  // // Nếu máy có giọng tiếng Anh, chọn ngẫu nhiên 1 giọng
+  // if (englishVoices.length > 0) {
+  //   const randomVoice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
+  //   utterance.voice = randomVoice;
+  // } else {
+  //   utterance.lang = 'en-US';
+  // }
+  const availableVoices = window.speechSynthesis.getVoices();
+  
+  // 1. Ưu tiên số 1: Tìm các giọng tiếng Anh của Google (Thường có trên Chrome)
+  const googleVoices = availableVoices.filter(voice => voice.name.includes('Google') && voice.lang.startsWith('en'));
+  
+  // 2. Dự phòng: Nếu máy không có giọng Google (ví dụ mở trên Safari/iPhone), lấy giọng tiếng Anh Mỹ hoặc Anh Anh mặc định
+  const defaultEnglishVoices = availableVoices.filter(voice => voice.lang === 'en-US' || voice.lang === 'en-GB');
+
+  if (googleVoices.length > 0) {
+      // Nếu tìm thấy giọng Google, chọn ngẫu nhiên 1 giọng Google
+      utterance.voice = googleVoices[Math.floor(Math.random() * googleVoices.length)];
+  } else if (defaultEnglishVoices.length > 0) {
+      // Nếu không có Google, dùng tạm giọng tiếng Anh chuẩn của máy đó
+      utterance.voice = defaultEnglishVoices[0];
   } else {
-    utterance.lang = 'en-US';
+      // Fallback cuối cùng
+      utterance.lang = 'en-US';
   }
 
 
@@ -86,7 +108,7 @@ window.toggleTTS = function (btn) {
   btn.classList.add('animate-pulse');
 
   utterance.onend = function () {
-    btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio (AI)';
+    btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio';
     btn.classList.remove('animate-pulse');
   };
 
