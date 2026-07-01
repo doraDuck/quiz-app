@@ -84,25 +84,23 @@ window.toggleTTS = function (btn) {
   // } else {
   //   utterance.lang = 'en-US';
   // }
+ // Lấy toàn bộ giọng đọc trên thiết bị
   const availableVoices = window.speechSynthesis.getVoices();
   
-  // 1. Ưu tiên số 1: Tìm các giọng tiếng Anh của Google (Thường có trên Chrome)
-  const googleVoices = availableVoices.filter(voice => voice.name.includes('Google') && voice.lang.startsWith('en'));
-  
-  // 2. Dự phòng: Nếu máy không có giọng Google (ví dụ mở trên Safari/iPhone), lấy giọng tiếng Anh Mỹ hoặc Anh Anh mặc định
-  const defaultEnglishVoices = availableVoices.filter(voice => voice.lang === 'en-US' || voice.lang === 'en-GB');
+  // 1. ƯU TIÊN SỐ 1: Tìm đích danh giọng đọc của Google (Thường có tên là "Google US English" hoặc "Google UK English Female")
+  let selectedVoice = availableVoices.find(voice => voice.name.includes('Google') && voice.lang.includes('en'));
 
-  if (googleVoices.length > 0) {
-      // Nếu tìm thấy giọng Google, chọn ngẫu nhiên 1 giọng Google
-      utterance.voice = googleVoices[Math.floor(Math.random() * googleVoices.length)];
-  } else if (defaultEnglishVoices.length > 0) {
-      // Nếu không có Google, dùng tạm giọng tiếng Anh chuẩn của máy đó
-      utterance.voice = defaultEnglishVoices[0];
-  } else {
-      // Fallback cuối cùng
-      utterance.lang = 'en-US';
+  // 2. DỰ PHÒNG: Nếu người dùng đang xài iPhone/Safari (không có giọng Google), thì cố gắng tìm giọng tiếng Anh tự nhiên nhất có thể
+  if (!selectedVoice) {
+      selectedVoice = availableVoices.find(voice => voice.lang === 'en-US' || voice.lang === 'en-GB' || voice.lang === 'en_US');
   }
 
+  // Áp dụng giọng đọc
+  if (selectedVoice) {
+      utterance.voice = selectedVoice;
+  } else {
+      utterance.lang = 'en-US'; // Fallback cuối cùng
+  }
 
   btn.innerHTML = '<i class="fa-solid fa-circle-stop text-red-500 text-lg"></i> Đang phát...';
   btn.classList.add('animate-pulse');
