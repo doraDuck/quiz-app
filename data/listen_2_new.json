@@ -1,0 +1,1910 @@
+{
+  "test_name": "Toeic Test",
+  "section": "Listening",
+  "note": "Part 1 requires photos. Field 'image_ref' contains the question number for matching with the photo pages of the test booklet. Parts 2-4 are fully text-based.",
+  "parts": [
+    {
+      "part_number": 0,
+      "title": "Photographs",
+      "description": "For each question, you will hear four statements about a photograph. Listen and select the one statement (A), (B), (C), or (D) that best describes the picture.",
+      "audio_track": 141,
+      "question_groups": [
+        {
+          "group_id": "p1_standalone",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 1,
+              "question_text": "",
+              "has_image": true,
+              "image_ref": "data/img/listen2/question_1_photo.png",
+              "options": {
+                "A": "He's adjusting his tie.",
+                "B": "He's clearing dishes from a table.",
+                "C": "He's checking the time.",
+                "D": "He's taking salad from a bowl."
+              },
+              "answer": "D",
+              "explanation": "The man is wearing a tie, but he is not adjusting it (A). There are some dishes, but he is not taking them away (B). (C) is incorrect because the man is not wearing a watch."
+            },
+            {
+              "question_number": 2,
+              "question_text": "",
+              "has_image": true,
+              "image_ref": "data/img/listen2/question_2_photo.png",
+              "options": {
+                "A": "The cashier is serving a customer.",
+                "B": "The women are buying some coats.",
+                "C": "The shoppers are leaving the store.",
+                "D": "The workers are cleaning the counter."
+              },
+              "answer": "A",
+              "explanation": "The women are wearing coats, not buying them (B). They are paying the cashier, not leaving the store (C). They are standing at the counter, not cleaning it (D)."
+            },
+            {
+              "question_number": 3,
+              "question_text": "",
+              "has_image": true,
+              "image_ref": "data/img/listen2/question_3_photo.png",
+              "options": {
+                "A": "She's watching the news.",
+                "B": "She's watering a plant.",
+                "C": "She's reading a newspaper.",
+                "D": "She's opening a book."
+              },
+              "answer": "C",
+              "explanation": "(A) confuses 'watching the news' with 'reading a newspaper'. There is a plant, but the woman is not watering it (B). She is holding a newspaper, not a book (D)."
+            },
+            {
+              "question_number": 4,
+              "question_text": "",
+              "has_image": true,
+              "image_ref": "data/img/listen2/question_4_photo.png",
+              "options": {
+                "A": "The chairs are stacked in a corner.",
+                "B": "The exam is almost finished.",
+                "C": "The desks are arranged in rows.",
+                "D": "The class is about to start."
+              },
+              "answer": "C",
+              "explanation": "The chairs are not stacked together (A). This is an exam room, but there isn't anyone taking the exam at the moment (B). (D) is not indicated."
+            },
+            {
+              "question_number": 5,
+              "question_text": "",
+              "has_image": true,
+              "image_ref": "data/img/listen2/question_5_photo.png",
+              "options": {
+                "A": "They're writing on the board.",
+                "B": "They're standing side by side.",
+                "C": "They're getting clubs from the carts.",
+                "D": "They're playing a round of golf."
+              },
+              "answer": "B",
+              "explanation": "There is some writing (noun) on the board (A), but the people are not writing (verb) on it. They are not touching the golf clubs in the carts (C), or playing golf (D)."
+            },
+            {
+              "question_number": 6,
+              "question_text": "",
+              "has_image": true,
+              "image_ref": "data/img/listen2/question_6_photo.png",
+              "options": {
+                "A": "Some people are climbing trees in the park.",
+                "B": "The man is carrying a ladder over his shoulder.",
+                "C": "The ladder is resting against a tall tree.",
+                "D": "The construction workers are taking a break."
+              },
+              "answer": "B",
+              "explanation": "There are people and trees, but nobody is climbing trees (A). (C) confuses the tall man carrying the ladder, with the ladder resting near a tree. (D) we cannot tell that the people sitting down are construction workers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_number": 0,
+      "title": "Question-Response",
+      "description": "Listen to these questions and statements. After each question or statement, you will hear three responses. Select the most appropriate response: (A), (B), or (C).",
+      "audio_track": 142,
+      "question_groups": [
+        {
+          "group_id": "p2_standalone",
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 7,
+              "speaker": "F-Br",
+              "question_text": "What was your reason for not accepting the plan?",
+              "has_image": false,
+              "options": {
+                "A": "I couldn't agree more.",
+                "B": "No, I didn't plan anything.",
+                "C": "I felt it was too expensive."
+              },
+              "answer": "C",
+              "explanation": "(A) is an illogical affirmative response. (B) repeats 'plan', but as a verb."
+            },
+            {
+              "question_number": 8,
+              "speaker": "M-Au",
+              "question_text": "When did you start work this morning?",
+              "has_image": false,
+              "options": {
+                "A": "It's not far, so I usually walk.",
+                "B": "About an hour ago.",
+                "C": "I'll be there by nine."
+              },
+              "answer": "B",
+              "explanation": "(A) confuses 'station' with 'vacation'. (C) is an illogical response."
+            },
+            {
+              "question_number": 9,
+              "speaker": "M-Cn",
+              "question_text": "I think James is on vacation.",
+              "has_image": false,
+              "options": {
+                "A": "No, he's in France on business.",
+                "B": "He lives near the station.",
+                "C": "That's a good idea."
+              },
+              "answer": "A",
+              "explanation": "(B) misleads by using the verb 'sign' in the past. (C) confuses 'design' with 'sign'."
+            },
+            {
+              "question_number": 10,
+              "speaker": "F-Au",
+              "question_text": "Can't you read that sign?",
+              "has_image": false,
+              "options": {
+                "A": "I signed it right away.",
+                "B": "The writing's too small.",
+                "C": "I don't like the design."
+              },
+              "answer": "B",
+              "explanation": "(A) misleads by using the verb 'sign' in the past. (C) confuses 'design' with 'sign'."
+            },
+            {
+              "question_number": 11,
+              "speaker": "M-Am",
+              "question_text": "How do you know Danielle?",
+              "has_image": false,
+              "options": {
+                "A": "Yes, I do.",
+                "B": "We work together.",
+                "C": "She's very talented."
+              },
+              "answer": "B",
+              "explanation": "(A) answers a different question (Do you know Danielle?). (C) answers a different question (What do you think of Danielle?)."
+            },
+            {
+              "question_number": 12,
+              "speaker": "F-Am",
+              "question_text": "Who's prepared to work late tonight?",
+              "has_image": false,
+              "options": {
+                "A": "Yes, the report is all prepared.",
+                "B": "Is it eight already?",
+                "C": "Charlie said she would."
+              },
+              "answer": "C",
+              "explanation": "(A) confuses the subject, and repeats 'prepared' with the meaning 'ready' rather than willing. (B) confuses 'eight' with 'late'."
+            },
+            {
+              "question_number": 13,
+              "speaker": "M-Cn",
+              "question_text": "Would you mind answering the door?",
+              "has_image": false,
+              "options": {
+                "A": "Not at all.",
+                "B": "I'm afraid I don't know.",
+                "C": "What did you have in mind?"
+              },
+              "answer": "A",
+              "explanation": "(A) does not answer the question. (C) repeats 'mind', but does not answer the question."
+            },
+            {
+              "question_number": 14,
+              "speaker": "F-Am",
+              "question_text": "Which of these reports have you seen?",
+              "has_image": false,
+              "options": {
+                "A": "I don't know any reporters.",
+                "B": "Sorry, I didn't clean any of them.",
+                "C": "Just the latest one, actually."
+              },
+              "answer": "C",
+              "explanation": "(A) confuses 'reporters' with 'reports'. (B) confuses 'clean' with 'seen'."
+            },
+            {
+              "question_number": 15,
+              "speaker": "M-Br",
+              "question_text": "How did the test go?",
+              "has_image": false,
+              "options": {
+                "A": "I think I did OK.",
+                "B": "Yes, it went yesterday.",
+                "C": "It's still here."
+              },
+              "answer": "A",
+              "explanation": "(A) does not answer the question. (B) answers a different question (Was your test yesterday?)."
+            },
+            {
+              "question_number": 16,
+              "speaker": "M-Au",
+              "question_text": "Is it casual or formal dress tonight?",
+              "has_image": false,
+              "options": {
+                "A": "That dress looks great.",
+                "B": "I think it's tomorrow.",
+                "C": "Jeans are OK."
+              },
+              "answer": "C",
+              "explanation": "(A) repeats 'dress' in a different context. (B) does not answer the question."
+            },
+            {
+              "question_number": 17,
+              "speaker": "F-Cn",
+              "question_text": "Helen didn't ask to see me, did she?",
+              "has_image": false,
+              "options": {
+                "A": "She didn't see anything.",
+                "B": "No, don't ask her.",
+                "C": "I'm really not sure."
+              },
+              "answer": "C",
+              "explanation": "(A) repeats 'didn't' and 'see' (instead of 'say', which would fit). (B) repeats 'ask', but does not answer the question."
+            },
+            {
+              "question_number": 18,
+              "speaker": "F-Au",
+              "question_text": "The mail has just arrived.",
+              "has_image": false,
+              "options": {
+                "A": "Is there anything for me?",
+                "B": "No, it's for women only.",
+                "C": "Can he wait another hour or so?"
+              },
+              "answer": "A",
+              "explanation": "(B) relates 'women' to 'male' and confuses this with 'mail'. (C) confuses the subject 'mail' with a person."
+            },
+            {
+              "question_number": 19,
+              "speaker": "M-Br",
+              "question_text": "Why is Noriko leaving early today?",
+              "has_image": false,
+              "options": {
+                "A": "She has a doctor's appointment.",
+                "B": "Sorry, I was late too.",
+                "C": "I don't know where she lives."
+              },
+              "answer": "A",
+              "explanation": "(B) misleads relating 'late' to 'early'. (C) confuses 'lives' and 'leaving'."
+            },
+            {
+              "question_number": 20,
+              "speaker": "F-Br",
+              "question_text": "What's your schedule like for next week?",
+              "has_image": false,
+              "options": {
+                "A": "I was traveling all week.",
+                "B": "Monday is not too busy.",
+                "C": "I'd like that a lot, thank you."
+              },
+              "answer": "B",
+              "explanation": "(A) repeats 'week' but refers to the past. (C) does not answer the question."
+            },
+            {
+              "question_number": 21,
+              "speaker": "M-Cn",
+              "question_text": "Don't you ever get tired of doing the same thing?",
+              "has_image": false,
+              "options": {
+                "A": "No, I enjoy my job.",
+                "B": "I think the same, too.",
+                "C": "The tires look similar to me."
+              },
+              "answer": "A",
+              "explanation": "(B) confuses 'think' with 'thing' and repeats 'same'. (C) confuses 'tires' (plural noun) with the adjective 'tired'."
+            },
+            {
+              "question_number": 22,
+              "speaker": "M-Am",
+              "question_text": "Could you tell me where the reception is, please?",
+              "has_image": false,
+              "options": {
+                "A": "We had a warm reception.",
+                "B": "It's in the main hall.",
+                "C": "There can be no exceptions."
+              },
+              "answer": "B",
+              "explanation": "(A) repeats 'reception', but with the meaning 'welcome'. (C) confuses 'exceptions' with 'reception'."
+            },
+            {
+              "question_number": 23,
+              "speaker": "F-Cn",
+              "question_text": "Who else attended the meeting?",
+              "has_image": false,
+              "options": {
+                "A": "What else could I do?",
+                "B": "It starts at four.",
+                "C": "Tina and Geoffrey were both there."
+              },
+              "answer": "C",
+              "explanation": "(A) repeats 'else', and is an illogical response. (B) answers a different question (What time is the meeting?)."
+            },
+            {
+              "question_number": 24,
+              "speaker": "M-Au",
+              "question_text": "What does Tom think about the reorganization project?",
+              "has_image": false,
+              "options": {
+                "A": "Next Friday should be fine.",
+                "B": "Yes, I think he does.",
+                "C": "He supports what we're doing."
+              },
+              "answer": "C",
+              "explanation": "(A) does not answer the question. (B) repeats 'does', but does not answer the question."
+            },
+            {
+              "question_number": 25,
+              "speaker": "M-Am",
+              "question_text": "Have you found your camera yet?",
+              "has_image": false,
+              "options": {
+                "A": "Yes, I'll get a digital one.",
+                "B": "No, I've looked everywhere.",
+                "C": "It's a very good camera."
+              },
+              "answer": "B",
+              "explanation": "(A) answers a different question (Have you chosen a camera yet?). (C) repeats 'camera', but does not answer the question."
+            },
+            {
+              "question_number": 26,
+              "speaker": "F-Cn",
+              "question_text": "We have no more copy paper left.",
+              "has_image": false,
+              "options": {
+                "A": "Your coffee is on the desk.",
+                "B": "No, it's not on the left.",
+                "C": "I ordered some last week."
+              },
+              "answer": "C",
+              "explanation": "(A) confuses 'coffee' and 'copy'. (B) confuses 'left' (not 'right') with 'left' (meaning 'remaining')."
+            },
+            {
+              "question_number": 27,
+              "speaker": "M-Br",
+              "question_text": "Will we be expanding the supply room soon?",
+              "has_image": false,
+              "options": {
+                "A": "He's standing over there.",
+                "B": "I don't think we can avoid it.",
+                "C": "Please store it in your room."
+              },
+              "answer": "B",
+              "explanation": "(A) relates to a different subject, and confuses 'standing' with 'expanding'. (C) repeats 'room' but does not answer the question."
+            },
+            {
+              "question_number": 28,
+              "speaker": "F-Am",
+              "question_text": "You need to check all the statistics included in this report.",
+              "has_image": false,
+              "options": {
+                "A": "Are you sure that's necessary?",
+                "B": "Yes, they're all in the report.",
+                "C": "Thank you for checking."
+              },
+              "answer": "B",
+              "explanation": "(A) repeats 'report' and is an illogical response. (C) relates 'checking' to 'check', but confuses the context."
+            },
+            {
+              "question_number": 29,
+              "speaker": "M-Am",
+              "question_text": "Will you get paid at the end of the month?",
+              "has_image": false,
+              "options": {
+                "A": "I hope so.",
+                "B": "Yes, I'd prefer that.",
+                "C": "The end of the month is fine."
+              },
+              "answer": "A",
+              "explanation": "(B) answers a different question (Would you like to get paid…?). (C) does not answer the question."
+            },
+            {
+              "question_number": 30,
+              "speaker": "F-Br",
+              "question_text": "What did you have for lunch?",
+              "has_image": false,
+              "options": {
+                "A": "OK, let's go to the cafeteria.",
+                "B": "I'll be ready at one.",
+                "C": "A ham sandwich and a coffee."
+              },
+              "answer": "C",
+              "explanation": "(A) answers a different question (Do you want to have lunch?). (B) refers to the future."
+            },
+            {
+              "question_number": 31,
+              "speaker": "M-Au",
+              "question_text": "Can you fax the application to me?",
+              "has_image": false,
+              "options": {
+                "A": "The tax was unacceptable.",
+                "B": "I'm full of admiration.",
+                "C": "I'll do it right now."
+              },
+              "answer": "C",
+              "explanation": "(A) confuses 'tax' and 'fax'. (B) confuses 'admiration' and 'application'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_number": 0,
+      "title": "Conversations",
+      "description": "You will hear thirteen conversations. For each conversation, read the three questions and the four answer choices. Select the most appropriate answer: (A), (B), (C), or (D).",
+      "audio_track": 143,
+      "question_groups": [
+        {
+          "group_id": "p3_q32_34",
+          "context_text": "Questions 32 through 34 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "M-Cn",
+              "line": "I just got a call from Mr. Sykes at Capital Investments. He says he left his jacket in Conference Room 4 after the meeting on Friday afternoon. Has anything been handed over in the weekend?"
+            },
+            {
+              "speaker": "F-Am",
+              "line": "Not as far as I know. There's nothing at the reception desk, anyway. We put any lost property we find under the counter, here in this box… It's empty, see?"
+            },
+            {
+              "speaker": "M-Cn",
+              "line": "Hmm. The night cleaners would have found it if it was still in the room, I guess."
+            },
+            {
+              "speaker": "F-Am",
+              "line": "Yeah, that's right. I don't think we have it. Unless Andy found it when he opened up this morning. Let me give him a call and check."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 32,
+              "question_text": "What is the subject of the conversation?",
+              "has_image": false,
+              "options": {
+                "A": "A missing jacket",
+                "B": "A recent meeting",
+                "C": "An important client",
+                "D": "An investment decision"
+              },
+              "answer": "A",
+              "explanation": "The speakers are discussing where Mr. Sykes' jacket could be. (B) relates to a meeting Mr. Sykes attended on Friday afternoon. (C) refers to Mr. Sykes as a client, but he is not the subject of the whole conversation. (D) incorrectly confuses the company name 'Capital Investments' with the subject of the conversation."
+            },
+            {
+              "question_number": 33,
+              "question_text": "Where does this conversation take place?",
+              "has_image": false,
+              "options": {
+                "A": "In Conference Room 4",
+                "B": "In the elevator",
+                "C": "At reception",
+                "D": "At the box office"
+              },
+              "answer": "C",
+              "explanation": "The woman says lost property is kept under the counter at the reception desk, and adds 'here in this box... It's empty, see?' The speakers are at reception. (A) refers to where the meeting took place. (B) is not mentioned. (D) repeats 'box'."
+            },
+            {
+              "question_number": 34,
+              "question_text": "What will the woman do next?",
+              "has_image": false,
+              "options": {
+                "A": "Contact Mr. Sykes",
+                "B": "Clean the office",
+                "C": "Visit Capital Investments",
+                "D": "Speak to a member of staff"
+              },
+              "answer": "D",
+              "explanation": "The woman says she will call Andy, the staff member who 'opened up' that morning. (A) confuses 'him' with Mr. Sykes. (B) refers to the 'night cleaners'. (C) refers to Mr. Sykes' company."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q35_37",
+          "context_text": "Questions 35 through 37 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "F-Am",
+              "line": "Alex, can you give me a hand with this projector, please?"
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Sure."
+            },
+            {
+              "speaker": "F-Am",
+              "line": "I can't seem to get it to work, and my presentation is supposed to start in twenty minutes."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "It looks like you've plugged it into your computer correctly, so what's the problem?"
+            },
+            {
+              "speaker": "F-Am",
+              "line": "Nothing comes up on the screen. All the lights are green, but the screen is blank."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Oh, right. It did this with me last week, actually."
+            },
+            {
+              "speaker": "F-Am",
+              "line": "I've reset it three times already."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "It can't be the batteries. I think the cable might be loose. You need to check if everything is tight enough."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 35,
+              "question_text": "What problem does the woman have?",
+              "has_image": false,
+              "options": {
+                "A": "Her computer is faulty.",
+                "B": "Her presentation has been delayed.",
+                "C": "The projector does not work.",
+                "D": "The lights have broken."
+              },
+              "answer": "C",
+              "explanation": "The woman mentions a projector and says 'can't seem to get it to work'. (A) repeats 'computer', but this is not the problem. Her presentation is due to start shortly, but is not delayed yet (B). The lights are green, not broken (D)."
+            },
+            {
+              "question_number": 36,
+              "question_text": "What happened last week?",
+              "has_image": false,
+              "options": {
+                "A": "There was a power outage.",
+                "B": "Someone lost the cable.",
+                "C": "The equipment was checked.",
+                "D": "The man had a similar problem."
+              },
+              "answer": "D",
+              "explanation": "The man says 'It did this with me last week'. (A) is not mentioned. (B) repeats 'cable', and confuses the similar-sounding words 'loose' and 'lost'. The man suggests that the woman check the equipment, not that the equipment was checked (C)."
+            },
+            {
+              "question_number": 37,
+              "question_text": "What does the man suggest as a solution?",
+              "has_image": false,
+              "options": {
+                "A": "Checking the cable connections",
+                "B": "Asking an engineer for help",
+                "C": "Contacting the manufacturer",
+                "D": "Replacing the batteries"
+              },
+              "answer": "A",
+              "explanation": "The man says the woman should 'check if everything is tight enough'. (B) and (C) are both possible solutions, but are not mentioned. (D) is incorrect because the man assumes the batteries are working as normal."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q38_40",
+          "context_text": "Questions 38 through 40 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "F-Cn",
+              "line": "Hello. How may I help you?"
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Hello. I'd like to book a double room for two nights from the 21st of this month, please. Do you have anything available?"
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "I'll check for you. Two nights from the 21st…. yes, we have a deluxe room available. It'll be $220 per night, including breakfast. Would you like to go ahead with this?"
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Hmm. It's a little more than I wanted to spend. Do you have a standard double instead?"
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 38,
+              "question_text": "Who most likely is the woman?",
+              "has_image": false,
+              "options": {
+                "A": "A secretary",
+                "B": "A receptionist",
+                "C": "A waitress",
+                "D": "A ticket agent"
+              },
+              "answer": "B",
+              "explanation": "The woman checks availability for a two-night stay, and gives a room price. She is not a secretary (A). The man is not ordering food in a restaurant (C). (D) confuses the context, as the man is not booking any tickets."
+            },
+            {
+              "question_number": 39,
+              "question_text": "What does the man want to do?",
+              "has_image": false,
+              "options": {
+                "A": "Change an appointment",
+                "B": "Cancel a booking",
+                "C": "Reserve a room",
+                "D": "Pay an invoice"
+              },
+              "answer": "C",
+              "explanation": "He wants to book a double room."
+            },
+            {
+              "question_number": 40,
+              "question_text": "What does the man imply?",
+              "has_image": false,
+              "options": {
+                "A": "The price is too high.",
+                "B": "The quality is poor.",
+                "C": "The time is inconvenient.",
+                "D": "The service is below standard."
+              },
+              "answer": "A",
+              "explanation": "The man says 'It's a little more than I wanted to spend'. (B), (C), and (D) are not indicated."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q41_43",
+          "context_text": "Questions 41 through 43 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "F-Am",
+              "line": "How are things going in London, Geoff? You've been there for six months now, so I guess you're getting used to it."
+            },
+            {
+              "speaker": "M-Au",
+              "line": "Yes, I love it there. I mean, the weather is awful, of course, but the job is going well and I seem to get along with all my coworkers."
+            },
+            {
+              "speaker": "F-Am",
+              "line": "That's good to hear. So, are you staying in New York for long, or do you have to get back after the conference?"
+            },
+            {
+              "speaker": "M-Au",
+              "line": "I'm here for a week, then stopping off in Hong Kong for a few days on my way back."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 41,
+              "question_text": "What are the speakers mainly discussing?",
+              "has_image": false,
+              "options": {
+                "A": "Plans for a conference",
+                "B": "A job vacancy",
+                "C": "Life in big cities",
+                "D": "The man's work"
+              },
+              "answer": "D",
+              "explanation": "The topic is focused on the man's job in London. (A) repeats 'conference', but this is not the topic. (B) is a distractor for the references to the man's job. 'New York', 'Hong Kong' and 'London' are mentioned, but 'life in big cities' (C) is not discussed."
+            },
+            {
+              "question_number": 42,
+              "question_text": "Where does the conversation take place?",
+              "has_image": false,
+              "options": {
+                "A": "Hong Kong",
+                "B": "London",
+                "C": "New York",
+                "D": "Paris"
+              },
+              "answer": "C",
+              "explanation": "The woman asks 'Are you staying in New York for long?'"
+            },
+            {
+              "question_number": 43,
+              "question_text": "How long does the man plan to stay in New York?",
+              "has_image": false,
+              "options": {
+                "A": "A few days",
+                "B": "A week",
+                "C": "A month",
+                "D": "Two months"
+              },
+              "answer": "B",
+              "explanation": "The man says 'I'm here for a week'."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q44_46",
+          "context_text": "Questions 44 through 46 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "F-Cn",
+              "line": "I thought that meeting went very well."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Yes, I suppose so."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "They certainly seemed interested in what we had to say, didn't they?"
+            },
+            {
+              "speaker": "M-Am",
+              "line": "But Dr. Kobayashi wasn't there. He's the President, and that means he's the one who makes all the decisions. I doubt they'll get back to us with an order just yet."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "What? You mean we'll have to come back again. That'll be three times this year."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "I know, but if that's what it takes to get an agreement signed then that's what we have to do. We really have no choice."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 44,
+              "question_text": "What are the speakers doing?",
+              "has_image": false,
+              "options": {
+                "A": "Signing an agreement",
+                "B": "Revising some figures",
+                "C": "Reviewing a presentation",
+                "D": "Discussing a meeting"
+              },
+              "answer": "D",
+              "explanation": "They are talking about a recent meeting. (A) is a distractor for 'get an agreement signed'. (B) relates to 'three times'. No presentation is mentioned (D)."
+            },
+            {
+              "question_number": 45,
+              "question_text": "How many times have the speakers visited Dr. Kobayashi's company this year?",
+              "has_image": false,
+              "options": {
+                "A": "Once",
+                "B": "Twice",
+                "C": "Three times",
+                "D": "Four times"
+              },
+              "answer": "B",
+              "explanation": "If they return again, the woman says 'That'll be three times this year', so they have already visited twice."
+            },
+            {
+              "question_number": 46,
+              "question_text": "What can be inferred from the conversation?",
+              "has_image": false,
+              "options": {
+                "A": "The speakers feel disappointed.",
+                "B": "An order will be made shortly.",
+                "C": "No agreement is possible.",
+                "D": "Dr. Kobayashi has been ill."
+              },
+              "answer": "A",
+              "explanation": "They are disappointed that no agreement has been made. (B) is incorrect. (C) cannot be inferred. (D) is not mentioned."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q47_49",
+          "context_text": "Questions 47 through 49 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "F-Cn",
+              "line": "Hello, Chris. This is Sue Hayward at Dominion Insurance. I was just wondering how the new brochures were coming along?"
+            },
+            {
+              "speaker": "M-Au",
+              "line": "Oh, hi Sue. Well, we got the files OK. Thanks for sending them. Unfortunately, we've had a problem with our main printing press here. I'm still waiting for it to be resolved. We have a lot of jobs backed up and yours is one of them, I'm afraid."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "That's a shame. When I called last week I said we needed these for today, didn't I? It's urgent. We have a big shipment ready to go and we need to include these brochures before we can send it."
+            },
+            {
+              "speaker": "M-Au",
+              "line": "I understand. Like I said, there's a problem with the press. My hands are tied until it's fixed. I'll put your job at the top of my list, though. It should be done sometime this afternoon, hopefully."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 47,
+              "question_text": "Where does the man probably work?",
+              "has_image": false,
+              "options": {
+                "A": "In a design studio",
+                "B": "In a print works",
+                "C": "In a post office",
+                "D": "In a delivery office"
+              },
+              "answer": "B",
+              "explanation": "The man says 'we've had a problem with our main printing press'."
+            },
+            {
+              "question_number": 48,
+              "question_text": "What problem does the woman mention?",
+              "has_image": false,
+              "options": {
+                "A": "She has not received an order.",
+                "B": "She wants to leave the company.",
+                "C": "A shipment has been lost.",
+                "D": "She is unhappy with her pay."
+              },
+              "answer": "A",
+              "explanation": "The woman needs the brochures urgently, but she hasn't received them yet. (B) is not indicated. (C) repeats 'shipment', but it hasn't been sent yet. (D) is not mentioned."
+            },
+            {
+              "question_number": 49,
+              "question_text": "What does the man decide to do?",
+              "has_image": false,
+              "options": {
+                "A": "Hand in his notice",
+                "B": "Visit the woman that afternoon",
+                "C": "Fix the problem himself",
+                "D": "Rearrange his work schedule"
+              },
+              "answer": "D",
+              "explanation": "The man says 'I'll put your job at the top of my list'."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q50_52",
+          "context_text": "Questions 50 through 52 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "F-Au",
+              "line": "I'm off to Paris tomorrow. It's the final seminar in my European Business course, remember, so you'll have to look after the sales accounts yourself while I'm gone. I'll be back on Friday."
+            },
+            {
+              "speaker": "M-Cn",
+              "line": "OK. Do you want a ride to the airport? I can take you there if you like. The subway is closed for repairs, so there'll be no trains, and it'll be quicker than taking the bus."
+            },
+            {
+              "speaker": "F-Au",
+              "line": "No, that's alright. I already booked a cab. Oh, can you e-mail Mr. Gibson while I'm gone? I think he's ready to place another order."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 50,
+              "question_text": "What will the woman do in Paris?",
+              "has_image": false,
+              "options": {
+                "A": "Meet with clients",
+                "B": "Attend a sales conference",
+                "C": "Go on a training course",
+                "D": "See the accountant"
+              },
+              "answer": "C",
+              "explanation": "The words 'seminar' and 'course' indicate the woman is going on a training course."
+            },
+            {
+              "question_number": 51,
+              "question_text": "How does the woman plan to travel to the airport?",
+              "has_image": false,
+              "options": {
+                "A": "By bus",
+                "B": "By train",
+                "C": "By taxi",
+                "D": "By subway"
+              },
+              "answer": "C",
+              "explanation": "The woman says 'I already booked a cab'."
+            },
+            {
+              "question_number": 52,
+              "question_text": "What does the woman ask the man to do?",
+              "has_image": false,
+              "options": {
+                "A": "Check her e-mail",
+                "B": "Contact a customer",
+                "C": "Find a hotel",
+                "D": "Place an order"
+              },
+              "answer": "B",
+              "explanation": "She asks him to e-mail Mr. Gibson. We can deduce that Mr. Gibson is therefore a customer."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q53_55",
+          "context_text": "Questions 53 through 55 refer to the following conversation with three speakers.",
+          "script": [
+            {
+              "speaker": "M-Am",
+              "line": "OK, so that's one club sandwich, one house special salad, a glass of fresh orange juice, and a green tea. Will that be everything?"
+            },
+            {
+              "speaker": "F1-Am",
+              "line": "Yes, I think that's it. Unless you want something else, Susan?"
+            },
+            {
+              "speaker": "F2-Au",
+              "line": "No, that's fine for me. The movie starts in half an hour, though. We don't want to miss the beginning. How much is it?"
+            },
+            {
+              "speaker": "M-Am",
+              "line": "That'll be $26.50. I can get you the bill now if you like."
+            },
+            {
+              "speaker": "F2-Au",
+              "line": "Yes, please."
+            },
+            {
+              "speaker": "F1-Am",
+              "line": "Actually, can you just put it on my room? 563? Would that be OK?"
+            },
+            {
+              "speaker": "M-Am",
+              "line": "No problem, madam. I'll do that for you."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 53,
+              "question_text": "Where does the man probably work?",
+              "has_image": false,
+              "options": {
+                "A": "In a hotel",
+                "B": "At an airport",
+                "C": "In a movie theater",
+                "D": "In a supermarket"
+              },
+              "answer": "A",
+              "explanation": "Referring to the bill, one woman asks the man 'can you just put it on my room? 563?' and gives her room number as 563. We can infer the man works in a hotel."
+            },
+            {
+              "question_number": 54,
+              "question_text": "What is suggested about the women?",
+              "has_image": false,
+              "options": {
+                "A": "They work in the same company.",
+                "B": "They are sisters on vacation.",
+                "C": "They are at a sales conference.",
+                "D": "They are worried about the time."
+              },
+              "answer": "D",
+              "explanation": "The women are going to watch a movie which one woman says 'starts in half an hour' and adds 'We don't want to miss the beginning'. (A), (B), and (C) cannot be inferred."
+            },
+            {
+              "question_number": 55,
+              "question_text": "Why does the man say, 'No problem'?",
+              "has_image": false,
+              "options": {
+                "A": "To agree to a request",
+                "B": "To give his permission",
+                "C": "To suggest a solution",
+                "D": "To decline an offer"
+              },
+              "answer": "A",
+              "explanation": "One woman asks the man to charge the bill to her room, saying 'Would that be OK?' Here, his response 'No problem' means 'Yes, of course'."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q56_58",
+          "context_text": "Questions 56 through 58 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "M-Am",
+              "line": "Do you know why we haven't been able to get online all day, Joanne? I have e-mails I need to answer, and orders to process."
+            },
+            {
+              "speaker": "F-Am",
+              "line": "I checked with our technical guys at the main office and they said it has nothing to do with them. It's the Computing Department in Seattle, apparently. They made a mistake during routine maintenance last night."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Well, do they have any idea when we'll get back online?"
+            },
+            {
+              "speaker": "F-Am",
+              "line": "No."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "It must be costing us a fortune in lost sales."
+            },
+            {
+              "speaker": "F-Am",
+              "line": "They said they were working on it, but they don't know how much longer the systems will be down. I know it's inconvenient, but you'll just have to try to be patient."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 56,
+              "question_text": "What problem are the speakers discussing?",
+              "has_image": false,
+              "options": {
+                "A": "Trouble connecting to the Internet",
+                "B": "The company's recent losses",
+                "C": "Disappointing sales forecasts",
+                "D": "An old computer system"
+              },
+              "answer": "A",
+              "explanation": "The man says 'we haven't been able to get online all day'."
+            },
+            {
+              "question_number": 57,
+              "question_text": "How does the man probably feel?",
+              "has_image": false,
+              "options": {
+                "A": "Tired",
+                "B": "Frustrated",
+                "C": "Confused",
+                "D": "Unwell"
+              },
+              "answer": "B",
+              "explanation": "The man says he has 'e-mails I need to answer' and 'orders to process', and complains about 'lost sales'. We can deduce he is frustrated by the situation."
+            },
+            {
+              "question_number": 58,
+              "question_text": "When will the problem be resolved?",
+              "has_image": false,
+              "options": {
+                "A": "Very shortly",
+                "B": "Within a few hours",
+                "C": "Before the end of the day",
+                "D": "Nobody knows"
+              },
+              "answer": "D",
+              "explanation": "The woman says that the company's technical staff 'don't know how much longer the systems will be down'."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q59_61",
+          "context_text": "Questions 59 through 61 refer to the following conversation.",
+          "script": [
+            {
+              "speaker": "M-Br",
+              "line": "There's a Mr. Dawson for you on line 3."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "Oh no. Not him again."
+            },
+            {
+              "speaker": "M-Br",
+              "line": "He said he called last week about some marketing supplies, but you didn't reply."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "He's e-mailed me at least three times. Can you tell him I'm in a meeting and can't talk right now? Ask him to send a catalogue, that's all."
+            },
+            {
+              "speaker": "M-Br",
+              "line": "OK, but he says there's a special going on right now . . ."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "Yes, I know. But it's six o'clock already. I really need to go."
+            },
+            {
+              "speaker": "M-Br",
+              "line": "50 percent off brochures and calendars. We need some more, you know."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "Oh, OK. Put him through."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 59,
+              "question_text": "Who most likely is the man?",
+              "has_image": false,
+              "options": {
+                "A": "A sales clerk",
+                "B": "A factory supervisor",
+                "C": "A personal assistant",
+                "D": "A marketing manager"
+              },
+              "answer": "C",
+              "explanation": "The man is taking a call for the woman, and checks with her before putting the call through. (A) and (B) cannot be inferred. (D) repeats 'marketing' but is not the correct answer."
+            },
+            {
+              "question_number": 60,
+              "question_text": "What does the woman imply about Mr. Dawson?",
+              "has_image": false,
+              "options": {
+                "A": "She does not like him.",
+                "B": "She does not want to speak to him.",
+                "C": "She has met him before.",
+                "D": "She used to work with him."
+              },
+              "answer": "B",
+              "explanation": "The woman asks the man to tell Mr. Dawson she is in a meeting. (A) cannot be inferred. (C) and (D) are not indicated."
+            },
+            {
+              "question_number": 61,
+              "question_text": "What will the woman probably do next?",
+              "has_image": false,
+              "options": {
+                "A": "Speak to Mr. Dawson",
+                "B": "Leave the office",
+                "C": "Go straight home",
+                "D": "Find a catalogue"
+              },
+              "answer": "A",
+              "explanation": "The woman finally says 'Put him through'. She will speak to Mr. Dawson."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q62_64",
+          "context_text": "Questions 62 through 64 refer to the following conversation and price list.",
+          "script": [
+            {
+              "speaker": "M-Am",
+              "line": "I wouldn't use that machine if I were you. It gave me the wrong change."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "Really?"
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Yeah. I put a five dollar bill in and only got one dollar back. It should have given me two dollars back."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "That's too bad."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "And there's nobody around to help, of course. No attendant anywhere. Everything's automated on this line now."
+            },
+            {
+              "speaker": "F-Cn",
+              "line": "Why don't you go to the website and send them some feedback? They'll have a customer services email somewhere."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Good point. I think I'll do that. Oh, look. Here's the train now."
+            }
+          ],
+          "has_graphic": true,
+          "graphic_ref": "data/img/listen2/price_list_coffee.png",
+          "graphic_description": "Price list: Regular coffee $2.50, Espresso $2.00, Cappuccino $3.00, Decaffeinated coffee $3.50",
+          "questions": [
+            {
+              "question_number": 62,
+              "question_text": "Where does this conversation take place?",
+              "has_image": false,
+              "options": {
+                "A": "In a cafeteria",
+                "B": "In a hotel",
+                "C": "At a bus stop",
+                "D": "At a railway station"
+              },
+              "answer": "D",
+              "explanation": "The man refers to 'this line' and later says 'Here's the train now'. We can deduce they are at a railway station."
+            },
+            {
+              "question_number": 63,
+              "question_text": "Look at the graphic. What drink did the man buy?",
+              "has_image": false,
+              "options": {
+                "A": "Regular coffee",
+                "B": "Espresso",
+                "C": "Cappuccino",
+                "D": "Decaffeinated coffee"
+              },
+              "answer": "C",
+              "explanation": "The man says he paid with a five dollar bill and should have got two dollars back. We can see from the graphic that a cappuccino costs three dollars."
+            },
+            {
+              "question_number": 64,
+              "question_text": "What does the woman advise him to do?",
+              "has_image": false,
+              "options": {
+                "A": "Check online",
+                "B": "Make a complaint",
+                "C": "Ask customer services",
+                "D": "Speak with an attendant"
+              },
+              "answer": "B",
+              "explanation": "The woman suggests he 'go to the website and send them some feedback', referring to customer services. As the man's experience is a negative one, we can infer she is suggesting he make a complaint. She does not suggest he check anything (A), or ask anything (C). There is no attendant to speak with (D)."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q65_67",
+          "context_text": "Questions 65 through 67 refer to the following conversation and information.",
+          "script": [
+            {
+              "speaker": "F-Br",
+              "line": "Hi. I'm looking for a present for my mother's birthday next week."
+            },
+            {
+              "speaker": "M-Au",
+              "line": "Oh yes? How about some earrings?"
+            },
+            {
+              "speaker": "F-Br",
+              "line": "Hmm. Maybe. These ones are nice."
+            },
+            {
+              "speaker": "M-Au",
+              "line": "They're our most popular collection. We sell more of these than anything else. And this style is very fashionable."
+            },
+            {
+              "speaker": "F-Br",
+              "line": "Yes. They're very delicate, aren't they?"
+            },
+            {
+              "speaker": "M-Au",
+              "line": "And they can be customized with a birthstone, too. Her birthday's next week, you say, so … May. Oh, she's lucky – a lovely, bright color."
+            },
+            {
+              "speaker": "F-Br",
+              "line": "Yes, those would definitely go well with her brown hair. And she's not keen on large earrings so these would be fine. In fact, they're perfect!"
+            }
+          ],
+          "has_graphic": true,
+          "graphic_ref": "data/img/listen2/birthstone_table.png",
+          "graphic_description": "Month/Birthstone table: April=Diamond, May=Emerald, June=Pearl, July=Ruby",
+          "questions": [
+            {
+              "question_number": 65,
+              "question_text": "What does the man say about the earrings?",
+              "has_image": false,
+              "options": {
+                "A": "They are made of pure gold.",
+                "B": "They come in different sizes.",
+                "C": "They are the store's best-sellers.",
+                "D": "They are very expensive."
+              },
+              "answer": "C",
+              "explanation": "The man says the earrings are 'our most popular collection' and adds 'We sell more of these than anything else'."
+            },
+            {
+              "question_number": 66,
+              "question_text": "Look at the graphic. Which birthstone does the man suggest?",
+              "has_image": false,
+              "options": {
+                "A": "Diamond",
+                "B": "Emerald",
+                "C": "Pearl",
+                "D": "Ruby"
+              },
+              "answer": "B",
+              "explanation": "It is the mother's birthday next week and the man says next week is May. We can see from the graphic that the birthstone for May is Emerald."
+            },
+            {
+              "question_number": 67,
+              "question_text": "What does the woman say about her mother?",
+              "has_image": false,
+              "options": {
+                "A": "She has brown eyes.",
+                "B": "She wears bright clothes.",
+                "C": "She is interested in fashion.",
+                "D": "She prefers small earrings."
+              },
+              "answer": "D",
+              "explanation": "The woman says her mother 'is not keen on large earrings' (meaning she prefers small earrings). Her mother has brown hair, not brown eyes (A). (B) is not mentioned. We hear that the earrings are fashionable, not that the woman's mother is interested in fashion (C)."
+            }
+          ]
+        },
+        {
+          "group_id": "p3_q68_70",
+          "context_text": "Questions 68 through 70 refer to the following conversation and floor plan.",
+          "script": [
+            {
+              "speaker": "M-Am",
+              "line": "I'm here to see Ms. Kolsky. She's expecting me."
+            },
+            {
+              "speaker": "F-Am",
+              "line": "Ah, yes. At last. Ms. Kolsky will be very pleased to see you. She's had a frustrating time all morning with her laptop problems."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Well I've brought a new monitor with me. I think that will solve the issue."
+            },
+            {
+              "speaker": "F-Am",
+              "line": "Could you please sign your name in the visitors' book, and write your vehicle registration number in the right-hand column? Oh, and please wear this security pass around your neck."
+            },
+            {
+              "speaker": "M-Am",
+              "line": "Thank you. Which way do I go?"
+            },
+            {
+              "speaker": "F-Am",
+              "line": "Through this set of double doors. Then through the next set and her office is the first on the left."
+            }
+          ],
+          "has_graphic": true,
+          "graphic_ref": "data/img/listen2/floor_plan_offices.png",
+          "graphic_description": "Floor plan showing 4 rooms (1-4) near an entrance and Reception desk. Room 1 and 2 are near the entrance; Room 3 and 4 are further in.",
+          "questions": [
+            {
+              "question_number": 68,
+              "question_text": "Who is the man?",
+              "has_image": false,
+              "options": {
+                "A": "A security guard",
+                "B": "A friend of Ms. Kolsky",
+                "C": "A computer repairman",
+                "D": "A delivery truck driver"
+              },
+              "answer": "C",
+              "explanation": "The woman mentions that Ms. Kolsky has had 'laptop problems' and the man says he has brought a new monitor with him which he thinks will solve the issue. We can deduce he is a computer repairman."
+            },
+            {
+              "question_number": 69,
+              "question_text": "What does the woman imply?",
+              "has_image": false,
+              "options": {
+                "A": "She was not expecting the man.",
+                "B": "They have been waiting for some time.",
+                "C": "He is the final visitor of the day.",
+                "D": "The man got lost on his way there."
+              },
+              "answer": "B",
+              "explanation": "When the man introduces himself, the woman says 'At last'. The implication is that they have been waiting a long time for the man. (A) is therefore incorrect. (C) confuses 'At last' (meaning 'finally') with 'last' (meaning 'final'). (D) confuses 'At last' with the similar-sounding word 'lost'."
+            },
+            {
+              "question_number": 70,
+              "question_text": "Look at the graphic. Which is Ms. Kolsky's office?",
+              "has_image": false,
+              "options": {
+                "A": "Room 1",
+                "B": "Room 2",
+                "C": "Room 3",
+                "D": "Room 4"
+              },
+              "answer": "D",
+              "explanation": "The woman tells the man to go through two sets of double doors, and then the office is the first on the left. We can see from the graphic that this is Room 4."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part_number": 0,
+      "title": "Short Talks",
+      "description": "You will hear ten short talks given by a single speaker. For each short talk, read the three questions and the four answer choices. Select the most appropriate answer: (A), (B), (C), or (D).",
+      "audio_track": 144,
+      "question_groups": [
+        {
+          "group_id": "p4_q71_73",
+          "context_text": "Questions 71 through 73 refer to the following talk.",
+          "script": [
+            {
+              "speaker": "M-Am",
+              "line": "Welcome everyone, to the first talk in our series on Sustainable Tourism in the 21st Century. Tonight we start with a very special guest speaker, Dr. Brenda Hartley. As many of you here know, Dr. Hartley has championed the cause of sustainable tourism for over thirty years now. She began as a student activist, taking part in demonstrations against the social and environmental impact of tourism on indigenous cultures in South America and Africa. Today, she chairs a United Nations task force assessing the economic impact of tourism around the world. She is perhaps best known as the author of the 'Act Now' books, in which she encourages not only the world powers to take action, but also each of us as individuals. Ladies and gentlemen, without further ado, please join me in welcoming tonight's very special guest speaker, Dr. Brenda Hartley."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 71,
+              "question_text": "What is the purpose of the talk?",
+              "has_image": false,
+              "options": {
+                "A": "To promote an author",
+                "B": "To introduce a speaker",
+                "C": "To launch a travel agency",
+                "D": "To encourage global travel"
+              },
+              "answer": "B",
+              "explanation": "The man is introducing Dr. Hartley, who will shortly give a talk. He ends by asking the audience to 'join me in welcoming tonight's very special guest speaker'. Dr. Hartley is the author of several books, but the man is not trying to promote her as an author (A). (C) refers to one of the themes of Dr. Hartley's talk (tourism) but there is no mention of a travel agency. (D) repeats 'global travel', but the man is not encouraging listeners to travel around the world."
+            },
+            {
+              "question_number": 72,
+              "question_text": "Which aspect of tourism does Dr. Hartley currently specialize in?",
+              "has_image": false,
+              "options": {
+                "A": "Social",
+                "B": "Political",
+                "C": "Environmental",
+                "D": "Economic"
+              },
+              "answer": "D",
+              "explanation": "Dr. Hartley is the head of a group that focuses on 'the economic impact of tourism'. (A) and (C) relate to her interest in the past as a student activist. (B) misleads by referring to the United Nations."
+            },
+            {
+              "question_number": 73,
+              "question_text": "What does the speaker mean when he says, 'Without further ado'?",
+              "has_image": false,
+              "options": {
+                "A": "He will not delay any longer.",
+                "B": "Something extra is missing.",
+                "C": "He could say a lot more.",
+                "D": "There has been a mistake."
+              },
+              "answer": "A",
+              "explanation": "The expression 'without further ado' is often used in introductory talks and means that the speaker will not hold things up by talking any more, so the main event can start."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q74_76",
+          "context_text": "Questions 74 through 76 refer to the following report.",
+          "script": [
+            {
+              "speaker": "M-Am",
+              "line": "Hello and welcome to Star Radio's Jobs Report. I'm your host, Hugh Robinson. We start with breaking news of trouble at Hartford's biggest employer, Cheffin Industries. Workers today walked out of the automobile manufacturer's largest plant in the region, demanding better pay and conditions. Some three hundred workers staged the strike, which caused production at the plant to stop completely. Workers complained of low pay, unpaid overtime, and the withdrawal of health benefits announced by the management last month. The strike appears likely to spread to Cheffin's other factories, and could have a tremendous impact on the company if it is not resolved quickly."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 74,
+              "question_text": "What is this report mainly about?",
+              "has_image": false,
+              "options": {
+                "A": "An industrial dispute",
+                "B": "Job losses at a factory",
+                "C": "Illness among employees",
+                "D": "An accident at an automobile plant"
+              },
+              "answer": "A",
+              "explanation": "The report mentions a strike. Workers at Cheffin Industries have walked out and are demanding better pay and conditions. (B) is incorrect because no jobs have been lost. (C) confuses the 'withdrawal of health benefits' with employee illness. (D) correctly states the report is about an automobile plant, but there is no mention of an accident."
+            },
+            {
+              "question_number": 75,
+              "question_text": "How many workers are involved?",
+              "has_image": false,
+              "options": {
+                "A": "50",
+                "B": "100",
+                "C": "300",
+                "D": "1,000"
+              },
+              "answer": "C",
+              "explanation": "The report says 'three hundred workers staged the strike'."
+            },
+            {
+              "question_number": 76,
+              "question_text": "What does the speaker imply?",
+              "has_image": false,
+              "options": {
+                "A": "The trouble is now over.",
+                "B": "Employees are in good health.",
+                "C": "Cheffin Industries is a national company.",
+                "D": "The situation may get worse."
+              },
+              "answer": "D",
+              "explanation": "The speaker says the strike appears 'likely to spread'. The situation is not resolved (A). (B) confuses 'health benefits' with 'in good health'. Cheffin Industries has other factories, but we are not told they are a national company (C)."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q77_79",
+          "context_text": "Questions 77 through 79 refer to the following speech.",
+          "script": [
+            {
+              "speaker": "M-Cn",
+              "line": "Welcome all of you to our Graduate Training program. I'm Francis Sheen, C.E.O. of Transform Cosmetics. You are about to have six months of the hardest training in the beauty business. Today, we'll start with an overview of the company. In just a moment, I'll hand you over to Communications Director Jeremy Mason, who will give a presentation on what we do and where our corporate strategy is taking us. At eleven, Diane Trent, our Operations Manager, will speak to you about our operations abroad. She'll be updating you on our exciting new retail establishments in Europe. Lunch will be at one in the Washington Room. Then in the afternoon, you will visit our flagship retail outlet at the Riverside Mall. The bus will leave after lunch at two, so please be at the main entrance on time."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 77,
+              "question_text": "What will Diane Trent give a presentation on?",
+              "has_image": false,
+              "options": {
+                "A": "Projects taking place in other countries",
+                "B": "An overview of Transform Cosmetics",
+                "C": "Opportunities for new graduates",
+                "D": "The company's business strategy"
+              },
+              "answer": "A",
+              "explanation": "The speaker says Ms. Trent will speak about 'our operations abroad', specifically 'new retail establishments in Europe'."
+            },
+            {
+              "question_number": 78,
+              "question_text": "What must the group do after lunch?",
+              "has_image": false,
+              "options": {
+                "A": "Go to the Washington Room",
+                "B": "Meet at the Riverside Mall",
+                "C": "Assemble at the main entrance",
+                "D": "Give updates on their projects"
+              },
+              "answer": "C",
+              "explanation": "The audience are asked to 'be at the main entrance' at 2 P.M. to take a bus. (A) is the room where they will have lunch. The will visit the Riverside Mall, not meet (B) there. (D) is not mentioned."
+            },
+            {
+              "question_number": 79,
+              "question_text": "What will the speaker do next?",
+              "has_image": false,
+              "options": {
+                "A": "Answer any questions",
+                "B": "Ask someone else to speak",
+                "C": "Give a presentation",
+                "D": "Open a new retail outlet"
+              },
+              "answer": "B",
+              "explanation": "At the start, the man says 'In just a moment, I'll hand you over to our Communications Director'. (A), (C), and (D) are not indicated."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q80_82",
+          "context_text": "Questions 80 through 82 refer to the following voicemail message.",
+          "script": [
+            {
+              "speaker": "F-Am",
+              "line": "Hello, Tony? It's Sally again. I was hoping you would pick up. It's eleven thirty Friday morning and you still haven't gotten back to me about the schedule for next Monday. I e-mailed you twice last week, and this is my third call since Wednesday. I really need you to confirm the speakers and the content for the workshop, before I put everything together and print out the details. I don't want to have to do this over the weekend, and it will be too late on Monday morning, so please call me back to confirm the details as soon as possible. I am very concerned about this and really hope we can avoid any further delays. Thanks."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 80,
+              "question_text": "What is the purpose of Sally's call?",
+              "has_image": false,
+              "options": {
+                "A": "To make a complaint",
+                "B": "To ask for information",
+                "C": "To request a meeting",
+                "D": "To confirm plans for the weekend"
+              },
+              "answer": "B",
+              "explanation": "The woman wants to know the speakers and the content for the workshop."
+            },
+            {
+              "question_number": 81,
+              "question_text": "What day will the workshop be held?",
+              "has_image": false,
+              "options": {
+                "A": "Monday",
+                "B": "Wednesday",
+                "C": "Thursday",
+                "D": "Friday"
+              },
+              "answer": "A",
+              "explanation": "She says the event will take place 'next Monday'. (B) refers to 'my third call since Wednesday'. (D) is today."
+            },
+            {
+              "question_number": 82,
+              "question_text": "Why does the speaker say, 'I was hoping you would pick up'?",
+              "has_image": false,
+              "options": {
+                "A": "She expected the man to answer.",
+                "B": "She is disappointed the man is unavailable.",
+                "C": "She is an optimistic person.",
+                "D": "She feels pleased to get a response."
+              },
+              "answer": "B",
+              "explanation": "The woman feels disappointed that Tony has not answered her call. She needs to hear from him urgently."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q83_85",
+          "context_text": "Questions 83 through 85 refer to the following announcement.",
+          "script": [
+            {
+              "speaker": "M-Br",
+              "line": "And here as we come around the corner we can see the marvelous eleventh-century cathedral. It's a wonderful example of medieval architecture, over 900 years old, and still very much the centerpiece of the city of Norwich. This is one of the biggest attractions in the East of England. In a moment, our driver Sam will pull over and drop us off and we'll have two hours to explore this lovely cathedral. Don't forget, the price of your entry to the cathedral is included, so just wait at the group entrance while I deal with the tickets. For those of you who want some refreshments, there's a coffee shop inside, and a gift shop, of course. They're both open until five o'clock. We'll meet back at the main entrance at five thirty. OK. Oh, and before we stop, please remember, you can leave your jackets, bags, and other belongings on your seats, but I encourage you to take all your valuables with you."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 83,
+              "question_text": "Where is the group of people?",
+              "has_image": false,
+              "options": {
+                "A": "In a street",
+                "B": "In a cathedral",
+                "C": "In a bus",
+                "D": "In a train"
+              },
+              "answer": "C",
+              "explanation": "The speaker says 'our driver Sam will pull over and drop us off' indicating this is in a bus, rather than in the street (A) or a train (D). They are not yet in the cathedral (B)."
+            },
+            {
+              "question_number": 84,
+              "question_text": "At what time should the group return to the main entrance?",
+              "has_image": false,
+              "options": {
+                "A": "2:00 P.M.",
+                "B": "5:00 P.M.",
+                "C": "5:30 P.M.",
+                "D": "6:30 P.M."
+              },
+              "answer": "C",
+              "explanation": "The speaker they will 'meet back at the main entrance at five thirty'."
+            },
+            {
+              "question_number": 85,
+              "question_text": "What does the speaker tell the audience to do?",
+              "has_image": false,
+              "options": {
+                "A": "Buy their tickets",
+                "B": "Get some refreshments",
+                "C": "Purchase some gifts",
+                "D": "Take their valuable items"
+              },
+              "answer": "D",
+              "explanation": "The man says 'I encourage you to take all your valuables with you'."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q86_88",
+          "context_text": "Questions 86 through 88 refer to the following talk.",
+          "script": [
+            {
+              "speaker": "F-Cn",
+              "line": "Welcome to Ocean Bay. My name is Michelle and I'll be your waitress for today. Here is our evening menu. You can choose two courses for $30 . . . so that's an appetizer and a main course, or a main and a dessert. We also have an a la carte menu which I will leave for you here, and the specials board is over there on the wall. I highly recommend the salmon, which is very fresh. Oh, and the grilled lobster is delicious. We're known for our seafood here, but you probably know that already. The only thing we don't have for you today is the tuna salad. That's usually on the regular menu, but everything on the à la carte is available, and, as I said, the specials are over there on the wall. Since it's before six o'clock, you qualify for our Early Eater complimentary beverage. You can have fresh orange juice, mango juice, a choice of soft drinks or mineral water. Which would you like?"
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 86,
+              "question_text": "What does the speaker imply when she says, 'You probably know that already'?",
+              "has_image": false,
+              "options": {
+                "A": "The restaurant is famous.",
+                "B": "The diners are intelligent.",
+                "C": "The subject is well-researched.",
+                "D": "Lots of people agree."
+              },
+              "answer": "A",
+              "explanation": "The speaker says that the restaurant has a good reputation for its seafood, and this phrase reinforces her expectation that the diners know this already."
+            },
+            {
+              "question_number": 87,
+              "question_text": "What does the speaker say about the tuna salad?",
+              "has_image": false,
+              "options": {
+                "A": "It is very fresh and tasty.",
+                "B": "It is not available to order.",
+                "C": "It is on the à la carte menu.",
+                "D": "It is on the specials board."
+              },
+              "answer": "B",
+              "explanation": "The tuna salad is the only thing we don't have for you today."
+            },
+            {
+              "question_number": 88,
+              "question_text": "What special offer do the listeners qualify for?",
+              "has_image": false,
+              "options": {
+                "A": "A complimentary appetizer",
+                "B": "A discount of $30",
+                "C": "A free drink",
+                "D": "Some fresh fruit"
+              },
+              "answer": "C",
+              "explanation": "The Early Eater special offer is a 'complimentary beverage'. (A) repeats 'appetizer' which incorrectly links 'complimentary' with 'appetizer'. (B) refers to the cost of a two course meal. (D) confuses fruit juices with fruit."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q89_91",
+          "context_text": "Questions 89 through 91 refer to the following advertisement.",
+          "script": [
+            {
+              "speaker": "M-Au",
+              "line": "For small companies, a big phone bill can be… well… a big problem. And it's an even bigger problem when doing business abroad. The fact is, when you're out of the country, calling the office back home can be expensive… very expensive. And just think about the money your company spends on contacting your customers overseas by phone! Wouldn't you like to save money on your phone bill? Then why not switch your phone provider to HTC Digital? We guarantee to reduce your phone bill by thirty percent. That's right. If you have fewer than twenty employees, just sign up for one year to our International Small Business plan, and we'll cut your overseas phone bill by thirty percent, guaranteed for the first three months. Call now at 555-388-9759 to find out more. HTC Digital's International Small Business plan. You know it makes sense."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 89,
+              "question_text": "Who is this advertisement aimed at?",
+              "has_image": false,
+              "options": {
+                "A": "Companies based in a foreign country",
+                "B": "Large multinational corporations",
+                "C": "Small companies doing business overseas",
+                "D": "Firms specializing in overseas travel"
+              },
+              "answer": "C",
+              "explanation": "The ad is targeted at 'small companies' that are 'doing business abroad'."
+            },
+            {
+              "question_number": 90,
+              "question_text": "What does the advertisement guarantee?",
+              "has_image": false,
+              "options": {
+                "A": "Discounted overseas calls for one year",
+                "B": "Cheaper calls for a limited time",
+                "C": "Free calls to some countries",
+                "D": "20 free international calls every month"
+              },
+              "answer": "B",
+              "explanation": "The ad promises to 'cut your overseas phone bill by thirty percent', but says this is only guaranteed 'for the first three months', not one year (A). No free calls are mentioned (C). (D) relates to the maximum number of employees a company can have to be eligible for the offer."
+            },
+            {
+              "question_number": 91,
+              "question_text": "What restriction does the speaker mention?",
+              "has_image": false,
+              "options": {
+                "A": "Customers must commit to a 12-month contract.",
+                "B": "The offer is limited to the first 100 customers.",
+                "C": "Companies already with HTC Digital may not apply.",
+                "D": "Businesses must apply within three months."
+              },
+              "answer": "A",
+              "explanation": "The speaker says customers need to 'sign up for one year' to the International Small Business plan."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q92_94",
+          "context_text": "Questions 92 through 94 refer to the following talk.",
+          "script": [
+            {
+              "speaker": "F-Am",
+              "line": "OK, I've asked you all into my office because we need to get ready for the meeting with Flax Investments next week. Joe, I'd like you to start off with a presentation of our financial results for the last year. Keep it brief, maybe five minutes. Trisha, you can follow that with the expected sales figures for the next year. Give an overview, but make sure you mention our operations in Mexico. You'll need to liaise with Bill in Marketing, I think. Sarah, can you please prepare some questions we need Flax to answer, such as what level of risk they are comfortable with, how much they want to invest, how long they want to invest for – that kind of thing? Mike, I want you to take the minutes of the meeting. I'll prepare the agenda and send a copy out to everyone tomorrow."
+            }
+          ],
+          "has_graphic": false,
+          "questions": [
+            {
+              "question_number": 92,
+              "question_text": "What is the main purpose of the talk?",
+              "has_image": false,
+              "options": {
+                "A": "To prepare for an important meeting",
+                "B": "To explain the latest sales figures",
+                "C": "To appoint a senior manager",
+                "D": "To name new employees"
+              },
+              "answer": "A",
+              "explanation": "The speaker gives various people different responsibilities to 'get ready for the meeting with Flax Investments next week'."
+            },
+            {
+              "question_number": 93,
+              "question_text": "What does the speaker ask Trisha to present?",
+              "has_image": false,
+              "options": {
+                "A": "An overview of the company",
+                "B": "An analysis of the investment risks",
+                "C": "The sales forecasts for the year ahead",
+                "D": "The financial results for last year"
+              },
+              "answer": "C",
+              "explanation": "The speaker asks Trisha to present 'the expected sales figures for the next year'."
+            },
+            {
+              "question_number": 94,
+              "question_text": "Who will record what happens in the meeting?",
+              "has_image": false,
+              "options": {
+                "A": "Joe",
+                "B": "Bill",
+                "C": "Sarah",
+                "D": "Mike"
+              },
+              "answer": "D",
+              "explanation": "The speaker asks Mike to 'take the minutes of the meeting'."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q95_97",
+          "context_text": "Questions 95 through 97 refer to the following announcement and schedule.",
+          "script": [
+            {
+              "speaker": "M-Br",
+              "line": "May I have your attention please? We are sorry to announce that all local trains to Burlington have been canceled. This is due to a fallen tree on the Burlington regional rail line. All passengers wishing to travel to Burlington or Longbridge should travel on the next express service to Westfield. This service will now make additional stops at Burlington and Longbridge. Anyone traveling to the other stations on the Burlington regional line, please make your way to the West exit where a coach service is waiting to take you to your destination. We apologize for any inconvenience. The next train to arrive on Platform 3 will be the 9:34 service to Ryevale."
+            }
+          ],
+          "has_graphic": true,
+          "graphic_ref": "data/img/listen2/train_schedule.png",
+          "graphic_description": "Train schedule: Ryevale 9:34 Platform 3 | Burbridge 9:39 Platform 1 | Westfield 9:42 Platform 2 | Staffham 9:52 Platform 4",
+          "questions": [
+            {
+              "question_number": 95,
+              "question_text": "What problem is being announced?",
+              "has_image": false,
+              "options": {
+                "A": "One station has been closed.",
+                "B": "There is a mechanical issue.",
+                "C": "A rail line is blocked.",
+                "D": "There is a staff shortage."
+              },
+              "answer": "C",
+              "explanation": "The speaker announces 'trains to Burlington have been canceled', and explains the cause as 'a fallen tree' on the line. We can deduce that the line is blocked."
+            },
+            {
+              "question_number": 96,
+              "question_text": "Look at the graphic. Which platform should passengers traveling to Burlington use?",
+              "has_image": false,
+              "options": {
+                "A": "1",
+                "B": "2",
+                "C": "3",
+                "D": "4"
+              },
+              "answer": "B",
+              "explanation": "Passengers wishing to travel to Burlington are told to take 'the next express service to Westfield'. We can see from the graphic that this leaves from Platform 2."
+            },
+            {
+              "question_number": 97,
+              "question_text": "Why are some passengers asked to go to the West exit?",
+              "has_image": false,
+              "options": {
+                "A": "To receive compensation",
+                "B": "To take alternative transportation",
+                "C": "To catch a different train",
+                "D": "To await further news"
+              },
+              "answer": "B",
+              "explanation": "The speaker says that 'a coach service is waiting' at the West exit for passengers going to the other stations on the Burlington regional line."
+            }
+          ]
+        },
+        {
+          "group_id": "p4_q98_100",
+          "context_text": "Questions 98 through 100 refer to the following excerpt from a meeting and price list.",
+          "script": [
+            {
+              "speaker": "F-Cn",
+              "line": "Before we move on, I'd like to return to pricing – specifically, the increase in the cover price of my team's magazine which is due to take effect from next month. I just looked at the latest sales data in one of the documents we were given earlier, and I really don't see how increasing our price will boost revenue. I'm worried it will have the opposite effect, actually, and readership will fall. We're already the most profitable of all the range, because more of our pages are devoted to advertising. Why don't we turn our attention elsewhere? Take a look at Fashion and Lifestyle – it costs a whole dollar more, but it's less profitable."
+            }
+          ],
+          "has_graphic": true,
+          "graphic_ref": "data/img/listen2/magazine_price_list",
+          "graphic_description": "HELIX Media Publishing magazine prices: Fashion and Lifestyle $6.50 | Your Fashion Guru $6.25 | Fitness and Fashion $6.25 | Style Trends $5.50",
+          "questions": [
+            {
+              "question_number": 98,
+              "question_text": "What is the purpose of the talk?",
+              "has_image": false,
+              "options": {
+                "A": "To point out a statistical error",
+                "B": "To request further information",
+                "C": "To confirm a change of policy",
+                "D": "To disagree with a decision"
+              },
+              "answer": "D",
+              "explanation": "The speaker is disagreeing with the increase in the price of the magazine from next month. She says she doesn't 'see how increasing our price will boost revenue'."
+            },
+            {
+              "question_number": 99,
+              "question_text": "What does the speaker anticipate may happen?",
+              "has_image": false,
+              "options": {
+                "A": "Extra staff will be needed.",
+                "B": "Revenue will increase.",
+                "C": "Sales of magazines may drop.",
+                "D": "More advertising will be needed."
+              },
+              "answer": "C",
+              "explanation": "The speaker says she is worried that 'readership will fall'. The aim of increasing the magazine's price is to boost revenue (B), but this is not the speaker's opinion. (A) and (D) are not mentioned."
+            },
+            {
+              "question_number": 100,
+              "question_text": "Look at the graphic. Which magazine is the speaker responsible for?",
+              "has_image": false,
+              "options": {
+                "A": "Fashion and Lifestyle",
+                "B": "Your Fashion Guru",
+                "C": "Fitness and Fashion",
+                "D": "Style Trends"
+              },
+              "answer": "D",
+              "explanation": "The speaker says the magazine 'Fashion and Lifestyle costs a whole dollar more' than hers. We can see from the graphic that Fashion and Lifestyle is $6.50, so the price of the magazine the speaker is responsible for must be $5.50. This is 'Style Trends'."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
