@@ -81,15 +81,44 @@ window.toggleTTS = function(btn) {
     utterance.rate = 0.88; // Tốc độ vừa phải
     
     // Săn lùng giọng đọc tốt nhất trên máy
-    const availableVoices = window.speechSynthesis.getVoices();
-    const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
+    // const availableVoices = window.speechSynthesis.getVoices();
+    // const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
 
-    // Chọn ngẫu nhiên 1 giọng tiếng Anh để đọc
+    // // Chọn ngẫu nhiên 1 giọng tiếng Anh để đọc
+    // if (englishVoices.length > 0) {
+    //     utterance.voice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
+    // } else {
+    //     utterance.lang = 'en-US'; // Dự phòng an toàn
+    // }
+
+
+// Lấy tất cả giọng trên máy
+    const availableVoices = window.speechSynthesis.getVoices();
+    
+    // 1. DANH SÁCH ĐEN: Chứa các từ khóa của những giọng robot, quái gở, trẻ con trên iOS/Mac
+    const weirdVoices = [
+        'Albert', 'Bad News', 'Bahh', 'Bells', 'Boing', 'Bubbles', 'Cellos', 
+        'Deranged', 'Good News', 'Hysterical', 'Pipe Organ', 'Trinoids', 'Whisper', 
+        'Zarvox', 'Superstar', 'Jester', 'Wobble', 'Eddy', 'Flo', 'Grandpa', 
+        'Grandma', 'Reed', 'Rocko', 'Sandy', 'Shelley', 'Ralph', 'Fred'
+    ];
+
+    // 2. Lọc giọng: Phải là tiếng Anh VÀ không được nằm trong danh sách đen
+    const englishVoices = availableVoices.filter(voice => {
+        const isEnglish = voice.lang.startsWith('en');
+        // Kiểm tra xem tên giọng có chứa từ khóa cấm nào không
+        const isWeird = weirdVoices.some(badName => voice.name.includes(badName));
+        
+        return isEnglish && !isWeird; // Chỉ lấy giọng Tiếng Anh chuẩn
+    });
+
+    // Chọn ngẫu nhiên 1 giọng xịn để đọc
     if (englishVoices.length > 0) {
         utterance.voice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
     } else {
         utterance.lang = 'en-US'; // Dự phòng an toàn
     }
+
     // Đổi giao diện
     btn.innerHTML = '<i class="fa-solid fa-circle-stop text-red-500 text-lg"></i> Đang phát...';
     btn.classList.add('animate-pulse');
