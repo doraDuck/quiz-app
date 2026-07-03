@@ -224,10 +224,32 @@
       </div>
     </header>
 
-    <div class="w-full max-w-5xl mx-auto mt-6 p-4">
+    <div class="w-full max-w-5xl mx-auto mt-4 px-4">
       <div
-        class="bg-white dark:bg-darkCard p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap gap-6 items-end animate-slide-up relative z-50"
+        id="settingsPanel"
+        class="bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm animate-slide-up relative z-50"
       >
+        <button
+          type="button"
+          onclick="toggleSettingsPanel()"
+          id="settingsToggleBtn"
+          class="w-full flex items-center justify-between gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 rounded-xl transition-colors"
+        >
+          <span
+            class="flex items-center gap-2 font-bold text-sm text-slate-700 dark:text-slate-200"
+          >
+            <i class="fa-solid fa-sliders text-primary"></i> Cài đặt đề thi
+          </span>
+          <i
+            id="settingsToggleIcon"
+            class="fa-solid fa-chevron-up text-slate-400"
+          ></i>
+        </button>
+
+        <div
+          id="settingsPanelBody"
+          class="px-4 pb-4 md:px-6 md:pb-6 flex flex-wrap gap-4 md:gap-6 items-end border-t border-slate-100 dark:border-slate-700/50 pt-4"
+        >
         <div class="flex flex-col gap-2 flex-1 min-w-[280px]">
           <label
             class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider"
@@ -323,15 +345,17 @@
             <i class="fa-solid fa-play"></i> Làm Đề Mới
           </button>
         </div>
+        </div>
       </div>
     </div>
 
     <main
       id="app"
-      class="w-full max-w-5xl mx-auto flex-grow flex items-center justify-center p-4 mb-10"
+      class="w-full max-w-[100rem] mx-auto flex-grow flex items-center justify-center px-1 py-4 md:p-4 mb-10"
     ></main>
 
     <script src="app.js"></script>
+
 
     <script>
       if ("serviceWorker" in navigator) {

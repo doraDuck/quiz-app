@@ -231,6 +231,32 @@ window.toggleChapterDropdown = function () {
   if (menu) menu.classList.toggle("hidden");
 };
 
+const SETTINGS_PANEL_KEY = "toeic_settings_panel_open";
+
+window.toggleSettingsPanel = function (forceOpen) {
+  const body = document.getElementById("settingsPanelBody");
+  const icon = document.getElementById("settingsToggleIcon");
+  if (!body) return;
+
+  const isCurrentlyOpen = !body.classList.contains("hidden");
+  const shouldOpen =
+    typeof forceOpen === "boolean" ? forceOpen : !isCurrentlyOpen;
+
+  if (shouldOpen) {
+    body.classList.remove("hidden");
+    if (icon) icon.className = "fa-solid fa-chevron-up text-slate-400";
+  } else {
+    body.classList.add("hidden");
+    if (icon) icon.className = "fa-solid fa-chevron-down text-slate-400";
+  }
+
+  try {
+    localStorage.setItem(SETTINGS_PANEL_KEY, shouldOpen ? "1" : "0");
+  } catch (e) {
+    // Bỏ qua nếu trình duyệt chặn localStorage
+  }
+};
+
 document.addEventListener("click", function (e) {
   const btn = document.getElementById("chapterDropdownBtn");
   const menu = document.getElementById("chapterDropdownMenu");
@@ -268,7 +294,7 @@ function convertToeicJsonToQuizData(toeicJson) {
             let typeBadge = group.passage_type
               ? `<span class="inline-flex items-center gap-1 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-2.5 py-1 rounded-md text-xs font-bold mb-3 uppercase tracking-wider"><i class="fa-solid fa-tag"></i> ${group.passage_type}</span><br>`
               : "";
-            contextHtml += `<div class="mb-5 p-4 md:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-[14px] md:text-base max-h-72 overflow-y-auto leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>`;
+            contextHtml += `<div class="mb-5 p-3 md:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-base md:text-lg max-h-[50vh] overflow-y-auto leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>`;
           }
 
           if (group.script && Array.isArray(group.script)) {
@@ -278,14 +304,14 @@ function convertToeicJsonToQuizData(toeicJson) {
                   `<span class="font-bold text-primary dark:text-blue-400">${s.speaker}:</span> <span class="text-slate-700 dark:text-slate-300">${s.line}</span>`,
               )
               .join("<br><br>");
-            contextHtml += `<div class="mb-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base max-h-72 overflow-y-auto shadow-inner">
+            contextHtml += `<div class="mb-5 p-3 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-base md:text-lg max-h-[50vh] overflow-y-auto shadow-inner">
                               <div class="font-bold mb-3 text-slate-800 dark:text-slate-200 border-b border-blue-200 dark:border-slate-600 pb-2"><i class="fa-solid fa-headphones mr-2"></i> Audio Transcript:</div>
                               ${scriptHtml}
                              </div>`;
           }
 
           if (group.graphic_description) {
-            contextHtml += `<div class="mb-4 p-4 bg-amber-50 dark:bg-amber-900/10 rounded-lg border-l-4 border-amber-500 text-sm italic text-slate-700 dark:text-slate-300"><i class="fa-solid fa-image mr-2 text-amber-500"></i>[Mô tả hình ảnh/biểu đồ: ${group.graphic_description}]</div>`;
+            contextHtml += `<div class="mb-4 p-3 md:p-4 bg-amber-50 dark:bg-amber-900/10 rounded-lg border-l-4 border-amber-500 text-sm md:text-base italic text-slate-700 dark:text-slate-300"><i class="fa-solid fa-image mr-2 text-amber-500"></i>[Mô tả hình ảnh/biểu đồ: ${group.graphic_description}]</div>`;
           }
 
           if (group.questions && Array.isArray(group.questions)) {
@@ -317,7 +343,7 @@ function convertToeicJsonToQuizData(toeicJson) {
               let ttsRawText = "";
               if (
                 isListeningSection ||
-                toeicJson.test_name.includes("listen")
+                (toeicJson.test_name || "").toLowerCase().includes("listen")
               ) {
                 if (group.script && Array.isArray(group.script)) {
                   ttsRawText +=
@@ -493,6 +519,7 @@ window.applySettings = function () {
   maxStreak = 0;
 
   saveProgress();
+  toggleSettingsPanel(false);
   // startAudioPreloadQueue();
   render();
 };
@@ -594,16 +621,16 @@ function render() {
 
     optionsHtml += `
       <button onclick="${userAns === null ? `selectOption(${idx})` : "void(0)"}"
-        class="w-full text-left p-4 md:p-4 min-h-[3.5rem] rounded-xl md:rounded-lg border-2 transition-all duration-200 flex items-center ${btnClass}">
+        class="w-full text-left p-4 md:p-5 min-h-[3.5rem] md:min-h-[4rem] rounded-xl md:rounded-lg border-2 transition-all duration-200 flex items-center ${btnClass}">
         ${iconHtml}
-        <span class="leading-relaxed text-[15px] md:text-base break-words w-full">${opt.replace(/^[A-D]\.\s*/, "")}</span>
+        <span class="leading-relaxed text-base md:text-lg break-words w-full">${opt.replace(/^[A-D]\.\s*/, "")}</span>
       </button>`;
   });
 
   let explanationHtml = "";
   if (userAns !== null || peekMode) {
     explanationHtml = `
-      <div class="animate-pop-in mt-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-xl md:rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base text-slate-700 dark:text-slate-300 shadow-inner">
+      <div class="animate-pop-in mt-5 p-3 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-xl md:rounded-lg border border-blue-100 dark:border-slate-700 text-base md:text-lg text-slate-700 dark:text-slate-300 shadow-inner">
         <div class="font-bold text-primary dark:text-blue-400 flex items-center gap-2 mb-2">
             <i class="fa-solid fa-lightbulb text-yellow-500"></i> ${peekMode && userAns === null ? "Gợi ý / Giải thích:" : "Giải thích:"}
         </div>
@@ -638,17 +665,43 @@ function render() {
       ? "bg-blue-500 hover:bg-blue-600 text-white shadow-md btn-pulse-blue"
       : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
 
-  app.innerHTML = `
-    <div class="flex w-full max-w-7xl mx-auto items-stretch justify-center gap-2 md:gap-4 relative">
-      
-      <div class="hidden md:flex flex-col justify-center">
-          <button onclick="goBack()" ${currentQuestion === 0 ? "disabled" : ""}
-            class="shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white dark:bg-darkCard border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-slate-500 dark:text-slate-400 transition-all shadow-sm active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed">
-            <i class="fa-solid fa-chevron-left text-xl"></i>
-          </button>
-      </div>
+  // ==========================================
+  // LOGIC LỌC VÀ SINH CODE HTML CHO DANH SÁCH CÂU SAI
+  // (Chuyển lên TRƯỚC app.innerHTML vì được dùng ngay bên trong template string)
+  // ==========================================
+  let wrongListHtml = "";
+  let totalWrong = 0;
 
-      <div class="w-full bg-white dark:bg-darkCard md:rounded-2xl border-y md:border border-slate-200 dark:border-slate-700 p-4 md:p-8 shadow-sm flex flex-col gap-4 pb-28 md:pb-8">
+  activeQuizData.forEach((quiz, idx) => {
+    const userAnsForQuiz = selectedAnswers[idx];
+
+    if (userAnsForQuiz !== null && userAnsForQuiz !== quiz.correct) {
+      totalWrong++;
+
+      wrongListHtml += `
+              <div onclick="goToQuestion(${idx})" 
+                   class="px-3 py-2 bg-red-50/60 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 rounded-lg text-sm flex justify-between items-center hover:border-red-300 dark:hover:border-red-700 transition-all cursor-pointer group shadow-sm">
+                  <span class="font-semibold text-red-600 dark:text-red-400">Câu ${idx + 1}</span>
+                  <i class="fa-solid fa-arrow-right text-xs opacity-0 group-hover:opacity-100 transition-opacity text-red-400"></i>
+              </div>
+          `;
+    }
+  });
+
+  if (totalWrong === 0) {
+    wrongListHtml = `
+          <div class="flex flex-col items-center justify-center py-10 text-center text-slate-400 dark:text-slate-500">
+              <i class="fa-solid fa-heart-circle-check text-3xl mb-2 text-emerald-400/80"></i>
+              <p class="text-xs font-medium px-2">Tuyệt vời! Bạn chưa làm sai câu nào hết. Hãy tiếp tục giữ vững phong độ!</p>
+          </div>
+      `;
+  }
+
+  app.innerHTML = `
+    <div class="flex flex-col lg:flex-row w-full max-w-[100rem] mx-auto gap-4 px-1 py-4 md:p-4">
+      <div class="w-full lg:w-4/5">
+      
+      <div class="w-full bg-white dark:bg-darkCard md:rounded-2xl border-y md:border border-slate-200 dark:border-slate-700 px-2 py-4 md:p-10 shadow-sm flex flex-col gap-4 pb-28 md:pb-10">
         <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1">
           <div class="bg-blue-500 h-full rounded-full transition-all duration-300 ease-out" 
                style="width: ${progressPercent}%">
@@ -670,21 +723,21 @@ function render() {
         
         <div class="flex flex-col md:flex-row gap-6 md:gap-8 mt-2">
             
-            <div class="flex-1 flex flex-col gap-4 md:max-h-[60vh] md:overflow-y-auto md:pr-2 custom-scrollbar">
+            <div class="md:flex-[3] flex flex-col gap-4 md:max-h-[65vh] md:overflow-y-auto md:pr-2 custom-scrollbar">
                 <div class="flex flex-row gap-3 w-full md:w-auto">
                   ${helperBtnsHtml}
                 </div>
-                <div class="w-full text-[15px] md:text-base">${q.question}</div>
+                <div class="w-full text-base md:text-lg">${q.question}</div>
             </div>
 
-            <div class="flex-1 flex flex-col justify-start">
+            <div class="md:flex-[2] flex flex-col justify-start">
                 <div class="flex flex-col gap-2.5 md:gap-3">${optionsHtml}</div>
                 ${explanationHtml}
             </div>
 
         </div>
       </div>
-
+      </div>
       <div class="hidden md:flex flex-col justify-center">
           ${
             currentQuestion === activeQuizData.length - 1 && userAns !== null
@@ -698,9 +751,7 @@ function render() {
           }
       </div>
 
-    </div>
-
-    <div class="md:hidden flex fixed bottom-0 left-0 w-full bg-white/95 dark:bg-darkCard/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 p-3 z-50 justify-between items-center gap-3 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+      <div class="md:hidden flex fixed bottom-0 left-0 w-full bg-white/95 dark:bg-darkCard/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 p-3 z-50 justify-between items-center gap-3 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
         <button onclick="goBack()" ${currentQuestion === 0 ? "disabled" : ""}
           class="flex-1 flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-xl py-3.5 px-2 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
           <i class="fa-solid fa-arrow-left"></i> <span class="text-sm">Trước</span>
@@ -717,8 +768,21 @@ function render() {
                </button>`
         }
     </div>
+      
+      
+
+      
+
+      <div class="w-full lg:w-1/5 bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm h-fit lg:sticky lg:top-4">
+          <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-book-bookmark text-red-500"></i> Sổ Tay Sửa Sai (${totalWrong})
+          </h3>
+          <div class="max-h-[60vh] overflow-y-auto pr-1 space-y-2">
+            ${totalWrong > 0 ? wrongListHtml : '<p class="text-slate-400 text-sm italic">Chưa có lỗi sai nào!</p>'}
+          </div>
+      </div>
+    </div>
   `;
-  // preloadPuterAudio();
 }
 
 window.selectOption = function (idx) {
@@ -814,6 +878,13 @@ window.toggleDarkMode = function () {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadSelectedTest();
+
+  try {
+    const savedPanelState = localStorage.getItem(SETTINGS_PANEL_KEY);
+    if (savedPanelState === "0") toggleSettingsPanel(false);
+  } catch (e) {
+    // Bỏ qua nếu trình duyệt chặn localStorage
+  }
 });
 
 // ==========================================
@@ -880,3 +951,24 @@ window.addEventListener("keydown", function (e) {
     }
   }
 });
+
+// ==========================================
+// ĐIỀU HƯỚNG NHANH ĐẾN CÂU HỎI ĐỂ XEM LẠI
+// ==========================================
+window.goToQuestion = function (idx) {
+  if (!activeQuizData || idx < 0 || idx >= activeQuizData.length) return;
+  stopAudio();
+
+  // Đặt câu hỏi hiện tại về chỉ số câu được click
+  currentQuestion = idx;
+
+  // Nếu câu này đã làm, bật chế độ xem giải thích (peekMode) để hiển thị đáp án đúng/sai công tâm
+  peekMode = selectedAnswers[idx] !== null;
+
+  // Kích hoạt cờ hiệu ứng chuyển câu mượt mà
+  if (typeof isTransitioning !== "undefined") {
+    isTransitioning = true;
+  }
+
+  render();
+};
