@@ -699,6 +699,12 @@ function render() {
 
   app.innerHTML = `
     <div class="flex flex-col lg:flex-row w-full max-w-[100rem] mx-auto gap-4 px-1 py-4 md:p-4">
+      <div class="hidden md:flex flex-col justify-center">
+          <button onclick="goBack()" ${currentQuestion === 0 ? "disabled" : ""}
+            class="shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white dark:bg-darkCard border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-slate-500 dark:text-slate-400 transition-all shadow-sm active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed">
+            <i class="fa-solid fa-chevron-left text-xl"></i>
+           </button>
+      </div>
       <div class="w-full lg:w-4/5">
       
       <div class="w-full bg-white dark:bg-darkCard md:rounded-2xl border-y md:border border-slate-200 dark:border-slate-700 px-2 py-4 md:p-10 shadow-sm flex flex-col gap-4 pb-28 md:pb-10">
