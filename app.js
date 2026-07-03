@@ -4,11 +4,11 @@
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const STORAGE_KEY = "toeic_quiz_progress_v2";
+let isTransitioning = false; // Cờ kiểm tra xem có phải vừa đổi câu hỏi hay không
 
 if (speechSynthesis.onvoiceschanged !== undefined) {
   speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
-
 
 function playSound(type) {
   if (audioCtx.state === "suspended") audioCtx.resume();
@@ -23,20 +23,23 @@ function playSound(type) {
     osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
     gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.4);
   } else if (type === "wrong") {
     osc.type = "sawtooth";
     osc.frequency.setValueAtTime(150, audioCtx.currentTime);
     osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.3);
     gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.3);
   } else if (type === "click") {
     osc.type = "triangle";
     osc.frequency.setValueAtTime(400, audioCtx.currentTime);
     gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
   }
 }
 
@@ -52,7 +55,8 @@ function playStreakSound(streak) {
   osc.connect(gain);
   gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-  osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.3);
 }
 
 // ─────────────────────────────────────────────────────
@@ -62,80 +66,88 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
   speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
 
-window.toggleTTS = function(btn) {
-    // Nếu đang đọc thì dừng lại
-    if (window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-        btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio';
-        btn.classList.remove('animate-pulse');
-        return;
-    }
+window.toggleTTS = function (btn) {
+  // Nếu đang đọc thì dừng lại
+  if (window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    btn.innerHTML =
+      '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio';
+    btn.classList.remove("animate-pulse");
+    return;
+  }
 
-    let text = activeQuizData[currentQuestion].ttsText;
-    if(!text) return;
-    
-    // Vẫn giữ tính năng ngắt nhịp (đợi 1 chút) trước khi đọc A, B, C, D
-    text = text.replace(/([A-D]\.)/g, ', , , $1');
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.88; // Tốc độ vừa phải
-    
-    // Săn lùng giọng đọc tốt nhất trên máy
-    // const availableVoices = window.speechSynthesis.getVoices();
-    // const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
+  let text = activeQuizData[currentQuestion].ttsText;
+  if (!text) return;
 
-    // // Chọn ngẫu nhiên 1 giọng tiếng Anh để đọc
-    // if (englishVoices.length > 0) {
-    //     utterance.voice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
-    // } else {
-    //     utterance.lang = 'en-US'; // Dự phòng an toàn
-    // }
+  // Vẫn giữ tính năng ngắt nhịp (đợi 1 chút) trước khi đọc A, B, C, D
+  text = text.replace(/([A-D]\.)/g, ", , , $1");
 
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 0.88; // Tốc độ vừa phải
 
-// Lấy toàn bộ danh sách giọng tiếng Anh trên máy
-    const availableVoices = window.speechSynthesis.getVoices();
-    const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
+  // Săn lùng giọng đọc tốt nhất trên máy
+  // const availableVoices = window.speechSynthesis.getVoices();
+  // const englishVoices = availableVoices.filter(voice => voice.lang.startsWith('en'));
 
-    // 1. ĐẶC TRỊ IOS: Săn tìm giọng "Samantha" (Giọng chuẩn, nghiêm túc nhất của Apple)
-    const samanthaVoice = englishVoices.find(voice => voice.name.includes('Samantha'));
+  // // Chọn ngẫu nhiên 1 giọng tiếng Anh để đọc
+  // if (englishVoices.length > 0) {
+  //     utterance.voice = englishVoices[Math.floor(Math.random() * englishVoices.length)];
+  // } else {
+  //     utterance.lang = 'en-US'; // Dự phòng an toàn
+  // }
 
-    if (samanthaVoice) {
-        // Nếu là iPhone/iPad/Mac và có Samantha -> Ép cố định dùng duy nhất giọng này, không random nữa!
-        utterance.voice = samanthaVoice;
-    } 
-    // 2. ĐỐI VỚI WINDOWS / ANDROID (Không có Samantha)
-    else if (englishVoices.length > 0) {
-        // Lọc bỏ bớt các giọng lạ/giọng nhí nhố nếu có trên hệ điều hành khác
-        const safeVoices = englishVoices.filter(voice => 
-            !voice.name.toLowerCase().includes('juniors') && 
-            !voice.name.toLowerCase().includes('child')
-        );
-        
-        if (safeVoices.length > 0) {
-            utterance.voice = safeVoices[Math.floor(Math.random() * safeVoices.length)];
-        } else {
-            utterance.voice = englishVoices[0];
-        }
+  // Lấy toàn bộ danh sách giọng tiếng Anh trên máy
+  const availableVoices = window.speechSynthesis.getVoices();
+  const englishVoices = availableVoices.filter((voice) =>
+    voice.lang.startsWith("en"),
+  );
+
+  // 1. ĐẶC TRỊ IOS: Săn tìm giọng "Samantha" (Giọng chuẩn, nghiêm túc nhất của Apple)
+  const samanthaVoice = englishVoices.find((voice) =>
+    voice.name.includes("Samantha"),
+  );
+
+  if (samanthaVoice) {
+    // Nếu là iPhone/iPad/Mac và có Samantha -> Ép cố định dùng duy nhất giọng này, không random nữa!
+    utterance.voice = samanthaVoice;
+  }
+  // 2. ĐỐI VỚI WINDOWS / ANDROID (Không có Samantha)
+  else if (englishVoices.length > 0) {
+    // Lọc bỏ bớt các giọng lạ/giọng nhí nhố nếu có trên hệ điều hành khác
+    const safeVoices = englishVoices.filter(
+      (voice) =>
+        !voice.name.toLowerCase().includes("juniors") &&
+        !voice.name.toLowerCase().includes("child"),
+    );
+
+    if (safeVoices.length > 0) {
+      utterance.voice =
+        safeVoices[Math.floor(Math.random() * safeVoices.length)];
     } else {
-        utterance.lang = 'en-US'; // Dự phòng cuối cùng
+      utterance.voice = englishVoices[0];
     }
+  } else {
+    utterance.lang = "en-US"; // Dự phòng cuối cùng
+  }
 
-    // Đổi giao diện
-    btn.innerHTML = '<i class="fa-solid fa-circle-stop text-red-500 text-lg"></i> Đang phát...';
-    btn.classList.add('animate-pulse');
-    
-    // Khi đọc xong khôi phục lại nút
-    utterance.onend = function() {
-        btn.innerHTML = '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio';
-        btn.classList.remove('animate-pulse');
-    };
-    
-    // Phát ngay lập tức không cần tải mạng!
-    window.speechSynthesis.speak(utterance);
-}
+  // Đổi giao diện
+  btn.innerHTML =
+    '<i class="fa-solid fa-circle-stop text-red-500 text-lg"></i> Đang phát...';
+  btn.classList.add("animate-pulse");
+
+  // Khi đọc xong khôi phục lại nút
+  utterance.onend = function () {
+    btn.innerHTML =
+      '<i class="fa-solid fa-volume-high text-lg"></i> Nghe Audio';
+    btn.classList.remove("animate-pulse");
+  };
+
+  // Phát ngay lập tức không cần tải mạng!
+  window.speechSynthesis.speak(utterance);
+};
 
 function stopAudio() {
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
 }
 
 // KHỞI TẠO STATE
@@ -148,7 +160,7 @@ let currentQuestion = 0;
 let selectedAnswers = [];
 let isCurrentAnswered = false;
 let showResult = false;
-let peekMode = false;      // THÊM: Trạng thái đang bật "Xem trước đáp án"
+let peekMode = false; // THÊM: Trạng thái đang bật "Xem trước đáp án"
 
 let statCorrectCount = 0;
 let currentStreak = 0;
@@ -165,7 +177,7 @@ function saveProgress() {
     statCorrectCount,
     currentStreak,
     maxStreak,
-    activeQuizData
+    activeQuizData,
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
@@ -175,9 +187,20 @@ function loadProgress(currentFileRoute) {
   if (saved) {
     try {
       const state = JSON.parse(saved);
-      if (state.testRoute === currentFileRoute && state.activeQuizData && state.activeQuizData.length > 0) {
-        if (!state.showResult && state.selectedAnswers.some(ans => ans !== null)) {
-          if (confirm("Lưu ý: Bạn có một bài làm đang dang dở cho đề này. Bạn có muốn tiếp tục làm không?")) {
+      if (
+        state.testRoute === currentFileRoute &&
+        state.activeQuizData &&
+        state.activeQuizData.length > 0
+      ) {
+        if (
+          !state.showResult &&
+          state.selectedAnswers.some((ans) => ans !== null)
+        ) {
+          if (
+            confirm(
+              "Lưu ý: Bạn có một bài làm đang dang dở cho đề này. Bạn có muốn tiếp tục làm không?",
+            )
+          ) {
             selectedChapters = state.selectedChapters || [];
             currentQuestion = state.currentQuestion || 0;
             selectedAnswers = state.selectedAnswers || [];
@@ -220,28 +243,41 @@ function convertToeicJsonToQuizData(toeicJson) {
   let mappedQuestions = [];
   let chapters = {};
 
-  let isListeningSection = (toeicJson.section || "").toLowerCase().includes("listen") ||
+  let isListeningSection =
+    (toeicJson.section || "").toLowerCase().includes("listen") ||
     (toeicJson.test_name || "").toLowerCase().includes("listen");
 
   if (toeicJson.parts && Array.isArray(toeicJson.parts)) {
     toeicJson.parts.forEach((part, index) => {
-      let chapterId = (part.part_number && part.part_number !== 0) ? part.part_number : (index + 1);
-      chapters[chapterId] = `Part ${chapterId}: ${part.title || 'Incomplete Context'}`;
+      let chapterId =
+        part.part_number && part.part_number !== 0
+          ? part.part_number
+          : index + 1;
+      chapters[chapterId] =
+        `Part ${chapterId}: ${part.title || "Incomplete Context"}`;
 
       if (part.question_groups && Array.isArray(part.question_groups)) {
-        part.question_groups.forEach(group => {
-
+        part.question_groups.forEach((group) => {
           let contextHtml = "";
-          if (group.context_text) contextHtml += `<div class="text-sm italic text-slate-500 dark:text-slate-400 mb-3"><i class="fa-solid fa-circle-info mr-1"></i> ${group.context_text}</div>`;
-          if (group.passage_title) contextHtml += `<div class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-2">${group.passage_title}</div>`;
+          if (group.context_text)
+            contextHtml += `<div class="text-sm italic text-slate-500 dark:text-slate-400 mb-3"><i class="fa-solid fa-circle-info mr-1"></i> ${group.context_text}</div>`;
+          if (group.passage_title)
+            contextHtml += `<div class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-2">${group.passage_title}</div>`;
 
           if (group.passage_content) {
-            let typeBadge = group.passage_type ? `<span class="inline-flex items-center gap-1 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-2.5 py-1 rounded-md text-xs font-bold mb-3 uppercase tracking-wider"><i class="fa-solid fa-tag"></i> ${group.passage_type}</span><br>` : "";
+            let typeBadge = group.passage_type
+              ? `<span class="inline-flex items-center gap-1 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-2.5 py-1 rounded-md text-xs font-bold mb-3 uppercase tracking-wider"><i class="fa-solid fa-tag"></i> ${group.passage_type}</span><br>`
+              : "";
             contextHtml += `<div class="mb-5 p-4 md:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-[14px] md:text-base max-h-72 overflow-y-auto leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>`;
           }
 
           if (group.script && Array.isArray(group.script)) {
-            let scriptHtml = group.script.map(s => `<span class="font-bold text-primary dark:text-blue-400">${s.speaker}:</span> <span class="text-slate-700 dark:text-slate-300">${s.line}</span>`).join("<br><br>");
+            let scriptHtml = group.script
+              .map(
+                (s) =>
+                  `<span class="font-bold text-primary dark:text-blue-400">${s.speaker}:</span> <span class="text-slate-700 dark:text-slate-300">${s.line}</span>`,
+              )
+              .join("<br><br>");
             contextHtml += `<div class="mb-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base max-h-72 overflow-y-auto shadow-inner">
                               <div class="font-bold mb-3 text-slate-800 dark:text-slate-200 border-b border-blue-200 dark:border-slate-600 pb-2"><i class="fa-solid fa-headphones mr-2"></i> Audio Transcript:</div>
                               ${scriptHtml}
@@ -253,13 +289,16 @@ function convertToeicJsonToQuizData(toeicJson) {
           }
 
           if (group.questions && Array.isArray(group.questions)) {
-            group.questions.forEach(q => {
+            group.questions.forEach((q) => {
               let qText = q.question_text ? q.question_text.trim() : "";
 
               if (q.has_image && q.image_ref) {
-                let imgDesc = q.image_description ? `<div class="text-sm text-slate-500 dark:text-slate-400 mt-3 text-center"><i class="fa-solid fa-closed-captioning mr-1"></i> ${q.image_description}</div>` : "";
+                let imgDesc = q.image_description
+                  ? `<div class="text-sm text-slate-500 dark:text-slate-400 mt-3 text-center"><i class="fa-solid fa-closed-captioning mr-1"></i> ${q.image_description}</div>`
+                  : "";
                 let imgSrc = q.image_ref;
-                if (!imgSrc.match(/\.(jpeg|jpg|gif|png|svg)$/i)) imgSrc += ".png";
+                if (!imgSrc.match(/\.(jpeg|jpg|gif|png|svg)$/i))
+                  imgSrc += ".png";
 
                 let imgHtml = `
                 <div class="w-full max-w-md my-4 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm bg-white dark:bg-slate-800 p-2">
@@ -268,20 +307,27 @@ function convertToeicJsonToQuizData(toeicJson) {
                     ${imgDesc}
                 </div>`;
 
-                if (qText === "") { qText = imgHtml; }
-                else { qText = imgHtml + `<div class="mt-4">${qText}</div>`; }
+                if (qText === "") {
+                  qText = imgHtml;
+                } else {
+                  qText = imgHtml + `<div class="mt-4">${qText}</div>`;
+                }
               }
 
               let ttsRawText = "";
-              if (isListeningSection || toeicJson.test_name.includes("listen")) {
+              if (
+                isListeningSection ||
+                toeicJson.test_name.includes("listen")
+              ) {
                 if (group.script && Array.isArray(group.script)) {
-                  ttsRawText += group.script.map(s => s.line).join(". ") + ". ";
+                  ttsRawText +=
+                    group.script.map((s) => s.line).join(". ") + ". ";
                 }
                 if (q.question_text) {
                   ttsRawText += "Question. " + q.question_text + ". ";
                 }
                 let optKeys = Object.keys(q.options || {});
-                optKeys.forEach(k => {
+                optKeys.forEach((k) => {
                   ttsRawText += k + ". " + q.options[k] + ". ";
                 });
               }
@@ -297,7 +343,9 @@ function convertToeicJsonToQuizData(toeicJson) {
                 </div>`;
 
               let optionKeys = Object.keys(q.options || {});
-              let optionsArray = optionKeys.map(key => `${key}. ${q.options[key]}`);
+              let optionsArray = optionKeys.map(
+                (key) => `${key}. ${q.options[key]}`,
+              );
               let correctIndex = optionKeys.indexOf(q.answer);
               if (correctIndex === -1) correctIndex = 0;
 
@@ -307,7 +355,7 @@ function convertToeicJsonToQuizData(toeicJson) {
                 correct: correctIndex,
                 explanation: q.explanation || "Không có giải thích chi tiết.",
                 chapter: chapterId,
-                ttsText: ttsRawText
+                ttsText: ttsRawText,
               });
             });
           }
@@ -322,7 +370,8 @@ async function loadSelectedTest() {
   stopAudio();
   const fileRoute = document.getElementById("testSelector").value;
   const status = document.getElementById("dataSourceStatus");
-  if (status) status.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Đang tải: ${fileRoute}...`;
+  if (status)
+    status.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Đang tải: ${fileRoute}...`;
 
   try {
     const response = await fetch(fileRoute);
@@ -334,7 +383,7 @@ async function loadSelectedTest() {
     rawQuestions = jsonData.questions || [];
     chapterNames = jsonData.chapterNames || {};
 
-    selectedChapters = Object.keys(chapterNames).map(k => String(k));
+    selectedChapters = Object.keys(chapterNames).map((k) => String(k));
 
     const isRestored = loadProgress(fileRoute);
 
@@ -345,10 +394,12 @@ async function loadSelectedTest() {
       render();
     }
 
-    if (status) status.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 mr-1 animate-pop-in"></i> Nạp dữ liệu thành công!`;
+    if (status)
+      status.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 mr-1 animate-pop-in"></i> Nạp dữ liệu thành công!`;
   } catch (error) {
     console.error(error);
-    if (status) status.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-500 mr-1"></i> Lỗi tải file. Vui lòng chạy qua Live Server.`;
+    if (status)
+      status.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-500 mr-1"></i> Lỗi tải file. Vui lòng chạy qua Live Server.`;
   }
 }
 
@@ -360,14 +411,16 @@ function renderChapterCheckboxes() {
   const keys = Object.keys(chapterNames);
   if (keys.length === 0) {
     container.innerHTML = `<div class="text-slate-400 text-sm p-2 text-center">Không có phân chia Part</div>`;
-    document.getElementById("chapterDropdownBtnText").innerText = "Không phân chia Part";
+    document.getElementById("chapterDropdownBtnText").innerText =
+      "Không phân chia Part";
     return;
   }
 
-  keys.forEach(key => {
+  keys.forEach((key) => {
     const isChecked = selectedChapters.includes(String(key));
     const div = document.createElement("div");
-    div.className = "flex items-center gap-3 py-2 px-3 hover:bg-slate-100 dark:hover:bg-slate-700/50 rounded-lg cursor-pointer transition-colors";
+    div.className =
+      "flex items-center gap-3 py-2 px-3 hover:bg-slate-100 dark:hover:bg-slate-700/50 rounded-lg cursor-pointer transition-colors";
     div.innerHTML = `
       <label class="flex items-center gap-3 cursor-pointer w-full text-sm font-medium text-slate-700 dark:text-slate-300 select-none">
         <input type="checkbox" value="${key}" class="chapter-box w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary" 
@@ -383,16 +436,18 @@ function renderChapterCheckboxes() {
 window.onChapterCheckboxChange = function () {
   const boxes = document.querySelectorAll(".chapter-box");
   selectedChapters = [];
-  boxes.forEach(box => { if (box.checked) selectedChapters.push(String(box.value)); });
+  boxes.forEach((box) => {
+    if (box.checked) selectedChapters.push(String(box.value));
+  });
   const selectAll = document.getElementById("selectAllChapters");
-  if (selectAll) selectAll.checked = (selectedChapters.length === boxes.length);
+  if (selectAll) selectAll.checked = selectedChapters.length === boxes.length;
   updateDropdownButtonText();
 };
 
 window.toggleAllChapters = function (master) {
   const boxes = document.querySelectorAll(".chapter-box");
   selectedChapters = [];
-  boxes.forEach(box => {
+  boxes.forEach((box) => {
     box.checked = master.checked;
     if (master.checked) selectedChapters.push(String(box.value));
   });
@@ -403,14 +458,20 @@ function updateDropdownButtonText() {
   const btnText = document.getElementById("chapterDropdownBtnText");
   if (!btnText) return;
   if (selectedChapters.length === 0) btnText.innerText = "Chưa chọn Part nào";
-  else if (selectedChapters.length === Object.keys(chapterNames).length) btnText.innerText = "Tất cả các Phần thi";
+  else if (selectedChapters.length === Object.keys(chapterNames).length)
+    btnText.innerText = "Tất cả các Phần thi";
   else btnText.innerText = `Đang chọn (${selectedChapters.length}) Part`;
 }
 
 window.applySettings = function () {
   stopAudio();
-  let filtered = rawQuestions.filter(q => selectedChapters.includes(String(q.chapter)));
-  if (filtered.length === 0) { alert("Vui lòng tích chọn ít nhất 1 Part để học!"); return; }
+  let filtered = rawQuestions.filter((q) =>
+    selectedChapters.includes(String(q.chapter)),
+  );
+  if (filtered.length === 0) {
+    alert("Vui lòng tích chọn ít nhất 1 Part để học!");
+    return;
+  }
 
   const isRandom = document.getElementById("randomToggle")?.checked;
   if (isRandom) {
@@ -436,7 +497,6 @@ window.applySettings = function () {
   render();
 };
 
-
 // ─────────────────────────────────────────────────────
 // HỆ THỐNG RENDER (CÓ NÚT XEM TRƯỚC ĐÁP ÁN)
 // ─────────────────────────────────────────────────────
@@ -446,8 +506,7 @@ window.togglePeek = function () {
   playSound("click");
   peekMode = !peekMode;
   render();
-}
-
+};
 
 function render() {
   const app = document.getElementById("app");
@@ -508,31 +567,36 @@ function render() {
 
   let optionsHtml = "";
   q.options.forEach((opt, idx) => {
-    let btnClass = "bg-white dark:bg-darkCard border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary active:bg-slate-100 dark:active:bg-slate-800 text-slate-700 dark:text-slate-300";
+    let btnClass =
+      "bg-white dark:bg-darkCard border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary active:bg-slate-100 dark:active:bg-slate-800 text-slate-700 dark:text-slate-300";
     let iconHtml = `<span class="w-7 h-7 md:w-6 md:h-6 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-sm md:text-xs font-bold text-slate-500 mr-3 shrink-0">${String.fromCharCode(65 + idx)}</span>`;
 
     if (userAns !== null) {
       if (idx === q.correct) {
-        btnClass = "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500 text-emerald-800 dark:text-emerald-400 font-medium z-10 shadow-md";
+        btnClass =
+          "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500 text-emerald-800 dark:text-emerald-400 font-medium z-10 shadow-md";
         iconHtml = `<i class="fa-solid fa-circle-check text-emerald-500 text-2xl md:text-xl mr-3 shrink-0 animate-pop-in"></i>`;
       } else if (idx === userAns) {
-        btnClass = "bg-red-50 dark:bg-red-900/20 border-red-400 text-red-800 dark:text-red-400 font-medium z-10 animate-shake";
+        btnClass =
+          "bg-red-50 dark:bg-red-900/20 border-red-400 text-red-800 dark:text-red-400 font-medium z-10 animate-shake";
         iconHtml = `<i class="fa-solid fa-circle-xmark text-red-500 text-2xl md:text-xl mr-3 shrink-0"></i>`;
       } else {
-        btnClass = "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-50 cursor-not-allowed";
+        btnClass =
+          "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-50 cursor-not-allowed";
       }
     } else if (peekMode) {
       if (idx === q.correct) {
-        btnClass = "bg-emerald-50/70 dark:bg-emerald-900/10 border-emerald-400 border-dashed text-emerald-700 dark:text-emerald-300 font-medium z-10";
+        btnClass =
+          "bg-emerald-50/70 dark:bg-emerald-900/10 border-emerald-400 border-dashed text-emerald-700 dark:text-emerald-300 font-medium z-10";
         iconHtml = `<i class="fa-solid fa-eye text-emerald-500 text-2xl md:text-xl mr-3 shrink-0 animate-pop-in"></i>`;
       }
     }
 
     optionsHtml += `
-      <button onclick="${userAns === null ? `selectOption(${idx})` : 'void(0)'}"
+      <button onclick="${userAns === null ? `selectOption(${idx})` : "void(0)"}"
         class="w-full text-left p-4 md:p-4 min-h-[3.5rem] rounded-xl md:rounded-lg border-2 transition-all duration-200 flex items-center ${btnClass}">
         ${iconHtml}
-        <span class="leading-relaxed text-[15px] md:text-base break-words w-full">${opt.replace(/^[A-D]\.\s*/, '')}</span>
+        <span class="leading-relaxed text-[15px] md:text-base break-words w-full">${opt.replace(/^[A-D]\.\s*/, "")}</span>
       </button>`;
   });
 
@@ -541,7 +605,7 @@ function render() {
     explanationHtml = `
       <div class="animate-pop-in mt-5 p-4 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-xl md:rounded-lg border border-blue-100 dark:border-slate-700 text-[14px] md:text-base text-slate-700 dark:text-slate-300 shadow-inner">
         <div class="font-bold text-primary dark:text-blue-400 flex items-center gap-2 mb-2">
-            <i class="fa-solid fa-lightbulb text-yellow-500"></i> ${peekMode && userAns === null ? 'Gợi ý / Giải thích:' : 'Giải thích:'}
+            <i class="fa-solid fa-lightbulb text-yellow-500"></i> ${peekMode && userAns === null ? "Gợi ý / Giải thích:" : "Giải thích:"}
         </div>
         <p class="whitespace-pre-line leading-relaxed">${q.explanation}</p>
       </div>`;
@@ -559,18 +623,23 @@ function render() {
   if (userAns === null) {
     helperBtnsHtml += `
         <button onclick="togglePeek()"
-          class="flex-1 flex items-center justify-center gap-2 ${peekMode ? 'bg-amber-500 text-white shadow-md btn-pulse-emerald' : 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 shadow-sm'} font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-4 transition-colors active:scale-95">
-          <i class="fa-solid ${peekMode ? 'fa-eye-slash' : 'fa-eye'} text-lg"></i> ${peekMode ? 'Ẩn Đáp Án' : 'Xem Đáp Án'}
+          class="flex-1 flex items-center justify-center gap-2 ${peekMode ? "bg-amber-500 text-white shadow-md btn-pulse-emerald" : "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 shadow-sm"} font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-4 transition-colors active:scale-95">
+          <i class="fa-solid ${peekMode ? "fa-eye-slash" : "fa-eye"} text-lg"></i> ${peekMode ? "Ẩn Đáp Án" : "Xem Đáp Án"}
         </button>
       `;
   }
-
-  const nextBtnClass = userAns !== null
-    ? 'bg-blue-500 hover:bg-blue-600 text-white shadow-md btn-pulse-blue'
-    : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
+  const progressPercent = activeQuizData.length
+    ? ((currentQuestion + 1) / activeQuizData.length) * 100
+    : 0;
+  const transitionClass = isTransitioning ? "animate-page-turn" : "";
+  isTransitioning = false;
+  const nextBtnClass =
+    userAns !== null
+      ? "bg-blue-500 hover:bg-blue-600 text-white shadow-md btn-pulse-blue"
+      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
 
   app.innerHTML = `
-    <div class="flex w-full max-w-6xl mx-auto items-stretch justify-center gap-4 relative">
+    <div class="flex w-full max-w-7xl mx-auto items-stretch justify-center gap-2 md:gap-4 relative">
       
       <div class="hidden md:flex flex-col justify-center">
           <button onclick="goBack()" ${currentQuestion === 0 ? "disabled" : ""}
@@ -579,15 +648,19 @@ function render() {
           </button>
       </div>
 
-      <div class="w-full max-w-3xl bg-white dark:bg-darkCard md:rounded-2xl border-y md:border border-slate-200 dark:border-slate-700 p-4 md:p-8 shadow-sm flex flex-col gap-4 pb-28 md:pb-8">
-        
+      <div class="w-full bg-white dark:bg-darkCard md:rounded-2xl border-y md:border border-slate-200 dark:border-slate-700 p-4 md:p-8 shadow-sm flex flex-col gap-4 pb-28 md:pb-8">
+        <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1">
+          <div class="bg-blue-500 h-full rounded-full transition-all duration-300 ease-out" 
+               style="width: ${progressPercent}%">
+          </div>
+        </div>
         <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-slate-200 dark:border-slate-700 pb-3 md:pb-4 gap-2 md:gap-4">
           <div class="flex flex-wrap gap-2 md:gap-3">
               <span class="inline-flex items-center gap-1.5 font-bold text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">
                   Câu ${currentQuestion + 1} / ${activeQuizData.length}
               </span>
               <span class="inline-flex items-center gap-1.5 font-medium text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-800 truncate max-w-[200px] md:max-w-none">
-                  <i class="fa-solid fa-bookmark opacity-70"></i> ${chapterNames[q.chapter] ? chapterNames[q.chapter].split(':')[0] : 'Part ' + q.chapter}
+                  <i class="fa-solid fa-bookmark opacity-70"></i> ${chapterNames[q.chapter] ? chapterNames[q.chapter].split(":")[0] : "Part " + q.chapter}
               </span>
           </div>
           <div class="self-end md:self-auto flex items-center gap-1.5 font-medium text-xs md:text-sm text-slate-600 dark:text-slate-400 mt-1 md:mt-0">
@@ -595,25 +668,34 @@ function render() {
           </div>
         </div>
         
-        <div class="flex flex-row gap-3 mt-1 mb-2 w-full md:w-auto md:max-w-md">
-          ${helperBtnsHtml}
-        </div>
+        <div class="flex flex-col md:flex-row gap-6 md:gap-8 mt-2">
+            
+            <div class="flex-1 flex flex-col gap-4 md:max-h-[60vh] md:overflow-y-auto md:pr-2 custom-scrollbar">
+                <div class="flex flex-row gap-3 w-full md:w-auto">
+                  ${helperBtnsHtml}
+                </div>
+                <div class="w-full text-[15px] md:text-base">${q.question}</div>
+            </div>
 
-        <div class="w-full text-[15px] md:text-base">${q.question}</div>
-        <div class="flex flex-col gap-2.5 md:gap-3 mt-2">${optionsHtml}</div>
-        ${explanationHtml}
+            <div class="flex-1 flex flex-col justify-start">
+                <div class="flex flex-col gap-2.5 md:gap-3">${optionsHtml}</div>
+                ${explanationHtml}
+            </div>
+
+        </div>
       </div>
 
       <div class="hidden md:flex flex-col justify-center">
-          ${currentQuestion === activeQuizData.length - 1 && userAns !== null
-      ? `<button onclick="submitQuiz()" class="shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white transition-all shadow-md active:scale-95 btn-pulse-emerald animate-pop-in tooltip" title="Nộp bài">
+          ${
+            currentQuestion === activeQuizData.length - 1 && userAns !== null
+              ? `<button onclick="submitQuiz()" class="shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white transition-all shadow-md active:scale-95 btn-pulse-emerald animate-pop-in tooltip" title="Nộp bài">
                   <i class="fa-solid fa-check-double text-xl"></i>
                  </button>`
-      : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
+              : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
                   class="shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white dark:bg-darkCard border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-slate-500 dark:text-slate-400 transition-all shadow-sm active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed">
                   <i class="fa-solid fa-chevron-right text-xl"></i>
                  </button>`
-    }
+          }
       </div>
 
     </div>
@@ -624,15 +706,16 @@ function render() {
           <i class="fa-solid fa-arrow-left"></i> <span class="text-sm">Trước</span>
         </button>
 
-        ${currentQuestion === activeQuizData.length - 1 && userAns !== null
-      ? `<button onclick="submitQuiz()" class="flex-[2] flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl py-3.5 px-4 active:scale-95 transition-transform shadow-md btn-pulse-emerald animate-pop-in">
+        ${
+          currentQuestion === activeQuizData.length - 1 && userAns !== null
+            ? `<button onclick="submitQuiz()" class="flex-[2] flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl py-3.5 px-4 active:scale-95 transition-transform shadow-md btn-pulse-emerald animate-pop-in">
                 <i class="fa-solid fa-flag-checkered"></i> <span class="text-sm">Nộp Bài</span>
                </button>`
-      : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
+            : `<button onclick="goNext()" ${currentQuestion === activeQuizData.length - 1 ? "disabled" : ""}
                 class="flex-[2] flex items-center justify-center gap-2 ${nextBtnClass} font-bold rounded-xl py-3.5 px-4 active:scale-95 transition-transform disabled:opacity-40 disabled:cursor-not-allowed">
                 <span class="text-sm">Câu Tiếp</span> <i class="fa-solid fa-arrow-right"></i>
                </button>`
-    }
+        }
     </div>
   `;
   // preloadPuterAudio();
@@ -645,13 +728,16 @@ window.selectOption = function (idx) {
   isCurrentAnswered = true;
 
   if (idx === q.correct) {
-    statCorrectCount++; currentStreak++;
+    statCorrectCount++;
+    currentStreak++;
     if (currentStreak > maxStreak) maxStreak = currentStreak;
     playSound("correct");
     if (currentStreak >= 3) playStreakSound(currentStreak);
-    if (currentQuestion === activeQuizData.length - 1) confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+    if (currentQuestion === activeQuizData.length - 1)
+      confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
   } else {
-    currentStreak = 0; playSound("wrong");
+    currentStreak = 0;
+    playSound("wrong");
   }
 
   saveProgress();
@@ -659,7 +745,10 @@ window.selectOption = function (idx) {
 
   if (idx === q.correct && currentQuestion < activeQuizData.length - 1) {
     setTimeout(() => {
-      if (currentQuestion < activeQuizData.length - 1 && selectedAnswers[currentQuestion] === q.correct) {
+      if (
+        currentQuestion < activeQuizData.length - 1 &&
+        selectedAnswers[currentQuestion] === q.correct
+      ) {
         stopAudio();
         peekMode = false; // Reset peekMode khi qua câu mới
         currentQuestion++;
@@ -679,6 +768,7 @@ window.goBack = function () {
     currentQuestion--;
     isCurrentAnswered = selectedAnswers[currentQuestion] !== null;
     saveProgress();
+    isTransitioning = true;
     render();
   }
 };
@@ -691,6 +781,7 @@ window.goNext = function () {
     currentQuestion++;
     isCurrentAnswered = selectedAnswers[currentQuestion] !== null;
     saveProgress();
+    isTransitioning = true;
     render();
   }
 };
@@ -723,4 +814,69 @@ window.toggleDarkMode = function () {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadSelectedTest();
+});
+
+// ==========================================
+// ĐIỀU HƯỚNG VÀ CHỌN ĐÁP ÁN BẰNG BÀN PHÍM (KEYBOARD SHORTCUTS)
+// ==========================================
+window.addEventListener("keydown", function (e) {
+  // Không nhận phím tắt nếu người dùng đang gõ vào ô nhập liệu hoặc hộp chọn select
+  if (
+    e.target.tagName === "SELECT" ||
+    e.target.tagName === "INPUT" ||
+    e.target.tagName === "TEXTAREA"
+  )
+    return;
+
+  // Nếu chưa có dữ liệu câu hỏi hoặc đang ở màn hình bảng điểm kết quả, bỏ qua
+  if (!activeQuizData || activeQuizData.length === 0 || showResult) return;
+
+  const key = e.key.toUpperCase();
+
+  // LÓGIC 1: ĐIỀU HƯỚNG BẰNG MŨI TÊN TRÁI / PHẢI
+  if (e.key === "ArrowRight") {
+    // Nếu là câu cuối cùng và ĐÃ làm bài -> Kích hoạt nộp bài
+    if (
+      currentQuestion === activeQuizData.length - 1 &&
+      selectedAnswers[currentQuestion] !== null
+    ) {
+      submitQuiz();
+    }
+    // Nếu chưa phải câu cuối -> Chuyển sang câu kế tiếp
+    else if (currentQuestion < activeQuizData.length - 1) {
+      goNext();
+    }
+  } else if (e.key === "ArrowLeft") {
+    // Quay lại câu phía trước
+    if (currentQuestion > 0) {
+      goBack();
+    }
+  }
+
+  // LÓGIC 2: BẤM PHÍM CHỌN NHANH ĐÁP ÁN (A, B, C, D hoặc 1, 2, 3, 4)
+  const keyMap = {
+    A: 0,
+    1: 0,
+    B: 1,
+    2: 1,
+    C: 2,
+    3: 2,
+    D: 3,
+    4: 3,
+  };
+
+  if (keyMap[key] !== undefined) {
+    const optionIndex = keyMap[key];
+
+    // Kiểm tra xem câu hỏi hiện tại có tồn tại index đáp án này không (đề phòng câu hỏi chỉ có 2-3 tùy chọn)
+    const quiz = activeQuizData[currentQuestion];
+    if (quiz && quiz.options && optionIndex < quiz.options.length) {
+      // Kích hoạt hàm chọn đáp án có sẵn trong mã nguồn của bạn
+      if (typeof selectOption === "function") {
+        selectOption(optionIndex);
+      } else if (typeof window.selectOption === "function") {
+        window.selectOption(optionIndex);
+      }
+    }
+  }
 });
