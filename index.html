@@ -12,8 +12,8 @@
         theme: {
           extend: {
             colors: {
-              darkBg: "#0f172a",
-              darkCard: "#1e293b",
+              darkBg: "#020204",
+              darkCard: "#0e0e13",
               primary: "#2563eb",
               primaryHover: "#1d4ed8",
             },
@@ -38,7 +38,19 @@
       }
 
       .dark body {
-        background-color: #0f172a;
+        background-color: #020204;
+        background-image:
+          radial-gradient(1.4px 1.4px at 15px 25px, rgba(255, 255, 255, 0.55), transparent),
+          radial-gradient(1px 1px at 65px 90px, rgba(255, 255, 255, 0.35), transparent),
+          radial-gradient(1.8px 1.8px at 110px 45px, rgba(255, 255, 255, 0.5), transparent),
+          radial-gradient(1px 1px at 150px 120px, rgba(255, 255, 255, 0.3), transparent),
+          radial-gradient(1.2px 1.2px at 40px 150px, rgba(255, 255, 255, 0.4), transparent),
+          radial-gradient(1px 1px at 180px 20px, rgba(255, 255, 255, 0.35), transparent),
+          radial-gradient(1.6px 1.6px at 195px 170px, rgba(255, 255, 255, 0.45), transparent),
+          radial-gradient(1px 1px at 5px 190px, rgba(255, 255, 255, 0.3), transparent);
+        background-size: 220px 220px;
+        background-repeat: repeat;
+        background-attachment: fixed;
       }
 
       ::-webkit-scrollbar {
@@ -212,14 +224,23 @@
         <i class="fa-solid fa-graduation-cap animate-pop-in"></i> TOEIC QUIZ
         SYSTEM
       </h1>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 md:gap-4">
+        <button
+          onclick="toggleFocusMode()"
+          id="focusModeBtn"
+          title="Ẩn sổ tay sửa sai, mở rộng khung làm bài để tập trung hơn"
+          class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors"
+        >
+          <i id="focusModeIcon" class="fa-solid fa-expand"></i>
+          <span id="focusModeText" class="hidden sm:inline">Tập trung</span>
+        </button>
         <button
           onclick="toggleDarkMode()"
           id="themeToggleBtn"
-          class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 px-4 py-2 rounded-lg font-medium transition-colors"
+          class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 px-3 md:px-4 py-2 rounded-lg font-medium transition-colors"
         >
           <i id="themeIcon" class="fa-solid fa-moon"></i>
-          <span id="themeText">Giao diện tối</span>
+          <span id="themeText" class="hidden sm:inline">Giao diện tối</span>
         </button>
       </div>
     </header>

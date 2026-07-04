@@ -162,6 +162,12 @@ let isCurrentAnswered = false;
 let showResult = false;
 let peekMode = false; // THÊM: Trạng thái đang bật "Xem trước đáp án"
 
+// THÊM: Trạng thái chế độ nghe (ẩn câu hỏi / ẩn đáp án) và chế độ tập trung
+let hideQuestionMode = false;
+let hideAnswerMode = false;
+let focusMode = false;
+const FOCUS_MODE_KEY = "toeic_focus_mode";
+
 let statCorrectCount = 0;
 let currentStreak = 0;
 let maxStreak = 0;
@@ -231,6 +237,31 @@ window.toggleChapterDropdown = function () {
   if (menu) menu.classList.toggle("hidden");
 };
 
+// THÊM: Thu gọn / mở rộng đoạn văn hoặc transcript (chủ yếu dùng trên mobile
+// để tránh việc màn hình bị đẩy quá dài, phải vuốt xuống mới thấy câu hỏi/đáp án)
+window.togglePassageCollapse = function (btn) {
+  playSound("click");
+  const wrapper = btn.closest(".js-passage-wrapper");
+  if (!wrapper) return;
+  const content = wrapper.querySelector(".js-passage-content");
+  const fade = wrapper.querySelector(".js-passage-fade");
+  if (!content) return;
+
+  const isCollapsed = content.classList.contains("max-h-32");
+  if (isCollapsed) {
+    content.classList.remove("max-h-32", "overflow-hidden");
+    content.classList.add("max-h-[60vh]", "overflow-y-auto");
+    if (fade) fade.classList.add("hidden");
+    btn.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Thu gọn lại';
+  } else {
+    content.classList.remove("max-h-[60vh]", "overflow-y-auto");
+    content.classList.add("max-h-32", "overflow-hidden");
+    if (fade) fade.classList.remove("hidden");
+    btn.innerHTML =
+      '<i class="fa-solid fa-chevron-down"></i> Xem toàn bộ nội dung';
+  }
+};
+
 const SETTINGS_PANEL_KEY = "toeic_settings_panel_open";
 
 window.toggleSettingsPanel = function (forceOpen) {
@@ -255,6 +286,99 @@ window.toggleSettingsPanel = function (forceOpen) {
   } catch (e) {
     // Bỏ qua nếu trình duyệt chặn localStorage
   }
+};
+
+// THÊM: Chế độ Tập Trung — ẩn sổ tay sửa sai, mở rộng khung câu hỏi hết cỡ
+// để người dùng tập trung làm bài, ít bị phân tâm nhất có thể
+window.toggleFocusMode = function () {
+  playSound("click");
+  focusMode = !focusMode;
+  updateFocusModeButton();
+  try {
+    localStorage.setItem(FOCUS_MODE_KEY, focusMode ? "1" : "0");
+  } catch (e) {
+    // Bỏ qua nếu trình duyệt chặn localStorage
+  }
+  render();
+};
+
+function updateFocusModeButton() {
+  const icon = document.getElementById("focusModeIcon");
+  const text = document.getElementById("focusModeText");
+  const btn = document.getElementById("focusModeBtn");
+  if (icon)
+    icon.className = focusMode ? "fa-solid fa-compress" : "fa-solid fa-expand";
+  if (text) text.innerText = focusMode ? "Bỏ tập trung" : "Tập trung";
+  if (btn) {
+    if (focusMode) {
+      btn.classList.add("bg-primary", "text-white");
+      btn.classList.remove(
+        "bg-slate-100",
+        "dark:bg-slate-700",
+        "hover:bg-slate-200",
+        "dark:hover:bg-slate-600",
+      );
+    } else {
+      btn.classList.remove("bg-primary", "text-white");
+      btn.classList.add(
+        "bg-slate-100",
+        "dark:bg-slate-700",
+        "hover:bg-slate-200",
+        "dark:hover:bg-slate-600",
+      );
+    }
+  }
+}
+
+// THÊM: Làm lại riêng những câu đã trả lời sai trong lượt làm bài vừa rồi
+window.retryWrongQuestions = function () {
+  const wrongQuestions = activeQuizData.filter((q, idx) => {
+    const ans = selectedAnswers[idx];
+    return ans !== null && ans !== q.correct;
+  });
+
+  if (wrongQuestions.length === 0) {
+    alert("Tuyệt vời! Bạn không có câu nào làm sai để luyện lại cả.");
+    return;
+  }
+
+  playSound("click");
+  activeQuizData = wrongQuestions;
+  currentQuestion = 0;
+  selectedAnswers = new Array(activeQuizData.length).fill(null);
+  isCurrentAnswered = false;
+  showResult = false;
+  peekMode = false;
+  hideQuestionMode = false;
+  hideAnswerMode = false;
+  statCorrectCount = 0;
+  currentStreak = 0;
+  maxStreak = 0;
+
+  saveProgress();
+  isTransitioning = true;
+  render();
+};
+
+// THÊM: Bật/tắt chế độ nghe — ẩn câu hỏi, ẩn đáp án, hoặc ẩn cả hai (chỉ nghe)
+window.toggleHideQuestion = function () {
+  playSound("click");
+  hideQuestionMode = !hideQuestionMode;
+  render();
+};
+
+window.toggleHideAnswer = function () {
+  playSound("click");
+  hideAnswerMode = !hideAnswerMode;
+  render();
+};
+
+window.toggleListenOnlyMode = function () {
+  playSound("click");
+  const turnOn = !(hideQuestionMode && hideAnswerMode);
+  hideQuestionMode = turnOn;
+  hideAnswerMode = turnOn;
+  render();
 };
 
 document.addEventListener("click", function (e) {
@@ -294,7 +418,13 @@ function convertToeicJsonToQuizData(toeicJson) {
             let typeBadge = group.passage_type
               ? `<span class="inline-flex items-center gap-1 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-2.5 py-1 rounded-md text-xs font-bold mb-3 uppercase tracking-wider"><i class="fa-solid fa-tag"></i> ${group.passage_type}</span><br>`
               : "";
-            contextHtml += `<div class="mb-5 p-3 md:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-base md:text-lg max-h-[50vh] overflow-y-auto leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>`;
+            contextHtml += `<div class="js-passage-wrapper relative mb-5">
+                              <div class="js-passage-content max-h-32 overflow-hidden md:max-h-[50vh] md:overflow-y-auto transition-[max-height] duration-300 ease-in-out p-3 md:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 font-medium whitespace-pre-line text-base md:text-lg leading-relaxed shadow-inner">${typeBadge}${group.passage_content}</div>
+                              <div class="js-passage-fade md:hidden absolute bottom-9 left-0 w-full h-10 bg-gradient-to-t from-slate-50 dark:from-slate-800 to-transparent pointer-events-none rounded-b-lg"></div>
+                              <button type="button" onclick="togglePassageCollapse(this)" class="js-passage-toggle-btn md:hidden w-full flex items-center justify-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 mt-1.5 py-2 bg-white dark:bg-darkCard rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-transform">
+                                <i class="fa-solid fa-chevron-down"></i> Xem toàn bộ đoạn văn
+                              </button>
+                             </div>`;
           }
 
           if (group.script && Array.isArray(group.script)) {
@@ -304,9 +434,15 @@ function convertToeicJsonToQuizData(toeicJson) {
                   `<span class="font-bold text-primary dark:text-blue-400">${s.speaker}:</span> <span class="text-slate-700 dark:text-slate-300">${s.line}</span>`,
               )
               .join("<br><br>");
-            contextHtml += `<div class="mb-5 p-3 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-base md:text-lg max-h-[50vh] overflow-y-auto shadow-inner">
-                              <div class="font-bold mb-3 text-slate-800 dark:text-slate-200 border-b border-blue-200 dark:border-slate-600 pb-2"><i class="fa-solid fa-headphones mr-2"></i> Audio Transcript:</div>
-                              ${scriptHtml}
+            contextHtml += `<div class="js-passage-wrapper relative mb-5">
+                              <div class="js-passage-content max-h-32 overflow-hidden md:max-h-[50vh] md:overflow-y-auto transition-[max-height] duration-300 ease-in-out p-3 md:p-5 bg-blue-50/50 dark:bg-slate-800/80 rounded-lg border border-blue-100 dark:border-slate-700 text-base md:text-lg shadow-inner">
+                                <div class="font-bold mb-3 text-slate-800 dark:text-slate-200 border-b border-blue-200 dark:border-slate-600 pb-2"><i class="fa-solid fa-headphones mr-2"></i> Audio Transcript:</div>
+                                ${scriptHtml}
+                              </div>
+                              <div class="js-passage-fade md:hidden absolute bottom-9 left-0 w-full h-10 bg-gradient-to-t from-blue-50 dark:from-slate-800 to-transparent pointer-events-none rounded-b-lg"></div>
+                              <button type="button" onclick="togglePassageCollapse(this)" class="js-passage-toggle-btn md:hidden w-full flex items-center justify-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 mt-1.5 py-2 bg-white dark:bg-darkCard rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-transform">
+                                <i class="fa-solid fa-chevron-down"></i> Xem toàn bộ Transcript
+                              </button>
                              </div>`;
           }
 
@@ -514,6 +650,8 @@ window.applySettings = function () {
   isCurrentAnswered = false;
   showResult = false;
   peekMode = false;
+  hideQuestionMode = false;
+  hideAnswerMode = false;
   statCorrectCount = 0;
   currentStreak = 0;
   maxStreak = 0;
@@ -585,6 +723,14 @@ function render() {
           class="w-full md:w-auto bg-primary hover:bg-primaryHover text-white font-medium rounded-xl md:rounded-lg px-6 py-3.5 md:py-3 flex items-center justify-center gap-2 mx-auto transition-transform hover:scale-105 shadow-md active:scale-95">
           <i class="fa-solid fa-rotate-right"></i> Làm lại đề này
         </button>
+        ${
+          activeQuizData.length - statCorrectCount > 0
+            ? `<button onclick="retryWrongQuestions()"
+                class="w-full md:w-auto bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 font-medium rounded-xl md:rounded-lg px-6 py-3.5 md:py-3 flex items-center justify-center gap-2 mx-auto mt-3 transition-transform hover:scale-105 shadow-sm border border-red-200 dark:border-red-800 active:scale-95">
+                <i class="fa-solid fa-book-bookmark"></i> Luyện lại ${activeQuizData.length - statCorrectCount} câu sai
+               </button>`
+            : ""
+        }
       </div>`;
     return;
   }
@@ -621,7 +767,8 @@ function render() {
 
     optionsHtml += `
       <button onclick="${userAns === null ? `selectOption(${idx})` : "void(0)"}"
-        class="w-full text-left p-4 md:p-5 min-h-[3.5rem] md:min-h-[4rem] rounded-xl md:rounded-lg border-2 transition-all duration-200 flex items-center ${btnClass}">
+        style="${userAns === null && !peekMode ? `animation-delay: ${idx * 70}ms` : ""}"
+        class="w-full text-left p-4 md:p-5 min-h-[3.5rem] md:min-h-[4rem] rounded-xl md:rounded-lg border-2 transition-all duration-200 flex items-center ${btnClass} ${userAns === null ? "animate-slide-up opacity-0" : ""}">
         ${iconHtml}
         <span class="leading-relaxed text-base md:text-lg break-words w-full">${opt.replace(/^[A-D]\.\s*/, "")}</span>
       </button>`;
@@ -639,7 +786,8 @@ function render() {
   }
 
   let helperBtnsHtml = "";
-  if (q.ttsText && q.ttsText.trim() !== "") {
+  const isListeningQuestion = q.ttsText && q.ttsText.trim() !== "";
+  if (isListeningQuestion) {
     helperBtnsHtml += `
       <button onclick="toggleTTS(this)"
         class="flex-1 flex items-center justify-center gap-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold rounded-xl md:rounded-lg py-3 md:py-2.5 px-4 transition-colors shadow-sm active:bg-indigo-200">
@@ -655,6 +803,56 @@ function render() {
         </button>
       `;
   }
+
+  // THÊM: Toolbar chế độ nghe — chỉ hiện với câu hỏi Listening, cho phép
+  // ẩn câu hỏi / ẩn đáp án / ẩn cả hai để tập trung luyện nghe thuần túy
+  let listenModeToolbarHtml = "";
+  if (isListeningQuestion) {
+    const bothHidden = hideQuestionMode && hideAnswerMode;
+    listenModeToolbarHtml = `
+      <div class="flex flex-wrap gap-2 w-full">
+        <button onclick="toggleHideQuestion()"
+          class="flex items-center gap-1.5 text-xs md:text-sm font-bold rounded-lg py-2 px-3 transition-all active:scale-95 ${hideQuestionMode ? "bg-slate-700 dark:bg-slate-600 text-white shadow-md" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"}">
+          <i class="fa-solid ${hideQuestionMode ? "fa-eye" : "fa-eye-slash"}"></i> ${hideQuestionMode ? "Hiện câu hỏi" : "Ẩn câu hỏi"}
+        </button>
+        <button onclick="toggleHideAnswer()"
+          class="flex items-center gap-1.5 text-xs md:text-sm font-bold rounded-lg py-2 px-3 transition-all active:scale-95 ${hideAnswerMode ? "bg-slate-700 dark:bg-slate-600 text-white shadow-md" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"}">
+          <i class="fa-solid ${hideAnswerMode ? "fa-eye" : "fa-eye-slash"}"></i> ${hideAnswerMode ? "Hiện đáp án" : "Ẩn đáp án"}
+        </button>
+        <button onclick="toggleListenOnlyMode()"
+          class="flex items-center gap-1.5 text-xs md:text-sm font-bold rounded-lg py-2 px-3 transition-all active:scale-95 ${bothHidden ? "bg-indigo-600 text-white shadow-md btn-pulse-blue" : "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300"}">
+          <i class="fa-solid fa-headphones-simple"></i> ${bothHidden ? "Thoát chế độ chỉ nghe" : "Chỉ nghe"}
+        </button>
+      </div>
+    `;
+  }
+
+  // THÊM: Bọc nội dung câu hỏi trong lớp phủ mờ khi bật "Ẩn câu hỏi"
+  const questionBlockHtml = hideQuestionMode
+    ? `<div class="relative min-h-[140px] rounded-xl overflow-hidden">
+         <div class="blur-md select-none pointer-events-none opacity-60 w-full text-base md:text-lg">${q.question}</div>
+         <div class="absolute inset-0 flex items-center justify-center bg-white/40 dark:bg-slate-900/40">
+           <button onclick="toggleHideQuestion()" class="flex items-center gap-2 bg-white dark:bg-darkCard border-2 border-primary text-primary dark:text-blue-400 font-bold rounded-xl px-5 py-3 shadow-lg active:scale-95 transition-transform hover:scale-105">
+             <i class="fa-solid fa-eye"></i> Hiện câu hỏi
+           </button>
+         </div>
+       </div>`
+    : `<div class="w-full text-base md:text-lg animate-slide-up">${q.question}</div>`;
+
+  // THÊM: Bọc khối đáp án trong lớp phủ mờ khi bật "Ẩn đáp án"
+  const answerBlockHtml = hideAnswerMode
+    ? `<div class="relative min-h-[220px] rounded-xl overflow-hidden">
+         <div class="blur-md select-none pointer-events-none opacity-50">
+           <div class="flex flex-col gap-2.5 md:gap-3">${optionsHtml}</div>
+         </div>
+         <div class="absolute inset-0 flex items-center justify-center bg-white/40 dark:bg-slate-900/40">
+           <button onclick="toggleHideAnswer()" class="flex items-center gap-2 bg-white dark:bg-darkCard border-2 border-primary text-primary dark:text-blue-400 font-bold rounded-xl px-5 py-3 shadow-lg active:scale-95 transition-transform hover:scale-105">
+             <i class="fa-solid fa-eye"></i> Hiện đáp án
+           </button>
+         </div>
+       </div>`
+    : `<div class="flex flex-col gap-2.5 md:gap-3">${optionsHtml}</div>${explanationHtml}`;
+
   const progressPercent = activeQuizData.length
     ? ((currentQuestion + 1) / activeQuizData.length) * 100
     : 0;
@@ -705,9 +903,9 @@ function render() {
             <i class="fa-solid fa-chevron-left text-xl"></i>
            </button>
       </div>
-      <div class="w-full lg:w-4/5">
+      <div class="w-full ${focusMode ? "lg:w-full" : "lg:w-4/5"}">
       
-      <div class="w-full bg-white dark:bg-darkCard md:rounded-2xl border-y md:border border-slate-200 dark:border-slate-700 px-2 py-4 md:p-10 shadow-sm flex flex-col gap-4 pb-28 md:pb-10">
+      <div class="w-full bg-white dark:bg-darkCard md:rounded-2xl border-y md:border border-slate-200 dark:border-slate-700 px-2 py-4 md:p-10 shadow-sm flex flex-col gap-4 pb-28 md:pb-10 ${transitionClass}">
         <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1">
           <div class="bg-blue-500 h-full rounded-full transition-all duration-300 ease-out" 
                style="width: ${progressPercent}%">
@@ -733,12 +931,12 @@ function render() {
                 <div class="flex flex-row gap-3 w-full md:w-auto">
                   ${helperBtnsHtml}
                 </div>
-                <div class="w-full text-base md:text-lg">${q.question}</div>
+                ${listenModeToolbarHtml}
+                ${questionBlockHtml}
             </div>
 
             <div class="md:flex-[2] flex flex-col justify-start">
-                <div class="flex flex-col gap-2.5 md:gap-3">${optionsHtml}</div>
-                ${explanationHtml}
+                ${answerBlockHtml}
             </div>
 
         </div>
@@ -779,14 +977,28 @@ function render() {
 
       
 
-      <div class="w-full lg:w-1/5 bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm h-fit lg:sticky lg:top-4">
-          <h3 class="font-bold text-slate-700 dark:text-slate-200 mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-book-bookmark text-red-500"></i> Sổ Tay Sửa Sai (${totalWrong})
-          </h3>
+      ${
+        focusMode
+          ? ""
+          : `<div class="w-full lg:w-1/5 bg-white dark:bg-darkCard rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm h-fit lg:sticky lg:top-4">
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <h3 class="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+              <i class="fa-solid fa-book-bookmark text-red-500"></i> Sổ Tay Sửa Sai (${totalWrong})
+            </h3>
+            ${
+              totalWrong > 0
+                ? `<button onclick="retryWrongQuestions()" title="Làm lại các câu sai"
+                    class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors active:scale-95">
+                    <i class="fa-solid fa-rotate-right text-sm"></i>
+                   </button>`
+                : ""
+            }
+          </div>
           <div class="max-h-[60vh] overflow-y-auto pr-1 space-y-2">
             ${totalWrong > 0 ? wrongListHtml : '<p class="text-slate-400 text-sm italic">Chưa có lỗi sai nào!</p>'}
           </div>
-      </div>
+      </div>`
+      }
     </div>
   `;
 }
@@ -802,6 +1014,7 @@ window.selectOption = function (idx) {
     currentStreak++;
     if (currentStreak > maxStreak) maxStreak = currentStreak;
     playSound("correct");
+
     if (currentStreak >= 3) playStreakSound(currentStreak);
     if (currentQuestion === activeQuizData.length - 1)
       confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
@@ -824,9 +1037,10 @@ window.selectOption = function (idx) {
         currentQuestion++;
         isCurrentAnswered = selectedAnswers[currentQuestion] !== null;
         saveProgress();
+        isTransitioning = true;
         render();
       }
-    }, 1500);
+    }, 1800);
   }
 };
 
@@ -888,6 +1102,16 @@ window.addEventListener("DOMContentLoaded", () => {
   try {
     const savedPanelState = localStorage.getItem(SETTINGS_PANEL_KEY);
     if (savedPanelState === "0") toggleSettingsPanel(false);
+  } catch (e) {
+    // Bỏ qua nếu trình duyệt chặn localStorage
+  }
+
+  try {
+    const savedFocusState = localStorage.getItem(FOCUS_MODE_KEY);
+    if (savedFocusState === "1") {
+      focusMode = true;
+      updateFocusModeButton();
+    }
   } catch (e) {
     // Bỏ qua nếu trình duyệt chặn localStorage
   }
