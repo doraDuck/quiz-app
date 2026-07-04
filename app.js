@@ -509,7 +509,17 @@ function convertToeicJsonToQuizData(toeicJson) {
                 (key) => `${key}. ${q.options[key]}`,
               );
               let correctIndex = optionKeys.indexOf(q.answer);
-              if (correctIndex === -1) correctIndex = 0;
+              if (correctIndex === -1) {
+                // Không tìm thấy đáp án khớp (sai chính tả, thừa khoảng trắng,
+                // sai hoa/thường...) trong dữ liệu JSON. Cảnh báo rõ trong console
+                // thay vì âm thầm coi đáp án A là đúng, để tránh sai sót khó phát hiện.
+                console.warn(
+                  `[Cảnh báo dữ liệu] Câu hỏi số ${q.question_number ?? "?"}: ` +
+                    `answer "${q.answer}" không khớp với bất kỳ key nào trong options (${optionKeys.join(", ")}). ` +
+                    `Tạm thời dùng đáp án A làm mặc định.`,
+                );
+                correctIndex = 0;
+              }
 
               mappedQuestions.push({
                 question: fullQuestionText,
@@ -1026,9 +1036,16 @@ window.selectOption = function (idx) {
   saveProgress();
   render();
 
-  if (idx === q.correct && currentQuestion < activeQuizData.length - 1) {
+  // Chốt lại chỉ số câu NGAY tại thời điểm chọn đáp án.
+  // Nếu không, người dùng có thể tự chuyển câu (goNext/goBack/phím tắt) trong
+  // lúc chờ 1.8s, khiến setTimeout dưới đây so sánh nhầm đáp án của MỘT câu
+  // khác với "q.correct" của câu cũ, gây tự động nhảy câu ngoài ý muốn.
+  const answeredIndex = currentQuestion;
+
+  if (idx === q.correct && answeredIndex < activeQuizData.length - 1) {
     setTimeout(() => {
       if (
+        currentQuestion === answeredIndex &&
         currentQuestion < activeQuizData.length - 1 &&
         selectedAnswers[currentQuestion] === q.correct
       ) {

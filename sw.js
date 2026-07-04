@@ -71,8 +71,17 @@ self.addEventListener("fetch", (event) => {
           return networkResponse;
         })
         .catch(() => {
-          // Nếu mất mạng hoàn toàn và file chưa được cache, bạn có thể trả về 1 ảnh placeholder ở đây
-          return null;
+          // Mất mạng hoàn toàn và file chưa được cache:
+          // Phải trả về một Response hợp lệ (không được trả null),
+          // nếu không trình duyệt sẽ báo lỗi "Failed to convert value to Response".
+          return new Response(
+            "Không có kết nối mạng và tài nguyên này chưa được lưu offline.",
+            {
+              status: 503,
+              statusText: "Offline",
+              headers: { "Content-Type": "text/plain; charset=utf-8" },
+            },
+          );
         });
     }),
   );
