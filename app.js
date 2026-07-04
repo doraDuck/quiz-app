@@ -3,7 +3,7 @@
  */
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const STORAGE_KEY = "toeic_quiz_progress_v5";
+const STORAGE_KEY = "toeic_quiz_progress_v7";
 let isTransitioning = false; // Cờ kiểm tra xem có phải vừa đổi câu hỏi hay không
 
 if (speechSynthesis.onvoiceschanged !== undefined) {
